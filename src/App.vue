@@ -1,6 +1,23 @@
 <script setup>
 
+import { ref, onMounted, onUnmounted } from 'vue';
 import { RouterLink, RouterView } from 'vue-router'
+
+const showExtraHeaderContent = ref(false);
+
+const handleScroll = () => {
+  console.log("!!!!")
+  const position = window.scrollY;
+  showExtraHeaderContent.value = position > 500;
+};
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll);
+});
 
 </script>
 
