@@ -23,7 +23,7 @@ onUnmounted(() => {
 
 <template>
   <div class="header">
-    <a href="#mypage">My Page</a> |
+    <RouterLink to="/mypage">My Page</RouterLink>
     <RouterLink to="/login">LOGIN</RouterLink>
   </div>
 

@@ -1,7 +1,36 @@
-<script setup>
-    import GoogleLogin from '../components/GoogleLogin.vue';
-</script>
+<script>
+import axios from 'axios';
 
+export default {
+  setup() {
+    function login() {
+      var id = document.getElementById('username').value;
+      var password = document.getElementById('password').value;
+
+      axios.post('http://localhost/api/member/' + id, {
+          id : id,
+          password : password,
+          userName: "",
+          email: "",
+      }).then(response => {
+            console.log(response);
+          if (response.data)
+              localStorage.setItem('token', response.data);
+          else {
+              alert("로그인 실패")
+              console.error('Token not found in response');
+          }
+      }).catch(error => {
+          console.error('Error:', error);
+      });
+    }
+
+    return {
+      login
+    };
+  }
+}
+</script>
 <template>
     <div id="container">
         <div class="login-container">
@@ -16,9 +45,9 @@
                     <input type="password" id="password" name="password" required>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="login-button">LOGIN</button>
+                    <button type="button" class="login-button" @click.prevent="login">LOGIN</button>
                 </div>
-                <GoogleLogin class="google-login-button"/>
+                <!-- <GoogleLogin class="google-login-button"/> -->
             </form>
         </div>
     </div>
@@ -112,7 +141,7 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
 }
 
-.google-login-button {
+/* .google-login-button {
     width: 100%;
     padding: 12px 20px;
     border: none;
@@ -124,6 +153,6 @@
     cursor: pointer;
     transition: background-color 0.2s, transform 0.1s;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+} */
 </style>
   

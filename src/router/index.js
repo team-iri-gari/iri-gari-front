@@ -26,6 +26,14 @@ const router = createRouter({
       path: '/mypage',
       name: 'mypage',
       component: MyPageView,
+      beforeEnter: (to, from, next) => {
+        if (!localStorage.getItem('token')) {
+          alert('로그인이 필요한 서비스 입니다')
+          next('/login');
+        } else {
+          next();
+        }
+      }
     },
   ]
 })
