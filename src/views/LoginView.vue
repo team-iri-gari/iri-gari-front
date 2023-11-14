@@ -1,38 +1,33 @@
-<script>
+<script setup>
 import axios from 'axios';
 import { useAuthStore } from '@/stores/auth';
 
-export default {
-    setup() {
-        function login() {
-            var id = document.getElementById('username').value;
-            var password = document.getElementById('password').value;
+const store = useAuthStore();
 
-            axios.post('http://localhost/api/member/' + id, {
-                id: id,
-                password: password,
-                userName: "",
-                email: "",
-            }).then(response => {
-                console.log(response);
-                if (response.data) {
-                    localStorage.setItem('token', response.data);
-                    useAuthStore.hasToken.value = false;
-                }
-                else {
-                    alert("로그인 실패")
-                    console.error('Token not found in response');
-                }
-            }).catch(error => {
-                console.error('Error:', error);
-            });
+function login() {
+    var id = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
+
+    axios.post('http://localhost/api/member/' + id, {
+        id: id,
+        password: password,
+        userName: "",
+        email: "",
+    }).then(response => {
+        console.log(response);
+        if (response.data) {
+            const token = response.data;
+            store.login(token);
         }
-
-        return {
-            login
-        };
-    }
+        else {
+            alert("로그인 실패")
+            console.error('Token not found in response');
+        }
+    }).catch(error => {
+        console.error('Error:', error);
+    });
 }
+
 </script>
 <template>
     <div id="container">
