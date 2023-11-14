@@ -35,7 +35,7 @@ export default {
 <template>
     <div id="container">
         <div class="login-container">
-            <div class="logo">LOGIN</div>
+            <div class="logo">JOIN</div>
             <form class="login-form">
                 <div class="form-group">
                     <label for="username">ID</label>

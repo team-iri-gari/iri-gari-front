@@ -2,6 +2,7 @@
 import axios from "axios";
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import SearchBox from "../components/SearchBox.vue";
 
 const boxes = ref([]);
 
@@ -38,10 +39,12 @@ const goSearch = () => {
 <template>
   <div class="container" @scroll="checkScroll">
     <div class="content">
-      <div class="logo">TMP LOGO</div>
+      <div class="logo">이리 가리</div>
       <div class="search-container">
         <input type="text" class="search-box" placeholder="Search..." />
         <button @click="goSearch">SEARCH</button>
+        
+        <SearchBox/>
       </div>
     </div>
     <div class="box" v-for="box in boxes" :key="box.id">
@@ -100,7 +103,8 @@ const goSearch = () => {
 
 .logo {
   text-align: center;
-  font-size: 32px;
+  font-size: 70px;
+  font-family: YanoljaYacheR;
   margin-bottom: 20px;
 }
 
