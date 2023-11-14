@@ -1,6 +1,8 @@
 <script setup>
+import { useSearchStore } from "@/stores/search.js";
 import { ref, watch, onMounted } from "vue";
 
+const searchStore = useSearchStore();
 var map;
 var infowindow;
 
@@ -28,8 +30,8 @@ const initMap = () => {
   infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
   var ps = new kakao.maps.services.Places();
-
-  ps.keywordSearch("이태원 맛집", placesSearchCB);
+  // console.log(searchStore.keyword);
+  ps.keywordSearch(searchStore.keyword, placesSearchCB);
 };
 
 function placesSearchCB(data, status, pagination) {

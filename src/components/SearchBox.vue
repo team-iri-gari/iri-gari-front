@@ -1,24 +1,22 @@
 <script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 
-const searchQuery = ref('');
+const keyword = ref("");
 const router = useRouter();
 
 const submitSearch = () => {
-    if (searchQuery.value) {
-        router.push(`/search/${encodeURIComponent(searchQuery.value)}`);
-    }
+  if (keyword.value) {
+    router.push(`/search/${encodeURIComponent(keyword.value)}`);
+  }
 };
 </script>
-  
-<template>
-    <div>
-        <input type="text" v-model="searchQuery" placeholder="검색어 입력" />
-        <button @click="submitSearch">검색</button>
-    </div>
-</template>
-  
-<style scoped>
 
-</style>
+<template>
+  <div>
+    <input type="text" v-model="keyword" placeholder="검색어 입력" />
+    <button @click="submitSearch">검색</button>
+  </div>
+</template>
+
+<style scoped></style>
