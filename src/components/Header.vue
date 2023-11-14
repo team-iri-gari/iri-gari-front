@@ -17,7 +17,9 @@ function logout() {
 
 <template>
     <div id="header">
-        <div class="left-space">left</div>
+        <div class="left-space">
+            <RouterLink to="/">이리가리</RouterLink>
+        </div>
         <div class="content">middle</div>
         <div v-if="isAuthenticated" class="right-space">
             <RouterLink to="/board">BOARD</RouterLink>
@@ -55,18 +57,19 @@ function logout() {
 }
 
 .left-space {
-    width: 100px;
+    margin-left: 20px;
     text-align: center;
+    font-family: YanoljaYacheR;
+    font-size: 20px;
 }
 
 .right-space {
     text-align: center;
-    display: inline-block;
+    margin-right: 20px;
 }
 
 .content {
     flex-grow: 1;
-    /* 남은 공간을 모두 차지 */
     padding: 10px;
     text-align: center;
 }
