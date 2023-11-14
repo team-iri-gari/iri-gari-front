@@ -5,6 +5,7 @@ import { useRouter } from "vue-router";
 import SearchBox from "../components/SearchBox.vue";
 
 const boxes = ref([]);
+const keyword = ref("");
 
 // 상자를 추가하는 함수
 async function addBoxes() {
@@ -31,9 +32,10 @@ onMounted(addBoxes);
 
 const router = useRouter();
 
-const goSearch = () => {
-  router.push({ name: "search" });
-};
+/*const goSearch = () => {
+  console.log(keyword);
+  // router.push({ name: "search" });
+};*/
 </script>
 
 <template>
@@ -42,10 +44,9 @@ const goSearch = () => {
       <div class="logo">이리 가리</div>
       <div class="search-container">
         <input type="text" class="search-box" placeholder="Search..." />
+        <button @click="goSearch">SEARCH</button>
         
         <SearchBox/>
-        
-        <button @click="goSearch">SEARCH</button>
       </div>
     </div>
     <div class="box" v-for="box in boxes" :key="box.id">
