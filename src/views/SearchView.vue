@@ -1,7 +1,10 @@
-<script setup></script>
+<script setup>
+import VkakaoMap from "../components/VkakaoMap.vue";
+</script>
 
 <template>
-  <div>검색창입니다.</div>
+  <div id="category" style="margin: 10px">카테고리입니다.</div>
+  <VkakaoMap />
 </template>
 
 <style scoped></style>
