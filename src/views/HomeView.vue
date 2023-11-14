@@ -1,7 +1,7 @@
 <script setup>
-
-import axios from 'axios';
-import { ref, onMounted } from 'vue';
+import axios from "axios";
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 
 const boxes = ref([]);
 
@@ -9,7 +9,7 @@ const boxes = ref([]);
 async function addBoxes() {
   const currentLength = boxes.value.length;
   for (let i = currentLength; i < currentLength + 15; i++) {
-    const response = await axios.get('https://api.thecatapi.com/v1/images/search');
+    const response = await axios.get("https://api.thecatapi.com/v1/images/search");
     const catImageUrl = response.data[0].url; // 첫 번째 이미지의 URL을 가져옵니다.
     boxes.value.push({ id: i, content: `Box ${i}`, imageUrl: catImageUrl });
   }
@@ -28,6 +28,11 @@ function checkScroll(event) {
 // 컴포넌트가 마운트되었을 때 초기 상자를 추가
 onMounted(addBoxes);
 
+const router = useRouter();
+
+const goSearch = () => {
+  router.push({ name: "search" });
+};
 </script>
 
 <template>
@@ -35,14 +40,13 @@ onMounted(addBoxes);
     <div class="content">
       <div class="logo">TMP LOGO</div>
       <div class="search-container">
-        <input type="text" class="search-box" placeholder="Search...">
+        <input type="text" class="search-box" placeholder="Search..." />
+        <button @click="goSearch">SEARCH</button>
       </div>
     </div>
     <div class="box" v-for="box in boxes" :key="box.id">
-
-      <img :src="box.imageUrl" alt="Random Cat" class="cat-image">
+      <img :src="box.imageUrl" alt="Random Cat" class="cat-image" />
       <!-- {{ box.content }} -->
-
     </div>
   </div>
 </template>
