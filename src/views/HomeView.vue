@@ -42,9 +42,10 @@ const goSearch = () => {
       <div class="logo">이리 가리</div>
       <div class="search-container">
         <input type="text" class="search-box" placeholder="Search..." />
-        <button @click="goSearch">SEARCH</button>
         
         <SearchBox/>
+        
+        <button @click="goSearch">SEARCH</button>
       </div>
     </div>
     <div class="box" v-for="box in boxes" :key="box.id">
