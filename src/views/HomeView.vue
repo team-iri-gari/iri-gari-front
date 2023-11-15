@@ -2,7 +2,7 @@
 import axios from "axios";
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import SearchBox from "../components/SearchBox.vue";
+import SearchBox from "@/components/SearchBox.vue";
 
 const boxes = ref([]);
 const keyword = ref("");
@@ -11,7 +11,9 @@ const keyword = ref("");
 async function addBoxes() {
   const currentLength = boxes.value.length;
   for (let i = currentLength; i < currentLength + 15; i++) {
-    const response = await axios.get("https://api.thecatapi.com/v1/images/search");
+    const response = await axios.get(
+      "https://api.thecatapi.com/v1/images/search"
+    );
     const catImageUrl = response.data[0].url; // 첫 번째 이미지의 URL을 가져옵니다.
     boxes.value.push({ id: i, content: `Box ${i}`, imageUrl: catImageUrl });
   }
@@ -45,8 +47,8 @@ const router = useRouter();
       <div class="search-container">
         <input type="text" class="search-box" placeholder="Search..." />
         <button @click="goSearch">SEARCH</button>
-        
-        <SearchBox/>
+
+        <SearchBox />
       </div>
     </div>
     <div class="box" v-for="box in boxes" :key="box.id">
