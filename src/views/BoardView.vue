@@ -21,16 +21,7 @@
             <input type="text" id="title" placeholder="태그를 추가하세요" />
         </div>
 
-        <div class="form-item">
-            <label for="file">파일</label>
-            <input type="file" id="file" multiple accept="image/*" @change="handleFileUpload" />
-            <ul>
-                <li v-for="(file, index) in uploadedFiles" :key="index">
-                    {{ file.name }}
-                    <button @click="removeUploadedFile(index)">삭제</button>
-                </li>
-            </ul>
-        </div>
+        <MultiImageUpload />
 
         <button @click="submitBoard">등록</button>
         <button @click="cancelBoard">취소</button>
@@ -39,18 +30,10 @@
   
 <script setup>
 import { ref } from 'vue';
+import MultiImageUpload from '../components/MultiImageUpload.vue';
 
 const boardTitle = ref('');
 const boardContent = ref('');
-const uploadedFiles = ref([]);
-
-const handleFileUpload = (event) => {
-  uploadedFiles.value.push(...Array.from(event.target.files));
-};
-
-const removeUploadedFile = (index) => {
-  uploadedFiles.value.splice(index, 1);
-};
 
 const submitBoard = () => {
 };
