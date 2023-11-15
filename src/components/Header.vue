@@ -1,6 +1,10 @@
 <script setup>
 import { onMounted, computed } from "vue";
 import { useAuthStore } from '@/stores/auth';
+import { useScrollStore } from '@/stores/store'
+import SearchBox from "@/components/SearchBox.vue";
+
+const scrollStore = useScrollStore()
 
 const store = useAuthStore();
 const isAuthenticated = computed(() => store.isAuthenticated);
@@ -20,7 +24,7 @@ function logout() {
         <div class="left-space">
             <RouterLink to="/">이리가리</RouterLink>
         </div>
-        <div class="content">middle</div>
+        <div class="content"><SearchBox v-show="scrollStore.scrollPosition > 600" /></div>
         <div v-if="isAuthenticated" class="right-space">
             <RouterLink to="/board">BOARD</RouterLink>
             |

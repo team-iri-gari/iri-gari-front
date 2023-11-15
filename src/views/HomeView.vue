@@ -1,43 +1,34 @@
 <script setup>
 import axios from "axios";
 import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
 import SearchBox from "@/components/SearchBox.vue";
+import { useScrollStore } from '@/stores/store'
 
+const scrollStore = useScrollStore()
 const boxes = ref([]);
-const keyword = ref("");
 
-// 상자를 추가하는 함수
 async function addBoxes() {
   const currentLength = boxes.value.length;
   for (let i = currentLength; i < currentLength + 15; i++) {
     const response = await axios.get(
       "https://api.thecatapi.com/v1/images/search"
     );
-    const catImageUrl = response.data[0].url; // 첫 번째 이미지의 URL을 가져옵니다.
+    const catImageUrl = response.data[0].url;
     boxes.value.push({ id: i, content: `Box ${i}`, imageUrl: catImageUrl });
   }
 }
 
-// 스크롤을 감지하는 함수
 function checkScroll(event) {
   const { scrollTop, offsetHeight, scrollHeight } = event.target;
 
-  // 스크롤이 바닥에 도달했는지 확인
+  scrollStore.setScrollPosition(scrollTop);
+
   if (scrollTop + offsetHeight >= scrollHeight) {
     addBoxes();
   }
 }
 
-// 컴포넌트가 마운트되었을 때 초기 상자를 추가
 onMounted(addBoxes);
-
-const router = useRouter();
-
-/*const goSearch = () => {
-  console.log(keyword);
-  // router.push({ name: "search" });
-};*/
 </script>
 
 <template>
@@ -45,9 +36,6 @@ const router = useRouter();
     <div class="content">
       <div class="logo">이리 가리</div>
       <div class="search-container">
-        <input type="text" class="search-box" placeholder="Search..." />
-        <button @click="goSearch">SEARCH</button>
-
         <SearchBox />
       </div>
     </div>

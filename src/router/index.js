@@ -5,6 +5,7 @@ import JoinView from "@/views/JoinView.vue";
 import RecommendView from "@/views/RecommendView.vue";
 import MyPageView from "@/views/MyPageView.vue";
 import SearchView from "@/views/SearchView.vue";
+import BoardView from "@/views/BoardView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,6 +24,11 @@ const router = createRouter({
       path: "/join",
       name: "join",
       component: JoinView,
+    },
+    {
+      path: "/board",
+      name: "board",
+      component: BoardView,
     },
     {
       path: "/recommend",
