@@ -1,6 +1,6 @@
 <script setup>
 import { useSearchStore } from "@/stores/search.js";
-import { ref, watch, onMounted } from "vue";
+import { ref, onMounted } from "vue";
 
 const searchStore = useSearchStore();
 var map = ref(null);
@@ -133,8 +133,8 @@ function removeMarker() {
 </script>
 
 <template>
-  <div style="display: flex">
-    <div id="category_container" style="margin-right: 20px">
+  <div style="display: flex; width: 60%">
+    <div id="category_container" style="flex: 1 1 15%">
       <ul id="category">
         <li id="BK9" data-order="0">
           <span class="category_bg bank"></span>
@@ -168,7 +168,7 @@ function removeMarker() {
 
 <style>
 #map {
-  width: 50%;
+  flex: 1 1 75%;
   height: 700px;
 }
 </style>

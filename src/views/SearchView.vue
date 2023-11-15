@@ -1,8 +1,9 @@
 <script setup>
-import { ref, watch, onMounted } from "vue";
+import { watch, onMounted } from "vue";
 import { useSearchStore } from "@/stores/search.js";
 import { useRoute } from "vue-router";
 import VkakaoMap from "../components/VkakaoMap.vue";
+import SBoardList from "../components/SBoardList.vue";
 
 const searchStore = useSearchStore();
 const route = useRoute();
@@ -20,7 +21,10 @@ watch(route, (newRoute) => {
 </script>
 
 <template>
-  <VkakaoMap />
+  <div id="search-main" style="display: flex; width: 100%">
+    <VkakaoMap />
+    <SBoardList class="board-list" style="margin: 0 auto 0 auto" />
+  </div>
 </template>
 
 <style scoped></style>
