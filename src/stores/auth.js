@@ -18,12 +18,9 @@ export const useAuthStore = defineStore('auth', {
       this.token = null;
       localStorage.removeItem('token');
     },
-    getName() {
+    getData() {
       const payload = this.token.split('.')[1];
-      if (payload)
-        return JSON.parse(atob(payload)).sub
-      else
-        return null
+      return JSON.parse(atob(payload))
     }
   },
 });

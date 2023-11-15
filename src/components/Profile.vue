@@ -35,8 +35,8 @@ const fetchCatImage = async () => {
 .profile-image {
     border-radius: 50%;
     /* 이미지를 동그랗게 만듭니다 */
-    max-width: 200px;
-    max-height: 200px;
+    width: 200px;
+    height: 200px;
     object-fit: cover;
 }
 </style>
