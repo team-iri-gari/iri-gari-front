@@ -6,6 +6,8 @@ import RecommendView from "@/views/RecommendView.vue";
 import MyPageView from "@/views/MyPageView.vue";
 import SearchView from "@/views/SearchView.vue";
 import BoardView from "@/views/BoardView.vue";
+import WriteView from "@/views/WriteView.vue";
+import { useSearchStore } from "@/stores/search.js";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,6 +33,11 @@ const router = createRouter({
       component: BoardView,
     },
     {
+      path: "/write",
+      name: "write",
+      component: WriteView,
+    },
+    {
       path: "/recommend",
       name: "recommend",
       component: RecommendView,
@@ -52,6 +59,11 @@ const router = createRouter({
       path: "/search/:keyword",
       name: "search",
       component: SearchView,
+      beforeEnter: (to, from, next) => {
+        const searchStore = useSearchStore();
+        searchStore.setKeyword(to.params.keyword);
+        next();
+      }
     },
   ],
 });
