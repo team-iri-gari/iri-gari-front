@@ -6,7 +6,7 @@ import { useSearchStore } from "@/stores/search.js";
 const searchStore = useSearchStore();
 const fbList = ref({});
 async function getList() {
-  console.log(searchStore.keqyword);
+  console.log(searchStore.keyword);
   fbList.value = (
     await axios.get(`http://localhost/api/board/search/free?keyword=${searchStore.keyword}`)
   ).data;

@@ -7,6 +7,7 @@ import MyPageView from "@/views/MyPageView.vue";
 import SearchView from "@/views/SearchView.vue";
 import BoardView from "@/views/BoardView.vue";
 import WriteView from "@/views/WriteView.vue";
+import PlanWriteView from "@/views/PlanWriteView.vue";
 import { useSearchStore } from "@/stores/search.js";
 
 const router = createRouter({
@@ -35,7 +36,18 @@ const router = createRouter({
     {
       path: "/write",
       name: "write",
-      component: WriteView,
+      children: [
+        {
+          path: "free",
+          name: "write-free",
+          component: WriteView, // Free writing view component
+        },
+        {
+          path: "plan",
+          name: "write-plan",
+          component: PlanWriteView, // Plan writing view component
+        },
+      ],
     },
     {
       path: "/recommend",
@@ -63,7 +75,7 @@ const router = createRouter({
         const searchStore = useSearchStore();
         searchStore.setKeyword(to.params.keyword);
         next();
-      }
+      },
     },
   ],
 });
