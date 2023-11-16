@@ -1,5 +1,5 @@
 <template>
-    <div class="board-editor">
+    <form class="board-editor" @submit.prevent="submitPost">
 
         <div class="form-item">
             <h2>자유 게시판</h2>
@@ -21,36 +21,64 @@
             <input type="text" id="title" placeholder="태그를 추가하세요" />
         </div>
 
-        <MultiImageUpload />
+        <input type="file" id="files" ref="fileInput" multiple>
 
         <button @click="submitBoard">등록</button>
         <button @click="cancelBoard">취소</button>
-    </div>
+    </form>
 </template>
   
 <script setup>
 import { ref } from 'vue';
-import MultiImageUpload from '../components/MultiImageUpload.vue';
+//import MultiImageUpload from '../components/MultiImageUpload.vue';
+import { useAuthStore } from '@/stores/auth';
+import axios from 'axios';
+
+const store = useAuthStore();
 
 const boardTitle = ref('');
 const boardContent = ref('');
 
-const submitBoard = () => {
+const fileInput = ref(null);
+
+const submitBoard = async () => {
+    try {
+        const formData = new FormData();
+        formData.append('title', boardTitle);
+        formData.append('content', boardContent);
+        formData.append('name', store.getData().userInfo.name);
+
+        if(fileInput.value.files.length) {
+            for (let file of fileInput.value.files) {
+                formData.append('upfile', file);
+            }
+        }
+        
+        const response = await axios.post('http://localhost/api/board/write/free', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        console.log(response.data);
+    } catch (error) {
+        console.error('Error:', error);
+    }
 };
 
 const cancelBoard = () => {
+
 };
+
 </script>
   
 <style scoped>
-
 ul {
-  list-style-type: none;
-  padding: 0;
+    list-style-type: none;
+    padding: 0;
 }
 
 li {
-  margin: 4px 0;
+    margin: 4px 0;
 }
 
 .board-editor {

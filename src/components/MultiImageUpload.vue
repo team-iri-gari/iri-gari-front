@@ -1,6 +1,6 @@
 <template>
     <div>
-        <input type="file" accept="image/*" multiple @change="handleImageUpload" />
+        <input type="file" accept="image/*" ref="fileInput" multiple @change="handleImageUpload" />
         <div v-for="(img, index) in compressedImages" :key="index">
             <h3>압축된 이미지 미리보기 {{ index + 1 }}:</h3>
             <img :src="img" alt="Compressed Image" />
