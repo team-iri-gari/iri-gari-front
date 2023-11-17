@@ -6,14 +6,18 @@ import Profile from '@/components/Profile.vue';
 
 const store = useAuthStore();
 const neighbors = ref([]);
+const neighborsPosts = ref([]);
 
 onMounted(async () => {
   try {
-    const response = await axios.get('http://localhost/api/neighbor/' + store.userData.userInfo.id);
-    console.log(response.data)
-    neighbors.value = response.data;
+    const neighborsResponse = await axios.get('http://localhost/api/neighbor/' + store.userData.userInfo.id);
+    neighbors.value = neighborsResponse.data;
+
+    const postsResponse = await axios.get('http://localhost/api/neighbor/posts/' + store.userData.userInfo.id);
+    console.log(postsResponse)
+    neighborsPosts.value = postsResponse.data;
   } catch (error) {
-    console.error('Error fetching neighbors:', error);
+    console.error('Error fetching data:', error);
   }
 });
 </script>
@@ -36,6 +40,27 @@ onMounted(async () => {
         </li>
       </ul>
     </div>
+    <div>
+      <h2>내 이웃의 최신 글</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="post in neighborsPosts" :key="post.id">
+            <td>{{ post.articleId }}</td>
+            <td @click="goToPost(post.articleId)">{{ post.title }}</td>
+            <td>{{ post.name }}</td>
+            <td>{{ post.regDate }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -55,5 +80,21 @@ onMounted(async () => {
   /* 항목 사이의 간격을 조정합니다. */
   flex: 0 0 auto;
   /* 항목의 크기가 내용에 따라 결정되도록 합니다. */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f4f4f4;
 }
 </style>
