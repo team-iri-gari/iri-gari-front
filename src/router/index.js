@@ -22,14 +22,33 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: "/login",
-      name: "login",
-      component: LoginView,
-    },
-    {
-      path: "/join",
-      name: "join",
-      component: JoinView,
+      path: "/user",
+      redirect: "/user/mypage",
+      children: [
+        {
+          path: "login",
+          name: "login",
+          component: LoginView,
+        },
+        {
+          path: "join",
+          name: "join",
+          component: JoinView,
+        },
+        {
+          path: "mypage",
+          name: "mypage",
+          component: MyPageView,
+          beforeEnter: (to, from, next) => {
+            if (!localStorage.getItem("token")) {
+              alert("로그인이 필요한 서비스 입니다");
+              next("/login");
+            } else {
+              next();
+            }
+          },
+        },
+      ],
     },
     {
       path: "/board",
@@ -56,19 +75,6 @@ const router = createRouter({
       path: "/recommend",
       name: "recommend",
       component: RecommendView,
-    },
-    {
-      path: "/mypage",
-      name: "mypage",
-      component: MyPageView,
-      beforeEnter: (to, from, next) => {
-        if (!localStorage.getItem("token")) {
-          alert("로그인이 필요한 서비스 입니다");
-          next("/login");
-        } else {
-          next();
-        }
-      },
     },
     {
       path: "/search/:keyword",
