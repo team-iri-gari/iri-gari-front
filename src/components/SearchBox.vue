@@ -1,27 +1,21 @@
 <template>
   <div class="search-container">
-    <input
-      type="text"
-      v-model="keyword"
-      placeholder="검색어 입력"
-      class="search-input"
-    />
-    <button @click="submitSearch" class="search-button">
-      검색
-    </button>
+    <input type="text" v-model="keyword" placeholder="검색어 입력" class="search-input" />
+    <button @click="handleSubmit" class="search-button">검색</button>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
-import { useRouter } from "vue-router";
 
 const keyword = ref("");
-const router = useRouter();
+const props = defineProps({
+  onSubmitSearch: Function,
+});
 
-const submitSearch = () => {
-  if (keyword.value) {
-    router.push(`/search/${encodeURIComponent(keyword.value)}`);
+const handleSubmit = () => {
+  if (keyword.value && props.onSubmitSearch) {
+    props.onSubmitSearch(keyword.value);
   }
 };
 </script>
