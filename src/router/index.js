@@ -12,6 +12,7 @@ import PlanWriteView from "@/views/PlanWriteView.vue";
 import NotFoundView from "@/views/NotFoundView.vue";
 
 import { useSearchStore } from "@/stores/search.js";
+import { useAuthStore } from "@/stores/auth";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -40,12 +41,12 @@ const router = createRouter({
           name: "mypage",
           component: MyPageView,
           beforeEnter: (to, from, next) => {
-            if (!localStorage.getItem("token")) {
-              alert("로그인이 필요한 서비스 입니다");
-              next("/login");
-            } else {
+            const authStore = useAuthStore();
+            if (!authStore.isAuthenticated) {
+              alert("로그인이 필요한 서비스입니다.");
+              next("/user/login");
+            } else
               next();
-            }
           },
         },
       ],
@@ -91,10 +92,10 @@ const router = createRouter({
       name: "post",
       component: PostView,
     },
-    { 
-      path: '/:pathMatch(.*)*', 
-      name: 'NotFound', 
-      component: NotFoundView 
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'NotFound',
+      component: NotFoundView
     }
   ],
 });

@@ -1,7 +1,9 @@
 <script setup>
+import { useRouter } from 'vue-router';
 import axios from 'axios';
 import { useAuthStore } from '@/stores/auth';
 
+const router = useRouter();
 const store = useAuthStore();
 
 function login() {
@@ -18,11 +20,10 @@ function login() {
         if (response.data) {
             const token = response.data;
             store.login(token);
+            router.push('/'); // 메인 페이지로 리디렉션
         }
-        else {
-            alert("로그인 실패")
-            console.error('Token not found in response');
-        }
+        else
+            alert("로그인 실패");
     }).catch(error => {
         console.error('Error:', error);
     });

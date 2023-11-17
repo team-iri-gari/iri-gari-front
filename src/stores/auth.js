@@ -15,7 +15,7 @@ function isTokenExpired(token) {
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
-    token: null,
+    token: localStorage.getItem('token') || null,
   }),
 
   getters: {
