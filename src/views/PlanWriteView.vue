@@ -70,7 +70,7 @@ const registerPost = async () => {
       <h3>저장된 데이터</h3>
       <div id="card-container" v-for="entry in entries" class="entry">
         <img :src="entry.upfile" alt="" />
-        <p><strong>성함:</strong> {{ entry.name }}</p>
+        <p><strong>장소:</strong> {{ entry.name }}</p>
         <p><strong>날짜:</strong> {{ entry.date }}</p>
         <p><strong>시작 시간:</strong> {{ entry.timeStart }}</p>
         <p><strong>종료 시간:</strong> {{ entry.timeEnd }}</p>
