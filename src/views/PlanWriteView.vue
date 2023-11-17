@@ -1,8 +1,13 @@
 <script setup>
-import { reactive, ref } from "vue";
+import { reactive, ref, onMounted } from "vue";
+import MultiImageUpload from "../components/MultiImageUpload.vue";
+import SearchBox from "@/components/SearchBox.vue";
+import PKakao from "@/components/map/PKakao.vue";
 
+const pkakaoRef = ref(null);
 const newEntry = reactive({
   name: "",
+  id: "",
   date: "",
   timeStart: "",
   timeEnd: "",
@@ -19,6 +24,23 @@ function addEntry() {
     newEntry[key] = "";
   });
 }
+
+const onSubmitSearch = (keyword) => {
+  if (!keyword.replace(/^\s+|\s+$/g, "")) {
+    alert("키워드를 입력해주세요!");
+    return false;
+  }
+
+  if (pkakaoRef.value) {
+    console.log("카카오 검색 가능");
+    pkakaoRef.value.searchPlace(keyword);
+  }
+};
+
+const handleClickPlace = (placeInfo) => {
+  newEntry.name = placeInfo.pname;
+  newEntry.id = placeInfo.pid;
+};
 </script>
 
 <template>
@@ -36,43 +58,32 @@ function addEntry() {
       </div>
     </div>
     <form @submit.prevent="addEntry">
-      <label for="name">성함</label>
-      <input type="text" id="name" name="name" v-model="newEntry.name" /><br />
-
+      <label for="name">장소</label>
+      <input type="text" id="name" name="name" v-model="newEntry.name" readonly="true" /><br />
+      <input type="hidden" id="place_id" name="place_id" v-model="newEntry.id" />
+      <MultiImageUpload name="" />
+      <br />
       <label for="date">날짜</label>
       <input type="date" id="date" name="date" v-model="newEntry.date" /><br />
 
       <label for="time_start">시작 시간</label>
-      <input
-        type="time"
-        id="time_start"
-        name="time_start"
-        v-model="newEntry.timeStart"
-      />
+      <input type="time" id="time_start" name="time_start" v-model="newEntry.timeStart" />
 
       <label for="time_end">종료 시간</label>
-      <input
-        type="time"
-        id="time_end"
-        name="time_end"
-        v-model="newEntry.timeEnd"
-      /><br />
+      <input type="time" id="time_end" name="time_end" v-model="newEntry.timeEnd" /><br />
 
       <label for="description">한줄메모</label>
-      <input
-        type="text"
-        id="description"
-        name="description"
-        v-model="newEntry.description"
-      /><br />
+      <input type="text" id="description" name="description" v-model="newEntry.description" /><br />
 
       <label for="tag">태그</label>
       <input type="text" id="tag" name="tag" v-model="newEntry.tag" /><br />
 
       <input type="submit" value="등록" />
     </form>
-
-    <div id="map">map</div>
+    <div id="map-container">
+      <SearchBox :on-submit-search="onSubmitSearch" />
+      <PKakao ref="pkakaoRef" @clickPlace="handleClickPlace" />
+    </div>
   </div>
 </template>
 
@@ -85,32 +96,38 @@ function addEntry() {
 }
 
 form,
-#map,
+#map-container,
 #plan-box {
-  flex-basis: 30%; /* form과 map이 차지하는 공간의 비율을 설정합니다 */
-  margin: 20px;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과를 추가합니다 */
   border-radius: 5px; /* 모서리를 둥글게 합니다 */
   background: #fff; /* 배경색을 흰색으로 설정합니다 */
 }
 
-#map {
-  height: 500px; /* 높이를 설정합니다 */
-  text-align: center;
-  color: #888; /* 글자색을 설정합니다 */
+#plan-box {
+  flex-basis: 30%;
+}
+
+#map-container {
+  position: relative;
+  align-items: start;
+  flex-basis: 45%;
+}
+
+form {
+  flex-basis: 10%;
 }
 
 label {
-  display: block; /* 라벨을 블록 요소로 만들어 줄 바꿈 효과를 줍니다 */
-  margin-bottom: 5px; /* 라벨과 입력칸 사이의 간격을 설정합니다 */
+  display: block;
+  margin-bottom: 5px;
 }
 
 input[type="text"],
 input[type="date"],
 input[type="time"],
 input[type="submit"] {
-  width: 100%; /* 입력칸의 너비를 최대로 설정합니다 */
+  width: 90%; /* 입력칸의 너비를 최대로 설정합니다 */
   padding: 10px;
   margin-bottom: 15px; /* 입력칸 사이의 간격을 설정합니다 */
   border: 1px solid #ccc;

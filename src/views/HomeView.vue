@@ -2,17 +2,21 @@
 import axios from "axios";
 import { ref, onMounted } from "vue";
 import SearchBox from "@/components/SearchBox.vue";
-import { useScrollStore } from '@/stores/store'
+import { useScrollStore } from "@/stores/store";
+import { useRouter } from "vue-router";
 
-const scrollStore = useScrollStore()
+const scrollStore = useScrollStore();
 const boxes = ref([]);
+const router = useRouter();
+
+const onSubmitSearch = (keyword) => {
+  router.push(`/search/${encodeURIComponent(keyword)}`);
+};
 
 async function addBoxes() {
   const currentLength = boxes.value.length;
   for (let i = currentLength; i < currentLength + 15; i++) {
-    const response = await axios.get(
-      "https://api.thecatapi.com/v1/images/search"
-    );
+    const response = await axios.get("https://api.thecatapi.com/v1/images/search");
     const catImageUrl = response.data[0].url;
     boxes.value.push({ id: i, content: `Box ${i}`, imageUrl: catImageUrl });
   }
@@ -36,7 +40,7 @@ onMounted(addBoxes);
     <div class="content">
       <div class="logo">이리 가리</div>
       <div class="search-container">
-        <SearchBox />
+        <SearchBox :on-submit-search="onSubmitSearch" />
       </div>
     </div>
     <div class="box" v-for="box in boxes" :key="box.id">
