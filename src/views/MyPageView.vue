@@ -10,13 +10,12 @@ const store = useAuthStore();
 
 <template>
   <div>
-    <h1>{{ store.getData().userInfo.name }}님의 마이 페이지</h1>
+    <h1>{{ store.userData?.userInfo?.name }}님의 마이 페이지</h1>
 
     <div>
       <Profile/>
-      <h3>{{ store.getData().userInfo.id }}</h3>
-      <h3>{{ store.getData().userInfo.email }}</h3>
+      <h3>{{ store.userData?.userInfo?.id }}</h3>
+      <h3>{{ store.userData?.userInfo?.email }}</h3>
     </div>
   </div>
 </template>
-  

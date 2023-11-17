@@ -9,6 +9,8 @@ import BoardView from "@/views/BoardView.vue";
 import WriteView from "@/views/WriteView.vue";
 import PostView from "@/views/PostView.vue";
 import PlanWriteView from "@/views/PlanWriteView.vue";
+import NotFoundView from "@/views/NotFoundView.vue";
+
 import { useSearchStore } from "@/stores/search.js";
 
 const router = createRouter({
@@ -20,14 +22,33 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: "/login",
-      name: "login",
-      component: LoginView,
-    },
-    {
-      path: "/join",
-      name: "join",
-      component: JoinView,
+      path: "/user",
+      redirect: "/user/mypage",
+      children: [
+        {
+          path: "login",
+          name: "login",
+          component: LoginView,
+        },
+        {
+          path: "join",
+          name: "join",
+          component: JoinView,
+        },
+        {
+          path: "mypage",
+          name: "mypage",
+          component: MyPageView,
+          beforeEnter: (to, from, next) => {
+            if (!localStorage.getItem("token")) {
+              alert("로그인이 필요한 서비스 입니다");
+              next("/login");
+            } else {
+              next();
+            }
+          },
+        },
+      ],
     },
     {
       path: "/board",
@@ -56,19 +77,6 @@ const router = createRouter({
       component: RecommendView,
     },
     {
-      path: "/mypage",
-      name: "mypage",
-      component: MyPageView,
-      beforeEnter: (to, from, next) => {
-        if (!localStorage.getItem("token")) {
-          alert("로그인이 필요한 서비스 입니다");
-          next("/login");
-        } else {
-          next();
-        }
-      },
-    },
-    {
       path: "/search/:keyword",
       name: "search",
       component: SearchView,
@@ -83,6 +91,11 @@ const router = createRouter({
       name: "post",
       component: PostView,
     },
+    { 
+      path: '/:pathMatch(.*)*', 
+      name: 'NotFound', 
+      component: NotFoundView 
+    }
   ],
 });
 

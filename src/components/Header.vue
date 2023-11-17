@@ -28,14 +28,14 @@ function logout() {
         <div v-if="isAuthenticated" class="right-space">
             <RouterLink to="/board">BOARD</RouterLink>
             |
-            <RouterLink to="/mypage">MY PAGE</RouterLink>
+            <RouterLink to="/user/mypage">MY PAGE</RouterLink>
             |
             <a @click="logout()">LOGOUT</a>
         </div>
         <div v-else class="right-space">
-            <RouterLink to="/login">LOGIN</RouterLink>
+            <RouterLink to="/user/login">LOGIN</RouterLink>
             |
-            <RouterLink to="/join">JOIN</RouterLink>
+            <RouterLink to="/user/join">JOIN</RouterLink>
         </div>
     </div>
 
