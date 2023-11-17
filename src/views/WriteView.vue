@@ -44,8 +44,8 @@ const fileInput = ref(null);
 const submitBoard = async () => {
     try {
         const formData = new FormData();
-        formData.append('title', boardTitle);
-        formData.append('content', boardContent);
+        formData.append('title', boardTitle.value);
+        formData.append('content', boardContent.value);
         formData.append('name', store.getData().userInfo.name);
 
         if(fileInput.value.files.length) {

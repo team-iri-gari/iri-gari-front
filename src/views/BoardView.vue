@@ -1,99 +1,73 @@
 <template>
-    <div class="board-editor">
-
-        <div class="form-item">
-            <h2>자유 게시판</h2>
-            <hr>
-        </div>
-
-        <div class="form-item">
-            <label for="title">제목</label>
-            <input type="text" id="title" v-model="boardTitle" placeholder="제목을 입력하세요" />
-        </div>
-
-        <div class="form-item">
-            <label for="content">내용</label>
-            <textarea id="content" v-model="boardContent" placeholder="내용을 입력하세요"></textarea>
-        </div>
-
-        <div class="form-item">
-            <label for="content">태그</label>
-            <input type="text" id="title" placeholder="태그를 추가하세요" />
-        </div>
-
-        <MultiImageUpload />
-
-        <button @click="submitBoard">등록</button>
-        <button @click="cancelBoard">취소</button>
+    <div>
+        <h1>자유게시판</h1>
+        <RouterLink to="/write">글작성</RouterLink>
+        <table>
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>작성일</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="post in posts" :key="post.id">
+                    <td>{{ post.articleId }}</td>
+                    <td @click="goToPost(post.articleId)">{{ post.title }}</td>
+                    <td>{{ post.name }}</td>
+                    <td>{{ post.regDate }}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </template>
   
 <script setup>
-import { ref } from 'vue';
-import MultiImageUpload from '../components/MultiImageUpload.vue';
+import axios from 'axios';
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 
-const boardTitle = ref('');
-const boardContent = ref('');
+const posts = ref([]);
 
-const submitBoard = () => {
+const getPosts = async () => {
+    axios.get('http://localhost/api/board/free'
+    ).then(response => {
+        console.log(response);
+        posts.value = response.data;
+    }).catch(error => {
+        console.error('Error:', error);
+    });
 };
 
-const cancelBoard = () => {
+const router = useRouter();
+
+const goToPost = (postId) => {
+    router.push(`/post/${postId}`);
 };
+
+onMounted(() => {
+    getPosts();
+});
 </script>
   
+  
 <style scoped>
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  margin: 4px 0;
-}
-
-.board-editor {
-    max-width: 600px;
-    margin: auto;
-}
-
-.form-item {
-    margin-bottom: 16px;
-}
-
-.form-item label {
-    display: block;
-    margin-bottom: 8px;
-}
-
-.form-item input[type="text"],
-.form-item textarea {
+/* 여기에 CSS 스타일을 추가합니다 */
+table {
     width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
     padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    text-align: left;
 }
 
-.form-item textarea {
-    height: 150px;
-    resize: vertical;
-}
-
-.form-item input[type="file"] {
-    display: block;
-}
-
-button {
-    padding: 10px 15px;
-    margin-right: 8px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-button:hover {
-    opacity: 0.9;
+th {
+    background-color: #f4f4f4;
 }
 </style>
   

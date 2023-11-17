@@ -7,6 +7,7 @@ import MyPageView from "@/views/MyPageView.vue";
 import SearchView from "@/views/SearchView.vue";
 import BoardView from "@/views/BoardView.vue";
 import WriteView from "@/views/WriteView.vue";
+import PostView from "@/views/PostView.vue";
 import { useSearchStore } from "@/stores/search.js";
 
 const router = createRouter({
@@ -64,6 +65,11 @@ const router = createRouter({
         searchStore.setKeyword(to.params.keyword);
         next();
       }
+    },
+    {
+      path: "/post/:id",
+      name: "post",
+      component: PostView,
     },
   ],
 });
