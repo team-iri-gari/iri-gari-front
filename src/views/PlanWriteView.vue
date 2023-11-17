@@ -7,7 +7,7 @@ import PKakao from "@/components/map/PKakao.vue";
 const pkakaoRef = ref(null);
 const newEntry = reactive({
   name: "",
-  upfile: null,
+  upfile: "",
   id: "",
   date: "",
   timeStart: "",
@@ -21,14 +21,11 @@ function addEntry() {
 
   // 폼 입력을 초기화
   Object.keys(newEntry).forEach((key) => {
-    if (key === "upfile") {
-      newEntry[key] = null;
-    } else {
-      newEntry[key] = "";
-    }
+    newEntry[key] = "";
   });
 
-  newEntry[upfile] = null;
+  const fileInput = document.getElementById("upfile");
+  fileInput.value = "";
 }
 
 const onSubmitSearch = (keyword) => {
@@ -48,20 +45,23 @@ const handleClickPlace = (placeInfo) => {
   newEntry.id = placeInfo.pid;
 };
 
-const handleImages = (images) => {
-  if (images > 1) {
-    alert("이미지를 한 장만 첨부해주세요");
-    return;
-  }
-  console.log(images[0]);
-  newEntry.upfile = images[0];
-};
-
 const registerPost = async () => {
   try {
+    console.dir(entries);
     const formData = new FormData();
   } catch (error) {}
 };
+
+function handleFileChange(event) {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      newEntry.upfile = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+}
 </script>
 
 <template>
@@ -69,7 +69,7 @@ const registerPost = async () => {
     <div id="plan-box">
       <h3>저장된 데이터</h3>
       <div id="card-container" v-for="entry in entries" class="entry">
-        <img :src="entry.upfile" alt="" />
+        <img :src="entry.upfile" style="height: 100px" />
         <p><strong>장소:</strong> {{ entry.name }}</p>
         <p><strong>날짜:</strong> {{ entry.date }}</p>
         <p><strong>시작 시간:</strong> {{ entry.timeStart }}</p>
@@ -81,21 +81,49 @@ const registerPost = async () => {
     </div>
     <form @submit.prevent="addEntry">
       <label for="name">장소</label>
-      <input type="text" id="name" name="name" v-model="newEntry.name" readonly="true" /><br />
-      <input type="hidden" id="place_id" name="place_id" v-model="newEntry.id" />
-      <MultiImageUpload @images-uploaded="handleImages" />
+      <input
+        type="text"
+        id="name"
+        name="name"
+        v-model="newEntry.name"
+        readonly="true"
+      /><br />
+      <input
+        type="hidden"
+        id="place_id"
+        name="place_id"
+        v-model="newEntry.id"
+      />
+      <!-- <MultiImageUpload @images-uploaded="handleImages" /> -->
+      <input type="file" id="upfile" name="upfile" @change="handleFileChange" />
+      <br />
       <br />
       <label for="date">날짜</label>
       <input type="date" id="date" name="date" v-model="newEntry.date" /><br />
 
       <label for="time_start">시작 시간</label>
-      <input type="time" id="time_start" name="time_start" v-model="newEntry.timeStart" />
+      <input
+        type="time"
+        id="time_start"
+        name="time_start"
+        v-model="newEntry.timeStart"
+      />
 
       <label for="time_end">종료 시간</label>
-      <input type="time" id="time_end" name="time_end" v-model="newEntry.timeEnd" /><br />
+      <input
+        type="time"
+        id="time_end"
+        name="time_end"
+        v-model="newEntry.timeEnd"
+      /><br />
 
       <label for="description">한줄메모</label>
-      <input type="text" id="description" name="description" v-model="newEntry.description" /><br />
+      <input
+        type="text"
+        id="description"
+        name="description"
+        v-model="newEntry.description"
+      /><br />
 
       <label for="tag">태그</label>
       <input type="text" id="tag" name="tag" v-model="newEntry.tag" /><br />
