@@ -9,6 +9,8 @@ import BoardView from "@/views/BoardView.vue";
 import WriteView from "@/views/WriteView.vue";
 import PostView from "@/views/PostView.vue";
 import PlanWriteView from "@/views/PlanWriteView.vue";
+import NotFoundView from "@/views/NotFoundView.vue";
+
 import { useSearchStore } from "@/stores/search.js";
 
 const router = createRouter({
@@ -83,6 +85,11 @@ const router = createRouter({
       name: "post",
       component: PostView,
     },
+    { 
+      path: '/:pathMatch(.*)*', 
+      name: 'NotFound', 
+      component: NotFoundView 
+    }
   ],
 });
 
