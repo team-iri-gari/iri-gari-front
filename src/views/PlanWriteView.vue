@@ -7,6 +7,7 @@ import PKakao from "@/components/map/PKakao.vue";
 const pkakaoRef = ref(null);
 const newEntry = reactive({
   name: "",
+  upfile: null,
   id: "",
   date: "",
   timeStart: "",
@@ -16,13 +17,18 @@ const newEntry = reactive({
 const entries = ref([]);
 
 function addEntry() {
-  console.log(newEntry);
   entries.value.push({ ...newEntry });
 
   // 폼 입력을 초기화
   Object.keys(newEntry).forEach((key) => {
-    newEntry[key] = "";
+    if (key === "upfile") {
+      newEntry[key] = null;
+    } else {
+      newEntry[key] = "";
+    }
   });
+
+  newEntry[upfile] = null;
 }
 
 const onSubmitSearch = (keyword) => {
@@ -41,6 +47,21 @@ const handleClickPlace = (placeInfo) => {
   newEntry.name = placeInfo.pname;
   newEntry.id = placeInfo.pid;
 };
+
+const handleImages = (images) => {
+  if (images > 1) {
+    alert("이미지를 한 장만 첨부해주세요");
+    return;
+  }
+  console.log(images[0]);
+  newEntry.upfile = images[0];
+};
+
+const registerPost = async () => {
+  try {
+    const formData = new FormData();
+  } catch (error) {}
+};
 </script>
 
 <template>
@@ -48,6 +69,7 @@ const handleClickPlace = (placeInfo) => {
     <div id="plan-box">
       <h3>저장된 데이터</h3>
       <div id="card-container" v-for="entry in entries" class="entry">
+        <img :src="entry.upfile" alt="" />
         <p><strong>성함:</strong> {{ entry.name }}</p>
         <p><strong>날짜:</strong> {{ entry.date }}</p>
         <p><strong>시작 시간:</strong> {{ entry.timeStart }}</p>
@@ -61,7 +83,7 @@ const handleClickPlace = (placeInfo) => {
       <label for="name">장소</label>
       <input type="text" id="name" name="name" v-model="newEntry.name" readonly="true" /><br />
       <input type="hidden" id="place_id" name="place_id" v-model="newEntry.id" />
-      <MultiImageUpload name="" />
+      <MultiImageUpload @images-uploaded="handleImages" />
       <br />
       <label for="date">날짜</label>
       <input type="date" id="date" name="date" v-model="newEntry.date" /><br />
@@ -78,13 +100,14 @@ const handleClickPlace = (placeInfo) => {
       <label for="tag">태그</label>
       <input type="text" id="tag" name="tag" v-model="newEntry.tag" /><br />
 
-      <input type="submit" value="등록" />
+      <input type="submit" value="추가" />
     </form>
     <div id="map-container">
       <SearchBox :on-submit-search="onSubmitSearch" />
       <PKakao ref="pkakaoRef" @clickPlace="handleClickPlace" />
     </div>
   </div>
+  <button @click="registerPost">게시물 등록</button>
 </template>
 
 <style scoped>
@@ -105,7 +128,9 @@ form,
 }
 
 #plan-box {
+  overflow-y: auto;
   flex-basis: 30%;
+  height: 580px;
 }
 
 #map-container {
@@ -143,9 +168,5 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
   background-color: #3949ab; /* 마우스를 올렸을 때 배경색을 변경합니다 */
-}
-
-#plan-box {
-  height: max-content;
 }
 </style>
