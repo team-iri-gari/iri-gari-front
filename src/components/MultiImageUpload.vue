@@ -21,7 +21,6 @@ async function handleImageUpload(event) {
 
   for (let file of files) {
     try {
-      const compressedFile = await compressImage(file);
       compressedImages.value.push(URL.createObjectURL(compressedFile));
     } catch (error) {
       console.error("Error during image compression:", error);
