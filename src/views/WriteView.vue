@@ -64,6 +64,8 @@ const submitBoard = async () => {
             }
         }
 
+        console.log(formData);
+
         const response = await axios.post('http://localhost/api/board/write/free', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
