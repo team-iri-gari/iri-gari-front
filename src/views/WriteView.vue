@@ -17,8 +17,8 @@
         </div>
 
         <div class="form-item">
-            <label for="content">태그</label>
-            <input type="text" id="title" placeholder="태그를 추가하세요" />
+            <label>태그</label>
+            <TagBox/>
         </div>
 
         <input type="file" id="files" ref="fileInput" multiple>
@@ -29,17 +29,25 @@
 </template>
   
 <script setup>
-import { ref } from 'vue';
-//import MultiImageUpload from '../components/MultiImageUpload.vue';
+import { ref, onMounted } from 'vue';
 import { useAuthStore } from '@/stores/auth';
+//import MultiImageUpload from '../components/MultiImageUpload.vue';
 import axios from 'axios';
+import Tagify from "@yaireo/tagify";
+import TagBox from '@/components/TagBox.vue';
+import { useTagStore } from '@/stores/tags';
 
 const store = useAuthStore();
+const tagStore = useTagStore();
 
 const boardTitle = ref('');
 const boardContent = ref('');
 
 const fileInput = ref(null);
+
+const printTags = () => {
+    console.log('현재 태그:', tagStore.tags);
+};
 
 const submitBoard = async () => {
     try {
@@ -48,12 +56,16 @@ const submitBoard = async () => {
         formData.append('content', boardContent.value);
         formData.append('name', store.userData.userInfo.name);
 
-        if(fileInput.value.files.length) {
+        formData.append('tags', JSON.stringify(tagStore.tags.map(tag => tag.value)));
+
+        if (fileInput.value.files.length) {
             for (let file of fileInput.value.files) {
                 formData.append('upfile', file);
             }
         }
-        
+
+        console.log(formData);
+
         const response = await axios.post('http://localhost/api/board/write/free', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
@@ -68,6 +80,31 @@ const submitBoard = async () => {
 const cancelBoard = () => {
 
 };
+
+const tagInput = ref(null);
+
+onMounted(() => {
+  const tagify = new Tagify(tagInput.value, {
+    // 태그를 분리할 구분자 설정 (예: 쉼표)
+    delimiters: ",",
+    // 입력에 대한 즉각적인 반응을 위해 dropdown.enabled 설정 조정
+    dropdown: {
+      enabled: 1 // 1글자를 입력한 후 드롭다운 활성화
+    }
+  });
+
+  tagify.on('add', e => {
+    console.log('Tag added:', e.detail.data);
+  });
+
+  tagify.on('remove', e => {
+    console.log('Tag removed:', e.detail.data);
+  });
+
+  tagify.on('input', e => {
+    console.log('Input:', e.detail.value);
+  });
+});
 
 </script>
   
