@@ -1,18 +1,23 @@
 <script setup>
-import { reactive, ref, onMounted } from "vue";
-import MultiImageUpload from "../components/MultiImageUpload.vue";
+import { reactive, ref } from "vue";
 import SearchBox from "@/components/SearchBox.vue";
 import PKakao from "@/components/map/PKakao.vue";
+import { useAuthStore } from "@/stores/auth";
+import axios from "axios";
+
+const store = useAuthStore();
 
 const pkakaoRef = ref(null);
+const bTitle = ref("");
 const newEntry = reactive({
   name: "",
-  upfile: "",
   id: "",
   date: "",
   timeStart: "",
   timeEnd: "",
   description: "",
+  img: "",
+  upfile: "",
 });
 const entries = ref([]);
 
@@ -24,8 +29,8 @@ function addEntry() {
     newEntry[key] = "";
   });
 
-  const fileInput = document.getElementById("upfile");
-  fileInput.value = "";
+  const fileDesc = document.getElementById("upfile");
+  fileDesc.value = "";
 }
 
 const onSubmitSearch = (keyword) => {
@@ -35,7 +40,6 @@ const onSubmitSearch = (keyword) => {
   }
 
   if (pkakaoRef.value) {
-    console.log("카카오 검색 가능");
     pkakaoRef.value.searchPlace(keyword);
   }
 };
@@ -47,19 +51,55 @@ const handleClickPlace = (placeInfo) => {
 
 const registerPost = async () => {
   try {
-    console.dir(entries);
+    console.log(entries.value);
     const formData = new FormData();
-  } catch (error) {}
+    formData.append("name", store.userData.userInfo.name);
+    formData.append("title", bTitle.value);
+    entries.value.forEach((entry, index) => {
+      if (entry.upfile) {
+        formData.append(`upfile`, entry.upfile);
+      }
+
+      formData.append(`placeIdx[${index}]`, index);
+      formData.append(`placeName[${index}]`, entry.name);
+      formData.append(`placeId[${index}]`, entry.id);
+      formData.append(`date[${index}]`, entry.date);
+      formData.append(`timeStart[${index}]`, entry.timeStart);
+      formData.append(`timeEnd[${index}]`, entry.timeEnd);
+      formData.append(`description[${index}]`, entry.description);
+    });
+
+    for (let key of formData.keys()) {
+      console.log(key, ":", formData.get(key));
+    }
+
+    // console.dir(formData);
+    const response = await axios.post(
+      "http://localhost/api/board/write/plan",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    console.log(response.data);
+  } catch (error) {
+    console.log("Error : ", error);
+  }
 };
 
 function handleFileChange(event) {
+  console.log(event.target.files);
   const file = event.target.files[0];
+  console.log(file);
   if (file) {
     const reader = new FileReader();
     reader.onload = (e) => {
-      newEntry.upfile = e.target.result;
+      newEntry.img = e.target.result;
     };
     reader.readAsDataURL(file);
+    newEntry.upfile = file;
   }
 }
 </script>
@@ -69,7 +109,7 @@ function handleFileChange(event) {
     <div id="plan-box">
       <h3>저장된 데이터</h3>
       <div id="card-container" v-for="entry in entries" class="entry">
-        <img :src="entry.upfile" style="height: 100px" />
+        <img :src="entry.img" style="height: 100px" />
         <p><strong>장소:</strong> {{ entry.name }}</p>
         <p><strong>날짜:</strong> {{ entry.date }}</p>
         <p><strong>시작 시간:</strong> {{ entry.timeStart }}</p>
@@ -79,6 +119,7 @@ function handleFileChange(event) {
         <p>==================================</p>
       </div>
     </div>
+    <input type="text" id="title" name="title" v-model="bTitle" />
     <form @submit.prevent="addEntry">
       <label for="name">장소</label>
       <input
@@ -95,7 +136,13 @@ function handleFileChange(event) {
         v-model="newEntry.id"
       />
       <!-- <MultiImageUpload @images-uploaded="handleImages" /> -->
-      <input type="file" id="upfile" name="upfile" @change="handleFileChange" />
+      <input
+        type="file"
+        id="upfile"
+        name="upfile"
+        ref="fileInput"
+        @change="handleFileChange"
+      />
       <br />
       <br />
       <label for="date">날짜</label>
