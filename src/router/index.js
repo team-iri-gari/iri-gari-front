@@ -55,7 +55,7 @@ const router = createRouter({
     {
       path: "/board",
       name: "board",
-      redirect: { name: "board-free" },
+      redirect: "/board/free",
       children: [
         {
           path: "free",
@@ -72,6 +72,7 @@ const router = createRouter({
     {
       path: "/write",
       name: "write",
+      redirect: "/write/free",
       children: [
         {
           path: "free",
@@ -84,11 +85,6 @@ const router = createRouter({
           component: PlanWriteView, // Plan writing view component
         },
       ],
-    },
-    {
-      path: "/recommend",
-      name: "recommend",
-      component: RecommendView,
     },
     {
       path: "/search/:keyword",
