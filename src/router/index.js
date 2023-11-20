@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "@/views/HomeView.vue";
 import LoginView from "@/views/LoginView.vue";
 import JoinView from "@/views/JoinView.vue";
-import RecommendView from "@/views/RecommendView.vue";
 import MyPageView from "@/views/MyPageView.vue";
 import SearchView from "@/views/SearchView.vue";
 import FreeBoardView from "@/views/FreeBoardView.vue";
@@ -55,6 +54,7 @@ const router = createRouter({
     {
       path: "/board",
       name: "board",
+      redirect: "/board/free",
       children: [
         {
           path: "free",
@@ -71,6 +71,7 @@ const router = createRouter({
     {
       path: "/write",
       name: "write",
+      redirect: "/write/free",
       children: [
         {
           path: "free",
@@ -83,11 +84,6 @@ const router = createRouter({
           component: PlanWriteView, // Plan writing view component
         },
       ],
-    },
-    {
-      path: "/recommend",
-      name: "recommend",
-      component: RecommendView,
     },
     {
       path: "/search/:keyword",
