@@ -1,5 +1,9 @@
 /* 전역 스타일 */
 
+html body {
+  margin: 0;
+}
+
 @font-face {
   font-family: "YanoljaYacheR";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/YanoljaYacheR.woff")

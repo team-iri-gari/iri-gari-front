@@ -3,6 +3,7 @@ import { onMounted, computed } from "vue";
 import { useAuthStore } from '@/stores/auth';
 import { useScrollStore } from '@/stores/store'
 import SearchBox from "@/components/SearchBox.vue";
+import Logo from "@/components/Logo.vue";
 
 const scrollStore = useScrollStore()
 
@@ -22,7 +23,7 @@ function logout() {
 <template>
     <div id="header">
         <div class="left-space">
-            <RouterLink to="/">이리가리</RouterLink>
+            <Logo size="100%"/>
         </div>
         <div class="content"><SearchBox v-show="scrollStore.scrollPosition > 600" /></div>
         <div v-if="isAuthenticated" class="right-space">
@@ -38,25 +39,25 @@ function logout() {
             <RouterLink to="/user/join">JOIN</RouterLink>
         </div>
     </div>
-
     <div id="bomper">back</div>
 </template>
 
 <style scoped>
 #header {
+    z-index: 1000;
     position: fixed;
     top: 0;
     left: 0;
 
     width: 100%;
-    height: 50px;
+    min-height: 50px;
+    height: 5vh;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    background: #fff;
-    z-index: 1000;
+    background: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 

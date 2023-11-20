@@ -1,5 +1,6 @@
 <script setup>
 import SearchBox from "@/components/SearchBox.vue";
+import Logo from "@/components/Logo.vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
@@ -10,7 +11,7 @@ const onSubmitSearch = (keyword) => {
 
 <template>
     <div class="content">
-        <div class="logo">이리 가리</div>
+        <Logo/>
         <SearchBox :on-submit-search="onSubmitSearch" />
     </div>
 </template>
@@ -19,15 +20,11 @@ const onSubmitSearch = (keyword) => {
 .content {
   height: 90vh;
   width: 100vw;
+
   display: flex;
-  justify-content: center;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-}
-.logo {
-  text-align: center;
-  font-size: 70px;
-  font-family: YanoljaYacheR;
-  margin-bottom: 20px;
+  background-color: white;
 }
 </style>
