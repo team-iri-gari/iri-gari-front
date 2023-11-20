@@ -13,14 +13,16 @@ const onSubmitSearch = (keyword) => {
   router.push(`/search/${encodeURIComponent(keyword)}`);
 };
 
-// async function addBoxes() {
-//   const currentLength = boxes.value.length;
-//   for (let i = currentLength; i < currentLength + 15; i++) {
-//     const response = await axios.get("https://api.thecatapi.com/v1/images/search");
-//     const catImageUrl = response.data[0].url;
-//     boxes.value.push({ id: i, content: `Box ${i}`, imageUrl: catImageUrl });
-//   }
-// }
+async function addBoxes() {
+  const currentLength = boxes.value.length;
+  for (let i = currentLength; i < currentLength + 15; i++) {
+    const response = await axios.get(
+      "https://api.thecatapi.com/v1/images/search"
+    );
+    const catImageUrl = response.data[0].url;
+    boxes.value.push({ id: i, content: `Box ${i}`, imageUrl: catImageUrl });
+  }
+}
 
 function checkScroll(event) {
   const { scrollTop, offsetHeight, scrollHeight } = event.target;
@@ -44,12 +46,8 @@ onMounted(addBoxes);
       </div>
     </div>
   </div>
-  <div id="container-tag">
-
-  </div>
-  <div id="container-card">
-    
-  </div>
+  <div id="container-tag"></div>
+  <div id="container-card"></div>
 </template>
 
 <style scoped>
