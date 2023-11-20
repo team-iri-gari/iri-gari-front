@@ -52,6 +52,7 @@ const handleClickPlace = (placeInfo) => {
 const registerPost = async () => {
   try {
     console.log(entries.value);
+    console.log(store.userData.userInfo.name);
     const formData = new FormData();
     formData.append("name", store.userData.userInfo.name);
     formData.append("title", bTitle.value);
@@ -105,6 +106,8 @@ function handleFileChange(event) {
 </script>
 
 <template>
+  <label for="title">제목</label>
+  <input type="text" id="title" name="title" v-model="bTitle" />
   <div class="container">
     <div id="plan-box">
       <h3>저장된 데이터</h3>
@@ -119,7 +122,6 @@ function handleFileChange(event) {
         <p>==================================</p>
       </div>
     </div>
-    <input type="text" id="title" name="title" v-model="bTitle" />
     <form @submit.prevent="addEntry">
       <label for="name">장소</label>
       <input
