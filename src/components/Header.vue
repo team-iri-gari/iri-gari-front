@@ -26,7 +26,7 @@ function logout() {
         </div>
         <div class="content"><SearchBox v-show="scrollStore.scrollPosition > 600" /></div>
         <div v-if="isAuthenticated" class="right-space">
-            <RouterLink to="/board">BOARD</RouterLink>
+            <RouterLink to="/board/free">BOARD</RouterLink>
             |
             <RouterLink to="/user/mypage">MY PAGE</RouterLink>
             |

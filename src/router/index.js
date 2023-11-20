@@ -55,6 +55,7 @@ const router = createRouter({
     {
       path: "/board",
       name: "board",
+      redirect: { name: "board-free" },
       children: [
         {
           path: "free",
