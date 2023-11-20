@@ -13,14 +13,14 @@ const onSubmitSearch = (keyword) => {
   router.push(`/search/${encodeURIComponent(keyword)}`);
 };
 
-async function addBoxes() {
-  const currentLength = boxes.value.length;
-  for (let i = currentLength; i < currentLength + 15; i++) {
-    const response = await axios.get("https://api.thecatapi.com/v1/images/search");
-    const catImageUrl = response.data[0].url;
-    boxes.value.push({ id: i, content: `Box ${i}`, imageUrl: catImageUrl });
-  }
-}
+// async function addBoxes() {
+//   const currentLength = boxes.value.length;
+//   for (let i = currentLength; i < currentLength + 15; i++) {
+//     const response = await axios.get("https://api.thecatapi.com/v1/images/search");
+//     const catImageUrl = response.data[0].url;
+//     boxes.value.push({ id: i, content: `Box ${i}`, imageUrl: catImageUrl });
+//   }
+// }
 
 function checkScroll(event) {
   const { scrollTop, offsetHeight, scrollHeight } = event.target;
@@ -36,17 +36,19 @@ onMounted(addBoxes);
 </script>
 
 <template>
-  <div class="container" @scroll="checkScroll">
+  <div id="container-search" @scroll="checkScroll">
     <div class="content">
       <div class="logo">이리 가리</div>
       <div class="search-container">
         <SearchBox :on-submit-search="onSubmitSearch" />
       </div>
     </div>
-    <div class="box" v-for="box in boxes" :key="box.id">
-      <img :src="box.imageUrl" alt="Random Cat" class="cat-image" />
-      <!-- {{ box.content }} -->
-    </div>
+  </div>
+  <div id="container-tag">
+
+  </div>
+  <div id="container-card">
+    
   </div>
 </template>
 
@@ -90,7 +92,6 @@ onMounted(addBoxes);
 .content {
   height: 90vh;
   width: 100vw;
-
   display: flex;
   justify-content: center;
   flex-direction: column;

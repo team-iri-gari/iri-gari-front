@@ -1,7 +1,25 @@
 <template>
-  <div class="search-container">
+  <!-- <div class="search-container">
     <input type="text" v-model="keyword" placeholder="검색어 입력" class="search-input" />
     <button @click="handleSubmit" class="search-button">검색</button>
+  </div> -->
+  <div class="container">
+    <form autocomplete="off">
+      <div class="finder">
+        <div class="finder__outer">
+          <div class="finder__inner">
+            <div class="finder__icon" ref="icon"></div>
+            <input
+              class="finder__input"
+              type="text"
+              name="q"
+              v-model="keyword"
+              placeholder="검색어 입력"
+            />
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
 </template>
 
