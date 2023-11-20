@@ -5,9 +5,11 @@ import JoinView from "@/views/JoinView.vue";
 import RecommendView from "@/views/RecommendView.vue";
 import MyPageView from "@/views/MyPageView.vue";
 import SearchView from "@/views/SearchView.vue";
-import BoardView from "@/views/BoardView.vue";
+import FreeBoardView from "@/views/FreeBoardView.vue";
+import PlanBoardView from "@/views/PlanBoardView.vue";
 import WriteView from "@/views/WriteView.vue";
-import PostView from "@/views/PostView.vue";
+import FreePostView from "@/views/FreePostView.vue";
+import PlanPostView from "@/views/PlanPostView.vue";
 import PlanWriteView from "@/views/PlanWriteView.vue";
 import NotFoundView from "@/views/NotFoundView.vue";
 
@@ -45,8 +47,7 @@ const router = createRouter({
             if (!authStore.isAuthenticated) {
               alert("로그인이 필요한 서비스입니다.");
               next("/user/login");
-            } else
-              next();
+            } else next();
           },
         },
       ],
@@ -54,7 +55,18 @@ const router = createRouter({
     {
       path: "/board",
       name: "board",
-      component: BoardView,
+      children: [
+        {
+          path: "free",
+          name: "board-free",
+          component: FreeBoardView,
+        },
+        {
+          path: "plan",
+          name: "board-plan",
+          component: PlanBoardView,
+        },
+      ],
     },
     {
       path: "/write",
@@ -88,15 +100,20 @@ const router = createRouter({
       },
     },
     {
-      path: "/post/:id",
-      name: "post",
-      component: PostView,
+      path: "/fpost/:id",
+      name: "fpost",
+      component: FreePostView,
     },
     {
-      path: '/:pathMatch(.*)*',
-      name: 'NotFound',
-      component: NotFoundView
-    }
+      path: "/ppost/:id",
+      name: "ppost",
+      component: PlanPostView,
+    },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "NotFound",
+      component: NotFoundView,
+    },
   ],
 });
 
