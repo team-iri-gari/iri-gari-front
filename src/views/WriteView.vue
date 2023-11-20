@@ -18,7 +18,7 @@
 
         <div class="form-item">
             <label>태그</label>
-            <TagBox/>
+            <TagBox />
         </div>
 
         <input type="file" id="files" ref="fileInput" multiple>
@@ -56,7 +56,8 @@ const submitBoard = async () => {
         formData.append('content', boardContent.value);
         formData.append('name', store.userData.userInfo.name);
 
-        formData.append('tags', JSON.stringify(tagStore.tags.map(tag => tag.value)));
+        let tagValues = tagStore.tags.map(tag => tag.value);
+        formData.append('tagList', JSON.stringify(tagValues));
 
         if (fileInput.value.files.length) {
             for (let file of fileInput.value.files) {
@@ -84,26 +85,26 @@ const cancelBoard = () => {
 const tagInput = ref(null);
 
 onMounted(() => {
-  const tagify = new Tagify(tagInput.value, {
-    // 태그를 분리할 구분자 설정 (예: 쉼표)
-    delimiters: ",",
-    // 입력에 대한 즉각적인 반응을 위해 dropdown.enabled 설정 조정
-    dropdown: {
-      enabled: 1 // 1글자를 입력한 후 드롭다운 활성화
-    }
-  });
+    const tagify = new Tagify(tagInput.value, {
+        // 태그를 분리할 구분자 설정 (예: 쉼표)
+        delimiters: ",",
+        // 입력에 대한 즉각적인 반응을 위해 dropdown.enabled 설정 조정
+        dropdown: {
+            enabled: 1 // 1글자를 입력한 후 드롭다운 활성화
+        }
+    });
 
-  tagify.on('add', e => {
-    console.log('Tag added:', e.detail.data);
-  });
+    tagify.on('add', e => {
+        console.log('Tag added:', e.detail.data);
+    });
 
-  tagify.on('remove', e => {
-    console.log('Tag removed:', e.detail.data);
-  });
+    tagify.on('remove', e => {
+        console.log('Tag removed:', e.detail.data);
+    });
 
-  tagify.on('input', e => {
-    console.log('Input:', e.detail.value);
-  });
+    tagify.on('input', e => {
+        console.log('Input:', e.detail.value);
+    });
 });
 
 </script>
