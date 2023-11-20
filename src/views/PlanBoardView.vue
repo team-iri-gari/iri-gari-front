@@ -4,6 +4,7 @@ import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 
 const posts = ref([]);
+const router = useRouter();
 
 const getPosts = async () => {
   axios
@@ -33,8 +34,11 @@ onMounted(() => {
     <br />
     <br />
     <div class="card-container" v-for="item in posts" :key="item.articleId">
-      <div class="card-post" @click="goToPost(item.articleId)">
-        <div style="height: 60px; width: 80px; background: #666666"></div>
+      <div class="card-post">
+        <div
+          style="height: 60px; width: 80px; background: #666666"
+          @click="goToPost(item.articleId)"
+        ></div>
         <p>{{ item.title }}</p>
         <p>{{ item.name }}</p>
       </div>

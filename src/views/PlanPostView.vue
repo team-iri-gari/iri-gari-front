@@ -5,17 +5,21 @@ import { useRouter, useRoute } from "vue-router";
 
 const router = useRouter();
 const route = useRoute();
-const post = ref([]);
+const plans = ref([]);
 
 const fetchPost = async () => {
   try {
     let response = await axios.get(`http://localhost/api/board/plan/${route.params.id}`);
     console.log(response.data);
-    post.value = response.data;
+    plans.value = response.data;
   } catch (error) {
     console.error("Error: ", error);
   }
 };
+
+onMounted(() => {
+  fetchPost();
+});
 </script>
 
 <template>
@@ -24,7 +28,14 @@ const fetchPost = async () => {
     <hr />
     <span></span>
     <span></span>
-    <div class="plan-card"></div>
+    <div class="plan-card" v-for="p in plans" :key="p.planIdx">
+      <img
+        :src="`https://iri-gari-image-server.s3.ap-northeast-2.amazonaws.com/${p.imgSrc}/${p.imgId}`"
+        alt=""
+      />
+      <p>{{ p.placeName }}</p>
+      <p>{{ p.date }}</p>
+    </div>
   </div>
 </template>
 
