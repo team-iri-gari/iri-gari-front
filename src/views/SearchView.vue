@@ -1,6 +1,6 @@
 <script setup>
-import VkakaoMap from "../components/map/VkakaoMap.vue";
-import SBoardList from "../components/SBoardList.vue";
+import VkakaoMap from "@/components/map/VkakaoMap.vue";
+import SBoardList from "@/components/SBoardList.vue";
 </script>
 
 <template>
