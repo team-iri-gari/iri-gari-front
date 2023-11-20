@@ -1,5 +1,6 @@
 <script setup>
 import Home from "@/components/Home.vue"
+import Recommend from "@/components/Recommend.vue"
 import { useScrollStore } from "@/stores/store";
 const scrollStore = useScrollStore();
 
@@ -12,9 +13,7 @@ function checkScroll(event) {
 <template>
   <div id="container-scroll" @scroll="checkScroll">
     <Home/>
-    <div id="container-tag">
-  
-    </div>
+    <Recommend/>
     <div id="container-card">
   
     </div>
