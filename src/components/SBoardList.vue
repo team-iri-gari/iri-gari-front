@@ -9,11 +9,15 @@ const pbList = ref({});
 async function getList() {
   console.log(searchStore.keyword);
   fbList.value = (
-    await axios.get(`http://localhost/api/board/search/free?keyword=${searchStore.keyword}`)
+    await axios.get(
+      `http://localhost/api/board/search/free?keyword=${searchStore.keyword}`
+    )
   ).data;
 
   pbList.value = (
-    await axios.get(`http://localhost/api/board/search/plan?keyword=${searchStore.keyword}`)
+    await axios.get(
+      `http://localhost/api/board/search/plan?keyword=${searchStore.keyword}`
+    )
   ).data;
 }
 
@@ -54,4 +58,13 @@ getList();
   </div>
 </template>
 
-<style scoped></style>
+<style>
+#freeboard-container {
+  overflow-y: hidden;
+  height: 50%;
+}
+#planboard-container {
+  overflow-y: hidden;
+  height: 50%;
+}
+</style>

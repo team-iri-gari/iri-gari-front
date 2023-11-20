@@ -2,6 +2,7 @@
 import axios from "axios";
 import { ref, onMounted } from "vue";
 import SearchBox from "@/components/SearchBox.vue";
+import Logo from "../components/common/Logo.vue";
 import { useScrollStore } from "@/stores/store";
 import { useRouter } from "vue-router";
 
@@ -38,11 +39,14 @@ onMounted(addBoxes);
 </script>
 
 <template>
-  <div id="container-search" @scroll="checkScroll">
+  <div id="container-search" class="layer" @scroll="checkScroll">
     <div class="content">
-      <div class="logo">이리 가리</div>
+      <div class="logo">
+        <Logo />
+        <!-- <img src="/images/logo.png" style="height: 300px" /> -->
+      </div>
       <div class="search-container">
-        <SearchBox :on-submit-search="onSubmitSearch" />
+        <SearchBox :on-submit-search="onSubmitSearch" style="margin: auto" />
       </div>
     </div>
   </div>
@@ -50,43 +54,16 @@ onMounted(addBoxes);
   <div id="container-card"></div>
 </template>
 
-<style scoped>
-.container::-webkit-scrollbar {
-  width: 12px;
+<style lang="scss">
+#container-search {
+  background-color: #131d2b;
+  height: 100%;
 }
-
-.container::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 6px;
+.layer {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
-
-.container::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 6px;
-}
-
-.container::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
-.container {
-  height: 90vh;
-  overflow-y: auto;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding: 10px;
-}
-
-.box {
-  width: 300px;
-  height: 300px;
-  border: 1px solid #000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .content {
   height: 90vh;
   width: 100vw;
@@ -94,13 +71,6 @@ onMounted(addBoxes);
   justify-content: center;
   flex-direction: column;
   align-items: center;
-}
-
-.logo {
-  text-align: center;
-  font-size: 70px;
-  font-family: YanoljaYacheR;
-  margin-bottom: 20px;
 }
 
 .search-container {
@@ -116,10 +86,5 @@ onMounted(addBoxes);
   border-radius: 30px;
   box-sizing: border-box;
   font-size: 16px;
-}
-
-.cat-image {
-  max-width: 100%;
-  max-height: 100%;
 }
 </style>

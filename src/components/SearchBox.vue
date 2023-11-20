@@ -6,7 +6,9 @@
       placeholder="검색어 입력"
       class="search-input"
     />
-    <button @click="handleSubmit" class="search-button">검색</button>
+    <button @click="handleSubmit" class="search-button">
+      <i class="fa fa-search">▶</i>
+    </button>
   </div>
 </template>
 
@@ -35,29 +37,43 @@ const handleSubmit = () => {
 
 .search-input {
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 250px;
+  border: 4px solid #00b4cc;
+  border-radius: 5px 0 0 5px;
+  width: 100%;
+  height: 20px;
+  outline: none;
+  color: #9dbfaf;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
   transition: border-color 0.3s;
 }
 
 .search-input:focus {
-  border-color: #007bff;
+  border-color: #d1e7ff;
+  color: #00b4cc;
   outline: none;
 }
 
 .search-button {
-  padding: 10px 20px;
+  /* padding: 10px 20px;
   background-color: #007bff;
   color: white;
   border: none;
   border-radius: 4px;
+  cursor: pointer; */
+  width: 42px;
+  height: 48px;
+  border: 1px solid #00b4cc;
+  background: #00b4cc;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
   cursor: pointer;
+  font-size: 20px;
   transition: background-color 0.3s;
 }
 
 .search-button:hover {
-  background-color: #0056b3;
+  background-color: #d1e7ff;
+  border: none;
 }
 </style>
