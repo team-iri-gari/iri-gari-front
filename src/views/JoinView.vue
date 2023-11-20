@@ -1,37 +1,31 @@
-<script>
+<script setup>
 import axios from 'axios';
+import { ref } from 'vue';
 
-export default {
-  setup() {
-    function login() {
-      var id = document.getElementById('username').value;
-      var password = document.getElementById('password').value;
+const username = ref('');
+const password = ref('');
 
-      axios.post('http://localhost/api/member/' + id, {
-          id : id,
-          password : password,
-          userName: "",
-          email: "",
-      }).then(response => {
-            console.log(response);
-          if (response.data) {
-              localStorage.setItem('token', response.data);
-              alert("로그인 성공")
-          }
-          else {
-              alert("로그인 실패")
-          }
-      }).catch(error => {
-          console.error('Error:', error);
-      });
+const login = async () => {
+    try {
+        const response = await axios.post(`http://localhost/api/member/${username.value}`, {
+            id: username.value,
+            password: password.value,
+            userName: "",
+            email: "",
+        });
+        console.log(response);
+        if (response.data) {
+            localStorage.setItem('token', response.data);
+            alert("로그인 성공");
+        } else {
+            alert("로그인 실패");
+        }
+    } catch (error) {
+        console.error('Error:', error);
     }
-
-    return {
-      login
-    };
-  }
-}
+};
 </script>
+
 <template>
     <div id="container">
         <div class="login-container">
@@ -48,7 +42,6 @@ export default {
                 <div class="form-group">
                     <button type="button" class="login-button" @click.prevent="login">LOGIN</button>
                 </div>
-                <!-- <GoogleLogin class="google-login-button"/> -->
             </form>
         </div>
     </div>
@@ -141,19 +134,5 @@ export default {
     transform: translateY(-2px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
 }
-
-/* .google-login-button {
-    width: 100%;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 8px;
-    background-color: #695da1;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-} */
 </style>
   

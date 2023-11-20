@@ -1,6 +1,6 @@
 <script setup>
-import { useRouter } from 'vue-router';
 import axios from 'axios';
+import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 
 const router = useRouter();
@@ -20,7 +20,7 @@ function login() {
         if (response.data) {
             const token = response.data;
             store.login(token);
-            router.push('/'); // 메인 페이지로 리디렉션
+            router.push('/');
         }
         else
             alert("로그인 실패");
@@ -53,6 +53,7 @@ function login() {
 </template>
   
 <style scoped>
+
 #container {
     height: 60vh;
 
@@ -139,19 +140,5 @@ function login() {
     transform: translateY(-2px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
 }
-
-/* .google-login-button {
-    width: 100%;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 8px;
-    background-color: #695da1;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-} */
 </style>
   

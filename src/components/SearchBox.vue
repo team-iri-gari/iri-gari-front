@@ -1,15 +1,3 @@
-<template>
-  <div class="search-container">
-    <input
-      type="text"
-      v-model="keyword"
-      placeholder="검색어 입력"
-      class="search-input"
-    />
-    <button @click="handleSubmit" class="search-button">검색</button>
-  </div>
-</template>
-
 <script setup>
 import { ref } from "vue";
 
@@ -25,12 +13,19 @@ const handleSubmit = () => {
 };
 </script>
 
+<template>
+  <div class="main-container">
+    <input type="text" v-model="keyword" placeholder="검색어 입력" class="search-input" />
+    <button @click="handleSubmit" class="search-button">검색</button>
+  </div>
+</template>
+
 <style scoped>
-.search-container {
+
+.main-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px;
 }
 
 .search-input {
