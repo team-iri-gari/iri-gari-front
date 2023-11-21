@@ -58,8 +58,6 @@ const handleClickPlace = (placeInfo) => {
 
 const registerPost = async () => {
   try {
-    console.log(entries.value);
-    console.log(store.userData.userInfo.name);
     const formData = new FormData();
     formData.append("name", store.userData.userInfo.name);
     formData.append("title", bTitle.value);
