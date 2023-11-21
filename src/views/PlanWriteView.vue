@@ -17,13 +17,14 @@ const pkakaoRef = ref(null);
 const bTitle = ref("");
 const newEntry = reactive({
   name: "",
-  id: "",
   date: "",
   timeStart: "",
   timeEnd: "",
   description: "",
   img: "",
   upfile: "",
+  x: "",
+  y: "",
 });
 const entries = ref([]);
 const tagInput = ref(null);
@@ -53,7 +54,8 @@ const onSubmitSearch = (keyword) => {
 
 const handleClickPlace = (placeInfo) => {
   newEntry.name = placeInfo.pname;
-  newEntry.id = placeInfo.pid;
+  newEntry.x = placeInfo.px;
+  newEntry.y = placeInfo.py;
 };
 
 const registerPost = async () => {
@@ -69,14 +71,14 @@ const registerPost = async () => {
       if (entry.upfile) {
         formData.append(`upfile`, entry.upfile);
       }
-
       formData.append(`placeIdx[${index}]`, index);
       formData.append(`placeName[${index}]`, entry.name);
-      formData.append(`placeId[${index}]`, entry.id);
       formData.append(`date[${index}]`, entry.date);
       formData.append(`timeStart[${index}]`, entry.timeStart);
       formData.append(`timeEnd[${index}]`, entry.timeEnd);
       formData.append(`description[${index}]`, entry.description);
+      formData.append(`placeX[${index}]`, entry.x);
+      formData.append(`placeY[${index}]`, entry.y);
     });
 
     for (let key of formData.keys()) {
@@ -84,11 +86,15 @@ const registerPost = async () => {
     }
 
     // console.dir(formData);
-    const response = await axios.post("http://localhost/api/board/write/plan", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    const response = await axios.post(
+      "http://localhost/api/board/write/plan",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
     console.log(response.data);
     router.push('/board/free');
   } catch (error) {
@@ -130,23 +136,55 @@ function handleFileChange(event) {
     </div>
     <form @submit.prevent="addEntry">
       <label for="name">장소</label>
-      <input type="text" id="name" name="name" v-model="newEntry.name" readonly="true" /><br />
-      <input type="hidden" id="place_id" name="place_id" v-model="newEntry.id" />
+      <input
+        type="text"
+        id="name"
+        name="name"
+        v-model="newEntry.name"
+        readonly="true"
+      /><br />
+      <input
+        type="hidden"
+        id="place_id"
+        name="place_id"
+        v-model="newEntry.id"
+      />
       <!-- <MultiImageUpload @images-uploaded="handleImages" /> -->
-      <input type="file" id="upfile" name="upfile" ref="fileInput" @change="handleFileChange" />
+      <input
+        type="file"
+        id="upfile"
+        name="upfile"
+        ref="fileInput"
+        @change="handleFileChange"
+      />
       <br />
       <br />
       <label for="date">날짜</label>
       <input type="date" id="date" name="date" v-model="newEntry.date" /><br />
 
       <label for="time_start">시작 시간</label>
-      <input type="time" id="time_start" name="time_start" v-model="newEntry.timeStart" />
+      <input
+        type="time"
+        id="time_start"
+        name="time_start"
+        v-model="newEntry.timeStart"
+      />
 
       <label for="time_end">종료 시간</label>
-      <input type="time" id="time_end" name="time_end" v-model="newEntry.timeEnd" /><br />
+      <input
+        type="time"
+        id="time_end"
+        name="time_end"
+        v-model="newEntry.timeEnd"
+      /><br />
 
       <label for="description">한줄메모</label>
-      <input type="text" id="description" name="description" v-model="newEntry.description" /><br />
+      <input
+        type="text"
+        id="description"
+        name="description"
+        v-model="newEntry.description"
+      /><br />
 
       <input type="submit" value="추가" />
     </form>
@@ -162,7 +200,7 @@ function handleFileChange(event) {
   <button @click="registerPost">게시물 등록</button>
 </template>
 
-<style>
+<style scoped>
 .container {
   display: flex;
   justify-content: space-between; /* 요소들 사이에 공간을 둡니다 */

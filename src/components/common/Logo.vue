@@ -54,7 +54,7 @@
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .container {
   position: relative;
   width: 300px;
@@ -63,7 +63,7 @@
   border-radius: 50%;
   background: #173c57;
   border: 10px solid white;
-  margin: 100px auto;
+  margin: 100px 0 50px 0;
   z-index: 2;
   box-shadow: 0 0 20px rgba(black, 0.3);
 }
