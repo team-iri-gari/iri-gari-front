@@ -19,6 +19,7 @@
     "vue3-google-login": "^2.0.25"
   },
   "devDependencies": {
+    "@types/yaireo__tagify": "^4.17.5",
     "@vitejs/plugin-vue": "^4.4.0",
     "sass": "^1.69.5",
     "vite": "^4.4.11"
