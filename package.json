@@ -21,7 +21,9 @@
   "devDependencies": {
     "@types/yaireo__tagify": "^4.17.5",
     "@vitejs/plugin-vue": "^4.4.0",
+    "node-sass": "^9.0.0",
     "sass": "^1.69.5",
+    "sass-loader": "^13.3.2",
     "vite": "^4.4.11"
   }
 }
