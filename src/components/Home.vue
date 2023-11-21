@@ -55,7 +55,7 @@ onMounted(() => {
   </div>
 </template>
 
-<style lang="scss">
+<style scoped>
 #container-search {
   background-color: #131d2b;
   height: 100%;

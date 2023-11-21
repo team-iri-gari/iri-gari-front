@@ -46,6 +46,7 @@ function placesSearchCB(data, status, pagination) {
     var bounds = new kakao.maps.LatLngBounds();
 
     for (var i = 0; i < data.length; i++) {
+      console.log(data[i]);
       displayMarker(data[i]);
       bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
     }
@@ -178,10 +179,10 @@ function removeMarker() {
   </div>
 </template>
 
-<style>
+<style scoped>
 #map {
   margin-left: 40px;
-  height: 700px;
+  height: 500px;
 }
 #category {
   display: flex;

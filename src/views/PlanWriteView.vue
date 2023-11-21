@@ -15,13 +15,14 @@ const pkakaoRef = ref(null);
 const bTitle = ref("");
 const newEntry = reactive({
   name: "",
-  id: "",
   date: "",
   timeStart: "",
   timeEnd: "",
   description: "",
   img: "",
   upfile: "",
+  x: "",
+  y: "",
 });
 const entries = ref([]);
 const tagInput = ref(null);
@@ -51,7 +52,8 @@ const onSubmitSearch = (keyword) => {
 
 const handleClickPlace = (placeInfo) => {
   newEntry.name = placeInfo.pname;
-  newEntry.id = placeInfo.pid;
+  newEntry.x = placeInfo.px;
+  newEntry.y = placeInfo.py;
 };
 
 const registerPost = async () => {
@@ -69,14 +71,14 @@ const registerPost = async () => {
       if (entry.upfile) {
         formData.append(`upfile`, entry.upfile);
       }
-
       formData.append(`placeIdx[${index}]`, index);
       formData.append(`placeName[${index}]`, entry.name);
-      formData.append(`placeId[${index}]`, entry.id);
       formData.append(`date[${index}]`, entry.date);
       formData.append(`timeStart[${index}]`, entry.timeStart);
       formData.append(`timeEnd[${index}]`, entry.timeEnd);
       formData.append(`description[${index}]`, entry.description);
+      formData.append(`placeX[${index}]`, entry.x);
+      formData.append(`placeY[${index}]`, entry.y);
     });
 
     for (let key of formData.keys()) {
