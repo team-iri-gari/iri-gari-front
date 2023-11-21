@@ -1,11 +1,15 @@
 <script setup>
-import { reactive, ref } from "vue";
+import { reactive, ref, onMounted } from "vue";
 import SearchBox from "@/components/SearchBox.vue";
 import PKakao from "@/components/map/PKakao.vue";
+import TagBox from "@/components/TagBox.vue";
 import { useAuthStore } from "@/stores/auth";
+import { useTagStore } from "@/stores/tags";
+import Tagify from "@yaireo/tagify";
 import axios from "axios";
 
 const store = useAuthStore();
+const tagStore = useTagStore();
 
 const pkakaoRef = ref(null);
 const bTitle = ref("");
@@ -20,6 +24,7 @@ const newEntry = reactive({
   upfile: "",
 });
 const entries = ref([]);
+const tagInput = ref(null);
 
 function addEntry() {
   entries.value.push({ ...newEntry });
@@ -56,6 +61,10 @@ const registerPost = async () => {
     const formData = new FormData();
     formData.append("name", store.userData.userInfo.name);
     formData.append("title", bTitle.value);
+
+    let tagValues = tagStore.tags.map((tag) => tag.value);
+    formData.append("tagList", JSON.stringify(tagValues));
+
     entries.value.forEach((entry, index) => {
       if (entry.upfile) {
         formData.append(`upfile`, entry.upfile);
@@ -75,15 +84,11 @@ const registerPost = async () => {
     }
 
     // console.dir(formData);
-    const response = await axios.post(
-      "http://localhost/api/board/write/plan",
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
+    const response = await axios.post("http://localhost/api/board/write/plan", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     console.log(response.data);
   } catch (error) {
     console.log("Error : ", error);
@@ -124,58 +129,23 @@ function handleFileChange(event) {
     </div>
     <form @submit.prevent="addEntry">
       <label for="name">장소</label>
-      <input
-        type="text"
-        id="name"
-        name="name"
-        v-model="newEntry.name"
-        readonly="true"
-      /><br />
-      <input
-        type="hidden"
-        id="place_id"
-        name="place_id"
-        v-model="newEntry.id"
-      />
+      <input type="text" id="name" name="name" v-model="newEntry.name" readonly="true" /><br />
+      <input type="hidden" id="place_id" name="place_id" v-model="newEntry.id" />
       <!-- <MultiImageUpload @images-uploaded="handleImages" /> -->
-      <input
-        type="file"
-        id="upfile"
-        name="upfile"
-        ref="fileInput"
-        @change="handleFileChange"
-      />
+      <input type="file" id="upfile" name="upfile" ref="fileInput" @change="handleFileChange" />
       <br />
       <br />
       <label for="date">날짜</label>
       <input type="date" id="date" name="date" v-model="newEntry.date" /><br />
 
       <label for="time_start">시작 시간</label>
-      <input
-        type="time"
-        id="time_start"
-        name="time_start"
-        v-model="newEntry.timeStart"
-      />
+      <input type="time" id="time_start" name="time_start" v-model="newEntry.timeStart" />
 
       <label for="time_end">종료 시간</label>
-      <input
-        type="time"
-        id="time_end"
-        name="time_end"
-        v-model="newEntry.timeEnd"
-      /><br />
+      <input type="time" id="time_end" name="time_end" v-model="newEntry.timeEnd" /><br />
 
       <label for="description">한줄메모</label>
-      <input
-        type="text"
-        id="description"
-        name="description"
-        v-model="newEntry.description"
-      /><br />
-
-      <label for="tag">태그</label>
-      <input type="text" id="tag" name="tag" v-model="newEntry.tag" /><br />
+      <input type="text" id="description" name="description" v-model="newEntry.description" /><br />
 
       <input type="submit" value="추가" />
     </form>
@@ -184,10 +154,14 @@ function handleFileChange(event) {
       <PKakao ref="pkakaoRef" @clickPlace="handleClickPlace" />
     </div>
   </div>
+  <div>
+    <label for="tag">태그</label>
+    <TagBox />
+  </div>
   <button @click="registerPost">게시물 등록</button>
 </template>
 
-<style scoped>
+<style>
 .container {
   display: flex;
   justify-content: space-between; /* 요소들 사이에 공간을 둡니다 */
