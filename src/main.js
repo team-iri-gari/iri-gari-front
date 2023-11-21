@@ -1,4 +1,3 @@
-// 전역 css
 import './assets/main.css'
 
 import { createApp } from 'vue'

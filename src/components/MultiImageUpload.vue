@@ -21,7 +21,9 @@ async function handleImageUpload(event) {
 
   for (let file of files) {
     try {
-      compressedImages.value.push(URL.createObjectURL(compressedFile));
+      const compressedFile = await compressImage(file); // 이미지 압축
+      const compressedFileUrl = URL.createObjectURL(compressedFile);
+      compressedImages.value.push(compressedFileUrl);
     } catch (error) {
       console.error("Error during image compression:", error);
       alert(`이미지 압축 중 오류가 발생했습니다: ${file.name}`);
