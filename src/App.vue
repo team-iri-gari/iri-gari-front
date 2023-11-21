@@ -1,6 +1,6 @@
 <script setup>
-import { onMounted, onUnmounted } from 'vue';
-import Header from './components/Header.vue';
+import { onMounted, onUnmounted } from "vue";
+import Header from "./components/Header.vue";
 import { useScrollStore } from "@/stores/store";
 
 const scrollStore = useScrollStore();
@@ -12,20 +12,17 @@ function handleScroll() {
 }
 
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll);
+  window.addEventListener("scroll", handleScroll);
 });
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll);
+  window.removeEventListener("scroll", handleScroll);
 });
-
 </script>
 
 <template>
-  <Header />
+  <!-- <Header /> -->
   <RouterView />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

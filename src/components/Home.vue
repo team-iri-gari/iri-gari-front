@@ -114,9 +114,9 @@ function init() {
     var settings = {
       // Images (in the format of 'url': 'alignment').
       images: {
-        "/images/main-bg/bg-city.jpg": "center",
-        "/images/main-bg/bg-nature.jpg": "center",
-        "/images/main-bg/bg-traditional.jpg": "center",
+        "/images/main-bg/bg01.jpg": "center",
+        "/images/main-bg/bg02.jpg": "center",
+        "/images/main-bg/bg03.jpg": "center",
       },
 
       // Delay.
@@ -185,8 +185,8 @@ function init() {
   </section>
 </template>
 
-<style scoped>
-.content {
+<style>
+/* .content {
   height: 90vh;
   width: 100%;
 
@@ -194,5 +194,16 @@ function init() {
   justify-content: center;
   flex-direction: column;
   align-items: center;
+} */
+.is-preload {
+  position: relative;
+  left: 0;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+  line-height: 1;
+  height: 100vh;
 }
 </style>

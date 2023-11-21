@@ -119,14 +119,22 @@ section {
     min-width: 320px;
   }
 }
-/* 
-html {
-  box-sizing: border-box;
-} */
 
+html,
+body,
 section {
-  height: 100%;
-  width: 100%;
+  box-sizing: border-box;
+}
+@media screen and (max-height: 640px) {
+  html,
+  body {
+    height: auto;
+    min-height: 100%;
+  }
+}
+section {
+  height: 100vh;
+  width: 100vmax;
 }
 @media screen and (max-height: 640px) {
   section {
