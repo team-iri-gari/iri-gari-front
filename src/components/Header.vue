@@ -36,9 +36,9 @@ function logout() {
     </div>
     <div v-if="isAuthenticated" class="right-space">
       <RouterLink to="/board/free">BOARD</RouterLink>
-      |
+      &nbsp;&nbsp;|&nbsp;&nbsp;
       <RouterLink to="/user/mypage">MY PAGE</RouterLink>
-      |
+      &nbsp;&nbsp;|&nbsp;&nbsp;
       <a @click="logout()">LOGOUT</a>
     </div>
     <div v-else class="right-space">
