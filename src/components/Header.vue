@@ -68,7 +68,6 @@ function logout() {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #131d2b;
   z-index: 1000;
 }
 
