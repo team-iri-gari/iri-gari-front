@@ -60,10 +60,12 @@ getList();
 
 <style>
 #freeboard-container {
+  color: white;
   overflow-y: hidden;
   height: 50%;
 }
 #planboard-container {
+  color: white;
   overflow-y: hidden;
   height: 50%;
 }

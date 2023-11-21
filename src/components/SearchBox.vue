@@ -36,6 +36,7 @@ const handleSubmit = () => {
 }
 
 .search-input {
+  background-color: #131d2b;
   padding: 10px;
   border: 4px solid #00b4cc;
   border-radius: 5px 0 0 5px;
@@ -54,12 +55,6 @@ const handleSubmit = () => {
 }
 
 .search-button {
-  /* padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer; */
   width: 42px;
   height: 48px;
   border: 1px solid #00b4cc;

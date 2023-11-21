@@ -35,7 +35,9 @@ function checkScroll(event) {
   }
 }
 
-onMounted(addBoxes);
+onMounted(() => {
+  scrollStore.setScrollPosition(0);
+});
 </script>
 
 <template>
@@ -45,6 +47,7 @@ onMounted(addBoxes);
         <Logo />
         <!-- <img src="/images/logo.png" style="height: 300px" /> -->
       </div>
+      <div><p style="color: white">어디든 떠나보아요</p></div>
       <div class="search-container">
         <SearchBox :on-submit-search="onSubmitSearch" style="margin: auto" />
       </div>

@@ -22,10 +22,17 @@ function logout() {
 <template>
   <div id="header">
     <div class="left-space">
-      <RouterLink to="/">이리가리</RouterLink>
+      <RouterLink to="/"
+        ><img
+          src="/images/irigari-ko.png"
+          style="height: 40px; margin-top: 10px"
+      /></RouterLink>
     </div>
     <div class="content">
-      <SearchBox v-show="scrollStore.scrollPosition > 600" />
+      <SearchBox
+        v-show="scrollStore.scrollPosition > 600"
+        style="margin-top: 10px"
+      />
     </div>
     <div v-if="isAuthenticated" class="right-space">
       <RouterLink to="/board/free">BOARD</RouterLink>
@@ -36,7 +43,7 @@ function logout() {
     </div>
     <div v-else class="right-space">
       <RouterLink to="/user/login">LOGIN</RouterLink>
-      |
+      &nbsp;&nbsp;|&nbsp;&nbsp;
       <RouterLink to="/user/join">JOIN</RouterLink>
     </div>
   </div>
@@ -45,31 +52,35 @@ function logout() {
 </template>
 
 <style scoped>
+* {
+  font-family: "Moirai One";
+  font-size: 25px;
+  font-weight: bold;
+}
+
 #header {
   position: fixed;
   top: 0;
   left: 0;
-
   width: 100%;
   height: 50px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   background: #131d2b;
   z-index: 1000;
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
 }
 
 .left-space {
   margin-left: 20px;
   text-align: center;
-  font-family: YanoljaYacheR;
+  /* font-family: YanoljaYacheR; */
   font-size: 20px;
 }
 
 .right-space {
+  display: flex;
+  color: white;
   text-align: center;
   margin-right: 20px;
 }
@@ -85,7 +96,7 @@ function logout() {
 }
 
 #header a {
+  color: white;
   text-decoration: none;
-  color: black;
 }
 </style>

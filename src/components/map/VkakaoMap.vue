@@ -189,13 +189,14 @@ function removeMarker() {
 }
 
 #category li {
+  color: white;
+  font-style: bold;
   width: 100px;
   list-style: none;
   margin: 10px;
   padding: 5px;
   border: 1px solid #ddd; /* 경계선 추가 */
   border-radius: 5px; /* 모서리 둥글게 */
-  background-color: #f9f9f9; /* 배경색 추가 */
   align-self: center;
 }
 
