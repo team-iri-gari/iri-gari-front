@@ -9,7 +9,6 @@ const scrollStore = useScrollStore();
 function handleScroll() {
   const scrollTop = window.scrollY;
   scrollStore.setScrollPosition(scrollTop);
-  console.log(scrollTop);
 }
 
 onMounted(() => {

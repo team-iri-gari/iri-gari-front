@@ -1,30 +1,79 @@
 <template>
     <div id="sandbox">
-        <div class="circle" id="circle1" @mousedown="logEvent">서울</div>
-        <div class="circle" id="circle2">대전</div>
-        <div class="circle" id="circle3">구미</div>
-        <div class="circle" id="circle4">광주</div>
+        <div class="circle" :id="tag.id" :name="tag.name"  v-for="(tag, index) in tags" :key="tag.id" :style="{
+            backgroundColor: tag.color,
+            width: tag.size + 'px',
+            height: tag.size + 'px',
+            lineHeight: tag.size + 'px',
+            fontSize: tag.fontSize + 'px'
+        }" @mousedown="logEvent">
+            {{ tag.name }}
+        </div>
     </div>
 </template>
   
 <script setup>
-import { onMounted, onBeforeUnmount } from 'vue';
+import { onMounted, ref } from 'vue';
 import Matter from 'matter-js';
+import axios from 'axios';
+import { useRouter } from "vue-router";
 
-let engine, render;
+const router = useRouter();
 
-onBeforeUnmount(() => {
-    // 필요한 경우 Matter.js 엔진을 정리합니다.
-});
 
 const Engine = Matter.Engine;
 const Render = Matter.Render;
 const World = Matter.World;
 const Bodies = Matter.Bodies;
 const Body = Matter.Body;
-const Mouse = Matter.Mouse;
-const MouseConstraint = Matter.MouseConstraint;
 const Events = Matter.Events;
+
+let engine, render;
+let tags = ref([])
+
+onMounted(async () => {
+    try {
+        const response = await axios.get('http://localhost/api/tag/recommend');
+        tags.value = response.data;
+        addCircles(tags.value);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+// 랜덤 색상 생성 함수
+const getRandomColor = () => {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+};
+
+const calculateFontSize = (size) => {
+    // 크기에 따라 폰트 사이즈를 계산하되, 최소 폰트 사이즈를 설정할 수 있습니다.
+    const minFontSize = 12; // 최소 폰트 사이즈
+    return Math.max(minFontSize, size / 2); // 예시: 동그라미 크기의 절반, 단 최소 사이즈는 minFontSize
+};
+
+const circles = [];
+
+function addCircles(tags) {
+    tags.forEach((tag, index) => {
+        // hit 값에 따라 크기를 계산
+        const size = calculateSize(tag.hit);
+        const x = 100 + index * 100;
+        const y = 100;
+        const circle = Bodies.circle(x, y, size, { isStatic: false });
+        circles.push(circle);
+        tag.size = size * 2; // DOM 요소의 크기는 반지름의 두 배
+        tag.fontSize = calculateFontSize(tag.size); // 폰트 사이즈 계산 및 할당
+        tag.color = getRandomColor();
+    });
+    World.add(engine.world, circles);
+}
+
 
 engine = Engine.create();
 engine.world.gravity.y = 0;
@@ -40,15 +89,6 @@ render = Render.create({
     }
 });
 
-const circles = [
-    Bodies.circle(80, 100, 40, { isStatic: false }),
-    Bodies.circle(230, 100, 40, { isStatic: false }),
-    Bodies.circle(380, 100, 40, { isStatic: false }),
-    Bodies.circle(400, 100, 40, { isStatic: false })
-];
-
-World.add(engine.world, circles);
-
 Events.on(engine, 'beforeUpdate', () => {
     Matter.Composite.allBodies(engine.world).forEach((body) => {
         if (!body.isStatic) {
@@ -57,23 +97,15 @@ Events.on(engine, 'beforeUpdate', () => {
     });
 });
 
-const mouse = Mouse.create(render.canvas);
-const mouseConstraint = MouseConstraint.create(engine, {
-    mouse: mouse,
-    constraint: {
-        stiffness: 0.2,
-        render: {
-            visible: false
-        }
-    }
-});
-
-World.add(engine.world, mouseConstraint);
-
 requestAnimationFrame(run(engine, circles));
 
 Engine.run(engine);
 Render.run(render);
+
+const calculateSize = (hit) => {
+    // 예: hit 값의 제곱근에 10을 곱하여 크기를 계산
+    return Math.sqrt(hit) * 20;
+};
 
 function run(engine, bodies) {
     return () => {
@@ -81,10 +113,10 @@ function run(engine, bodies) {
         Engine.update(engine);
 
         bodies.forEach((body, index) => {
-            let element = document.getElementById('circle' + (index + 1));
+            let element = document.getElementById(tags.value[index].id);
             if (element) {
-                let x = body.position.x - 40;
-                let y = body.position.y - 40;
+                let x = body.position.x - calculateSize(tags.value[index].hit);
+                let y = body.position.y - calculateSize(tags.value[index].hit);
                 element.style.transform = `translate(${x}px, ${y}px)`;
             }
         });
@@ -105,9 +137,11 @@ function applyGravity(body) {
     Body.applyForce(body, body.position, gravity);
 }
 
-function logEvent() {
-    console.log("!!!");
+function logEvent(event) {
+    console.log(event.target.getAttribute('name'));
+    router.push('/search/' + event.target.getAttribute('name'));
 }
+
 </script>
   
 <style>
@@ -117,31 +151,13 @@ function logEvent() {
 }
 
 .circle {
+    font-family: YanoljaYacheR;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: aliceblue;
+    color: rgb(255, 255, 255);
     position: absolute;
     border-radius: 50%;
-    line-height: 40px;
-    width: 80px;
-    height: 80px;
-}
-
-#circle1 {
-    background-color: #4CAF50;
-}
-
-#circle2 {
-    background-color: aqua;
-}
-
-#circle3 {
-    background-color: crimson;
-}
-
-#circle4 {
-    background-color: bisque;
 }
 </style>
   
