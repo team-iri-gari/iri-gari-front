@@ -1,46 +1,59 @@
 <script setup>
 import axios from 'axios';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
-const username = ref('');
+const router = useRouter();
+
+const email = ref('');
+const name = ref('');
+const id = ref('');
 const password = ref('');
 
-const login = async () => {
-    try {
-        const response = await axios.post(`http://localhost/api/member/${username.value}`, {
-            id: username.value,
-            password: password.value,
-            userName: "",
-            email: "",
-        });
-        console.log(response);
-        if (response.data) {
-            localStorage.setItem('token', response.data);
-            alert("로그인 성공");
-        } else {
-            alert("로그인 실패");
+const register = async () => {
+    await axios.post('http://localhost/api/member', {
+        email: email.value,
+        name: name.value,
+        id: id.value,
+        password: password.value
+    }).then(response => {
+        if (response.status === 201) {
+            console.log(response);
+            console.log("회원가입 성공", response.data);
+            alert("회원가입 성공");
+            router.push('/user/login');
         }
-    } catch (error) {
+        else
+            alert("회원가입 실패");
+    }).catch(error => {
         console.error('Error:', error);
-    }
+    });
 };
 </script>
 
 <template>
     <div id="container">
-        <div class="login-container">
+        <div class="join-container">
             <div class="logo">JOIN</div>
-            <form class="login-form">
+            <form class="join-form" @submit.prevent="register">
                 <div class="form-group">
-                    <label for="username">ID</label>
-                    <input type="text" id="username" name="username" required>
+                    <label for="id">아이디</label>
+                    <input type="text" id="id" v-model="id" required>
                 </div>
                 <div class="form-group">
-                    <label for="password">PASSWORD</label>
-                    <input type="password" id="password" name="password" required>
+                    <label for="email">이메일</label>
+                    <input type="email" id="email" v-model="email" required>
                 </div>
                 <div class="form-group">
-                    <button type="button" class="login-button" @click.prevent="login">LOGIN</button>
+                    <label for="name">이름</label>
+                    <input type="text" id="name" v-model="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">비밀번호</label>
+                    <input type="password" id="password" v-model="password" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="join-button">가입하기</button>
                 </div>
             </form>
         </div>
@@ -49,43 +62,30 @@ const login = async () => {
   
 <style scoped>
 #container {
-    height: 60vh;
-
+    height: 100vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.login-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.join-container {
     width: 100%;
     max-width: 400px;
-    margin: auto;
     padding: 40px;
     background-color: #fff;
     border-radius: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transform: translateY(-50%);
-    top: 50%;
     position: relative;
-    transition: box-shadow 0.3s ease-in-out;
-}
-
-.login-container:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .logo {
     font-size: 36px;
-    color: #3b854e;
+    color: #4a90e2;
     margin-bottom: 30px;
+    text-align: center;
 }
 
-.login-form {
+.join-form {
     width: 100%;
 }
 
@@ -103,36 +103,32 @@ const login = async () => {
 .form-group input {
     width: 100%;
     padding: 12px;
-    border: 2px solid #ddd;
+    border: 1px solid #ddd;
     border-radius: 8px;
-    box-sizing: border-box;
     font-size: 16px;
-    transition: border-color 0.2s;
 }
 
 .form-group input:focus {
     outline: none;
-    border-color: #5ea15d;
+    border-color: #4a90e2;
 }
 
-.login-button {
+.join-button {
     width: 100%;
-    padding: 12px 20px;
+    padding: 12px 0;
     border: none;
     border-radius: 8px;
-    background-color: #5ea15d;
+    background-color: #4a90e2;
     color: white;
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s;
 }
 
-.login-button:hover {
-    background-color: #3b854e;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+.join-button:hover {
+    background-color: #357ABD;
 }
 </style>
+
   

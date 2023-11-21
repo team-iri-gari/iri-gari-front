@@ -4,6 +4,19 @@ html body {
   margin: 0;
 }
 
+::-webkit-scrollbar {
+  width: 10px;  
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(167, 167, 167);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
 @font-face {
   font-family: "YanoljaYacheR";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/YanoljaYacheR.woff")
