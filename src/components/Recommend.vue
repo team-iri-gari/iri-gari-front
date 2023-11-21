@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="sandbox">
         <div class="circle" id="circle1" @mousedown="logEvent">서울</div>
         <div class="circle" id="circle2">대전</div>
         <div class="circle" id="circle3">구미</div>
@@ -30,7 +30,7 @@ engine = Engine.create();
 engine.world.gravity.y = 0;
 
 render = Render.create({
-    element: document.body,
+    element: document.getElementById('sandbox'),
     engine: engine,
     options: {
         width: window.innerWidth,
@@ -111,6 +111,11 @@ function logEvent() {
 </script>
   
 <style>
+#sandbox {
+    height: 90vh;
+    width: 100%;
+}
+
 .circle {
     display: flex;
     justify-content: center;

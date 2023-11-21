@@ -33,7 +33,6 @@ import { ref, onMounted } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 //import MultiImageUpload from '../components/MultiImageUpload.vue';
 import axios from 'axios';
-import Tagify from "@yaireo/tagify";
 import TagBox from '@/components/TagBox.vue';
 import { useTagStore } from '@/stores/tags';
 
@@ -81,31 +80,6 @@ const submitBoard = async () => {
 const cancelBoard = () => {
 
 };
-
-const tagInput = ref(null);
-
-onMounted(() => {
-    const tagify = new Tagify(tagInput.value, {
-        // 태그를 분리할 구분자 설정 (예: 쉼표)
-        delimiters: ",",
-        // 입력에 대한 즉각적인 반응을 위해 dropdown.enabled 설정 조정
-        dropdown: {
-            enabled: 1 // 1글자를 입력한 후 드롭다운 활성화
-        }
-    });
-
-    tagify.on('add', e => {
-        console.log('Tag added:', e.detail.data);
-    });
-
-    tagify.on('remove', e => {
-        console.log('Tag removed:', e.detail.data);
-    });
-
-    tagify.on('input', e => {
-        console.log('Input:', e.detail.value);
-    });
-});
 
 </script>
   
