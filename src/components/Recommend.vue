@@ -1,6 +1,6 @@
 <template>
     <div id="sandbox">
-        <div class="circle" :id="tag.id" :name="tag.name"  v-for="(tag, index) in tags" :key="tag.id" :style="{
+        <div class="circle" :id="tag.id" :name="tag.name" v-for="(tag, index) in tags" :key="tag.id" :style="{
             backgroundColor: tag.color,
             width: tag.size + 'px',
             height: tag.size + 'px',
