@@ -48,7 +48,7 @@ function logout() {
     </div>
   </div>
 
-  <div id="bomper">back</div>
+  <div id="bomper"></div>
 </template>
 
 <style scoped>
