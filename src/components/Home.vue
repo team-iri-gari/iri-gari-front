@@ -181,11 +181,14 @@ function init() {
     <div id="logo">
       <Logo />
     </div>
-    <SearchBox :on-submit-search="onSubmitSearch" style="margin: auto" />
+    <div id="banner">
+      <img src="/images/logo/irigari-en.png" style="height: 13dvh" />
+      <SearchBox :on-submit-search="onSubmitSearch" style="margin: auto" />
+    </div>
   </section>
 </template>
 
-<style>
+<style scoped>
 /* .content {
   height: 90vh;
   width: 100%;
@@ -196,6 +199,7 @@ function init() {
   align-items: center;
 } */
 .is-preload {
+  display: flex;
   position: relative;
   left: 0;
   top: 0;
@@ -205,5 +209,13 @@ function init() {
   vertical-align: baseline;
   line-height: 1;
   height: 100vh;
+}
+#logo {
+  margin-left: 15px;
+}
+#banner {
+  justify-self: center;
+  margin: auto 0 auto 15px;
+  z-index: 16;
 }
 </style>

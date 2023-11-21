@@ -21,7 +21,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <!-- <Header /> -->
+  <Header />
   <RouterView />
 </template>
 

@@ -24,7 +24,12 @@ function logout() {
     <div class="left-space">
       <RouterLink to="/"
         ><img
-          src="/images/irigari-ko.png"
+          v-if="scrollStore.scrollPosition <= 600"
+          src="/images/logo/irigari-ko.png"
+          style="height: 40px; margin-top: 10px" />
+        <img
+          v-if="scrollStore.scrollPosition > 600"
+          src="/images/logo/irigari-blue.png"
           style="height: 40px; margin-top: 10px"
       /></RouterLink>
     </div>
@@ -48,7 +53,7 @@ function logout() {
     </div>
   </div>
 
-  <div id="bomper"></div>
+  <!-- <div id="bomper"></div> -->
 </template>
 
 <style scoped>
@@ -71,6 +76,10 @@ function logout() {
   z-index: 1000;
 }
 
+#header {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.075);
+}
+
 .left-space {
   margin-left: 20px;
   text-align: center;
@@ -89,10 +98,6 @@ function logout() {
   flex-grow: 1;
   padding: 10px;
   text-align: center;
-}
-
-#bomper {
-  height: 50px;
 }
 
 #header a {

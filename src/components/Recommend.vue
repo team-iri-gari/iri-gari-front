@@ -152,9 +152,12 @@ function logEvent(event) {
 
 <style>
 #sandbox {
+  position: relative;
   height: 100vh;
   width: 100%;
   box-sizing: border-box;
+  z-index: 5;
+  background-color: white;
 }
 
 .circle {
