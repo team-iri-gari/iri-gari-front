@@ -35,6 +35,9 @@ import { useAuthStore } from '@/stores/auth';
 import axios from 'axios';
 import TagBox from '@/components/TagBox.vue';
 import { useTagStore } from '@/stores/tags';
+import { useRouter, useRoute } from 'vue-router';
+
+const router = useRouter();
 
 const store = useAuthStore();
 const tagStore = useTagStore();
@@ -43,10 +46,6 @@ const boardTitle = ref('');
 const boardContent = ref('');
 
 const fileInput = ref(null);
-
-const printTags = () => {
-    console.log('현재 태그:', tagStore.tags);
-};
 
 const submitBoard = async () => {
     try {
@@ -72,6 +71,7 @@ const submitBoard = async () => {
             }
         });
         console.log(response.data);
+        router.push('/board/free');
     } catch (error) {
         console.error('Error:', error);
     }

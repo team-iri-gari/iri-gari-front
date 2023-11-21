@@ -30,6 +30,7 @@ onMounted(() => {
 <template>
   <div>
     <h1>여행 기록</h1>
+    <p><RouterLink to="/board/free">자유 게시판</RouterLink></p>
     <router-link to="/write/plan">글작성</router-link>
     <br />
     <br />

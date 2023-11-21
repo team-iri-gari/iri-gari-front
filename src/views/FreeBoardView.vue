@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>자유게시판</h1>
+    <p><RouterLink to="/board/plan">여행 계획</RouterLink></p>
     <RouterLink to="/write/free">글작성</RouterLink>
     <table>
       <thead>

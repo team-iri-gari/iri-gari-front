@@ -6,6 +6,7 @@
         <div v-for="p in photo" :key="image">
             <img :src="`https://iri-gari-image-server.s3.ap-northeast-2.amazonaws.com/${p.saveFolder}/${p.saveFile}`" alt="Post Image" />
         </div>
+        <p>{{ post.tagList }}</p>
         <p>{{ post.content }}</p>
         <button @click="goBack">목록으로 돌아가기</button>
     </div>
@@ -25,11 +26,10 @@ const fetchPost = async () => {
     try {
         let response = await axios.get(`http://localhost/api/board/free/${route.params.id}`);
         post.value = response.data;
-        console.log(response.data)
 
         response = await axios.get(`http://localhost/api/board/photo/${route.params.id}`);
         photo.value = response.data;
-        console.log(response.data)
+
     } catch (error) {
         console.error('Error fetching post:', error);
         // 적절한 오류 처리 (예: 사용자에게 메시지 표시, 페이지 리디렉션 등)
