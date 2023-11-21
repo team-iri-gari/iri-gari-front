@@ -63,9 +63,10 @@ function addCircles(tags) {
     tags.forEach((tag, index) => {
         // hit 값에 따라 크기를 계산
         const size = calculateSize(tag.hit);
+        const mass = tag.hit; // 질량 계산 함수를 따로 만들거나 직접 계산
         const x = 100 + index * 100;
         const y = 100;
-        const circle = Bodies.circle(x, y, size, { isStatic: false });
+        const circle = Bodies.circle(x, y, size, { isStatic: false, mass: mass });
         circles.push(circle);
         tag.size = size * 2; // DOM 요소의 크기는 반지름의 두 배
         tag.fontSize = calculateFontSize(tag.size); // 폰트 사이즈 계산 및 할당

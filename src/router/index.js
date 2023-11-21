@@ -77,11 +77,25 @@ const router = createRouter({
           path: "free",
           name: "write-free",
           component: WriteView, // Free writing view component
+          beforeEnter: (to, from, next) => {
+            const authStore = useAuthStore();
+            if (!authStore.isAuthenticated) {
+              alert("로그인이 필요한 서비스입니다.");
+              next("/user/login");
+            } else next();
+          },
         },
         {
           path: "plan",
           name: "write-plan",
           component: PlanWriteView, // Plan writing view component
+          beforeEnter: (to, from, next) => {
+            const authStore = useAuthStore();
+            if (!authStore.isAuthenticated) {
+              alert("로그인이 필요한 서비스입니다.");
+              next("/user/login");
+            } else next();
+          },
         },
       ],
     },

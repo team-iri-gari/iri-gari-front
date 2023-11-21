@@ -7,7 +7,9 @@ import { useAuthStore } from "@/stores/auth";
 import { useTagStore } from "@/stores/tags";
 import Tagify from "@yaireo/tagify";
 import axios from "axios";
+import { useRouter, useRoute } from 'vue-router';
 
+const router = useRouter();
 const store = useAuthStore();
 const tagStore = useTagStore();
 
@@ -58,8 +60,6 @@ const handleClickPlace = (placeInfo) => {
 
 const registerPost = async () => {
   try {
-    console.log(entries.value);
-    console.log(store.userData.userInfo.name);
     const formData = new FormData();
     formData.append("name", store.userData.userInfo.name);
     formData.append("title", bTitle.value);
@@ -96,6 +96,7 @@ const registerPost = async () => {
       }
     );
     console.log(response.data);
+    router.push('/board/free');
   } catch (error) {
     console.log("Error : ", error);
   }
