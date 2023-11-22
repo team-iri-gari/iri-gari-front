@@ -27,14 +27,12 @@ onMounted(async () => {
 <template>
   <div id="background">
     <h1>{{ store.userData?.userInfo?.name }}님의 스페이스</h1>
-
     <div id="container">
       <div id="profile">
         <Profile />
         <h3>{{ store.userData?.userInfo?.id }}</h3>
         <h3>{{ store.userData?.userInfo?.email }}</h3>
       </div>
-
       <div id="neighbor">
         <h2>내 이웃</h2>
         <ul class="neighbor-list">
@@ -46,7 +44,12 @@ onMounted(async () => {
         <h2>내 이웃의 최신 글</h2>
         <CardBoard :cards="neighborsPosts" :cardSize="'150px'" />
       </div>
-
+    </div>
+    <div id="bookmark-buttons">
+      <button class="bookmark-button">마이페이지</button>
+      <button class="bookmark-button">내글 보기</button>
+      <button class="bookmark-button">내 이웃</button>
+      <button class="bookmark-button">기타</button>
     </div>
   </div>
 </template>
@@ -60,7 +63,7 @@ onMounted(async () => {
   align-items: center;
 
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 #container {
@@ -74,9 +77,8 @@ onMounted(async () => {
   border-radius: 10px;
   padding: 20px;
 
-
   width: 80vw;
-  height: 80vh;
+  min-height: 80vh;
 }
 
 #profile {
@@ -114,4 +116,30 @@ h1 {
   flex-wrap: wrap;
 }
 
+#bookmark-buttons {
+  position: absolute;
+  top: calc(50% - 35vh);
+  right: calc(10vw - 70px);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.bookmark-button {
+  background-color: cornflowerblue;
+  border-radius: 5px;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.bookmark-button:hover {
+  background-color: #e0e0e0;
+}
+
+@media screen and (max-width: 860px) {
+  #bookmark-buttons {
+    position: fixed;
+  }
+}
 </style>
