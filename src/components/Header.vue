@@ -2,9 +2,16 @@
 import { onMounted, computed } from "vue";
 import { useAuthStore } from "@/stores/auth";
 import { useScrollStore } from "@/stores/store";
-import SearchBox from "@/components/SearchBox.vue";
+import { useRouter } from "vue-router";
+import SearchBox1 from "./SearchBox1.vue";
 
 const scrollStore = useScrollStore();
+
+const router = useRouter();
+
+const onSubmitSearch = (keyword) => {
+  router.push(`/search/${encodeURIComponent(keyword)}`);
+};
 
 const store = useAuthStore();
 const isAuthenticated = computed(() => store.isAuthenticated);
@@ -23,21 +30,20 @@ function logout() {
   <div id="header">
     <div class="left-space">
       <RouterLink to="/"
-        ><img
-          v-if="scrollStore.scrollPosition <= 600"
-          src="/images/logo/irigari-ko.png"
-          style="height: 40px; margin-top: 10px" />
-        <img
+        ><img src="/images/logo/irigari-ko.png" style="height: 40px; margin-top: 10px" />
+        <!-- <img
           v-if="scrollStore.scrollPosition > 600"
           src="/images/logo/irigari-blue.png"
           style="height: 40px; margin-top: 10px"
-      /></RouterLink>
+      /> -->
+      </RouterLink>
     </div>
     <div class="content">
-      <SearchBox
+      <SearchBox1 />
+      <!-- <SearchBox
         v-show="scrollStore.scrollPosition > 600"
         style="margin-top: 10px"
-      />
+      /> -->
     </div>
     <div v-if="isAuthenticated" class="right-space">
       <RouterLink to="/board/free">BOARD</RouterLink>
@@ -64,7 +70,6 @@ function logout() {
 }
 
 #header {
-  z-index: 1000;
   position: fixed;
   top: 0;
   left: 0;
@@ -95,8 +100,8 @@ function logout() {
 }
 
 .content {
+  margin: 0 auto 0 auto;
   flex-grow: 1;
-  padding: 10px;
   text-align: center;
 }
 
