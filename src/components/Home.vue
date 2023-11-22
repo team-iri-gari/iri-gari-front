@@ -114,7 +114,7 @@ function init() {
       v;
 
     // Create BG wrapper, BGs.
-    wrapper = document.getElementById("bg")
+    wrapper = document.getElementById("bg");
     $section.appendChild(wrapper);
 
     for (k in settings.images) {
@@ -165,14 +165,51 @@ function init() {
     </div>
     <div id="banner">
       <img src="/images/logo/irigari-en.png" style="height: 13dvh" />
-      <SearchBox1 />
-      <!-- <SearchBox :on-submit-search="onSubmitSearch" style="margin: auto" /> -->
+      <!-- <SearchBox1 /> -->
+      <SearchBox :on-submit-search="onSubmitSearch" style="margin: auto" />
     </div>
     <div id="bg"></div>
   </section>
 </template>
 
 <style scoped>
+section {
+  box-sizing: border-box;
+}
+
+section {
+  height: 100vh;
+  width: 100vmax;
+}
+
+section {
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -moz-justify-content: center;
+  -webkit-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+  background-color: #000;
+  padding: 6em 4em 4em 4em;
+}
+section.is-preload *,
+section.is-preload *:before,
+section.is-preload *:after {
+  -moz-animation: none !important;
+  -webkit-animation: none !important;
+  -ms-animation: none !important;
+  animation: none !important;
+  -moz-transition: none !important;
+  -webkit-transition: none !important;
+  -ms-transition: none !important;
+  transition: none !important;
+}
+section > * {
+  position: relative;
+  z-index: 2;
+}
 /* .content {
   height: 90vh;
   width: 100%;
@@ -207,5 +244,4 @@ function init() {
   margin: auto 0 auto 15px;
   z-index: 16;
 }
-
 </style>

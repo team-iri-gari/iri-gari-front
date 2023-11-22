@@ -1,8 +1,20 @@
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+
+const keyword = ref("");
+const router = useRouter();
+
+const submitSearch = () => {
+  if (keyword.value) {
+    router.push(`/search/${encodeURIComponent(keyword)}`);
+  }
+};
+</script>
 
 <template>
   <div class="search">
-    <input type="text" placeholder=" " />
+    <input type="text" v-model="keyword" placeholder=" " @keyup.enter="submitSearch" />
     <div>
       <svg xmlns="http://www.w3.org/2000/svg">
         <path
@@ -103,7 +115,7 @@ $color: #fff;
   bottom: 24px;
   img {
     display: block;
-    width: 76px;
+    width: 100px;
   }
 }
 </style>
