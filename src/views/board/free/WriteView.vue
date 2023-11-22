@@ -23,8 +23,8 @@
 
         <input type="file" id="files" ref="fileInput" multiple>
 
-        <button @click="submitBoard">등록</button>
-        <button @click="cancelBoard">취소</button>
+        <button type="button" @click="submitBoard">등록</button>
+        <button type="button" @click="cancelBoard">취소</button>
     </form>
 </template>
   
@@ -78,7 +78,7 @@ const submitBoard = async () => {
 };
 
 const cancelBoard = () => {
-
+     router.back();
 };
 
 </script>
