@@ -23,78 +23,127 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div>
-    <h1>{{ store.userData?.userInfo?.name }}님의 마이 페이지</h1>
+  <div id="background">
+    <h1>{{ store.userData?.userInfo?.name }}님의 스페이스</h1>
 
-    <div>
-      <Profile />
-      <h3>{{ store.userData?.userInfo?.id }}</h3>
-      <h3>{{ store.userData?.userInfo?.email }}</h3>
-    </div>
-    <div>
-      <h1>내 이웃</h1>
-      <ul class="neighbor-list">
-        <li v-for="neighbor in neighbors" :key="neighbor.id" class="neighbor-item">
-          <Profile :user="neighbor" />
-          {{ neighbor.memberB }}
-        </li>
-      </ul>
-    </div>
-    <div>
-      <h2>내 이웃의 최신 글</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>번호</th>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>작성일</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="post in neighborsPosts" :key="post.id">
-            <td>{{ post.articleId }}</td>
-            <td @click="goToPost(post.articleId)">{{ post.title }}</td>
-            <td>{{ post.name }}</td>
-            <td>{{ post.regDate }}</td>
-          </tr>
-        </tbody>
-      </table>
+    <div id="container">
+      <div id="profile">
+        <Profile />
+        <h3>{{ store.userData?.userInfo?.id }}</h3>
+        <h3>{{ store.userData?.userInfo?.email }}</h3>
+      </div>
+
+      <div id="neighbor">
+        <h2>내 이웃</h2>
+        <ul class="neighbor-list">
+          <li class="neighbor-profile"  v-for="neighbor in neighbors" :key="neighbor.id" >
+            <Profile :user="neighbor" size="50"/>
+            {{ neighbor.memberB }}
+          </li>
+        </ul>
+        <h2>내 이웃의 최신 글</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>번호</th>
+              <th>제목</th>
+              <th>작성자</th>
+              <th>작성일</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="post in neighborsPosts" :key="post.id">
+              <td>{{ post.articleId }}</td>
+              <td @click="goToPost(post.articleId)">{{ post.title }}</td>
+              <td>{{ post.name }}</td>
+              <td>{{ post.regDate }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
     </div>
   </div>
 </template>
 
 <style scoped>
+#background {
+  display: flex;
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100vh;
+}
+
+#container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+  background-color: white;
+  border: 2px dashed;
+  border-radius: 10px;
+  padding: 20px;
+
+
+  width: 80vw;
+  height: 80vh;
+}
+
+#profile {
+  border-right: 2px solid #000000;
+  padding: 20px;
+}
+
+@media screen and (max-width: 860px) {
+  #profile {
+    border-right: none;
+    border-bottom: 2px solid #000000; /* 화면이 좁아졌을 때 가로선으로 변경 */
+  }
+}
+
+#neighbor {
+  width: 50vw;
+  padding: 10px;
+}
+
+h1 {
+  color: white;
+  width: 80vw;
+}
+.neighbor-profile {
+  width: 50px;
+  height: 70px;
+  margin-right: 10px;
+  flex: 0 0 auto;
+}
+
+
+
 .neighbor-list {
   display: flex;
   list-style-type: none;
-  /* 리스트 마커를 제거합니다. */
   padding: 0;
-  /* 기본 패딩을 제거합니다. */
   flex-wrap: wrap;
-  /* 요소들이 넘치면 다음 줄로 넘어갈 수 있도록 합니다. */
-}
-
-.neighbor-item {
-  margin-right: 10px;
-  /* 항목 사이의 간격을 조정합니다. */
-  flex: 0 0 auto;
-  /* 항목의 크기가 내용에 따라 결정되도록 합니다. */
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
 th,
 td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
 }
 
 th {
-    background-color: #f4f4f4;
+  background-color: #f4f4f4;
 }
 </style>

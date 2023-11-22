@@ -1,12 +1,20 @@
 <template>
     <div class="profile-container">
-        <img :src="catImageUrl" alt="Cat Profile Image" class="profile-image" />
+        <img :src="catImageUrl" alt="Cat Profile Image" class="profile-image" :style="{ width: size + 'px', height: size + 'px' }" />
     </div>
 </template>
+
   
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, defineProps } from 'vue';
 import axios from 'axios';
+
+const props = defineProps({
+    size: {
+        type: Number,
+        default: 200 // 기본 크기는 200px
+    }
+});
 
 const catImageUrl = ref('');
 
@@ -33,11 +41,9 @@ const fetchCatImage = async () => {
 }
 
 .profile-image {
-    border-radius: 50%;
-    /* 이미지를 동그랗게 만듭니다 */
-    width: 200px;
-    height: 200px;
+    border-radius: 50%; /* 이미지를 동그랗게 만듭니다 */
     object-fit: cover;
 }
 </style>
+
   
