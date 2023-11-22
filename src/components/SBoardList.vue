@@ -11,11 +11,15 @@ const pbList = ref({});
 async function getList() {
   console.log(searchStore.keyword);
   fbList.value = (
-    await axios.get(`http://localhost/api/board/search/free?keyword=${searchStore.keyword}`)
+    await axios.get(
+      `http://localhost/api/board/search/free?keyword=${searchStore.keyword}`
+    )
   ).data;
 
   pbList.value = (
-    await axios.get(`http://localhost/api/board/search/plan?keyword=${searchStore.keyword}`)
+    await axios.get(
+      `http://localhost/api/board/search/plan?keyword=${searchStore.keyword}`
+    )
   ).data;
 }
 
@@ -44,7 +48,11 @@ const goToBoard = (type) => {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(farticle, index) in fbList" v-if="index < 5" :key="farticle.article_id">
+          <tr
+            v-for="(farticle, index) in fbList"
+            v-if="index < 5"
+            :key="farticle.article_id"
+          >
             <td>
               <a href="">{{ farticle.title }}</a>
             </td>
@@ -74,7 +82,11 @@ const goToBoard = (type) => {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(particle, index) in pbList" v-if="index < 5" :key="particle.article_id">
+          <tr
+            v-for="(particle, index) in pbList"
+            v-if="index < 5"
+            :key="particle.article_id"
+          >
             <td>
               <a href="">{{ particle.title }}</a>
             </td>
@@ -100,12 +112,12 @@ table {
   border-collapse: collapse;
   width: 400px;
   border-spacing: 0;
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #858585;
+  border-bottom: 1px solid #858585;
 }
 .boardList a {
   text-decoration: none;
-  color: #ffffff;
+  color: black;
   display: inline-block;
   line-height: 1.4;
   word-break: break-all;
@@ -113,7 +125,7 @@ table {
 }
 .boardList a:hover {
   text-decoration: underline;
-  color: white;
+  color: rgb(9, 152, 152);
 }
 .boardList th {
   text-align: center;
@@ -123,7 +135,7 @@ table {
   padding-bottom: 5px;
 }
 .boardList tbody td {
-  border-top: 1px solid #85858560;
+  border-top: 1px solid #867d7d;
   text-align: center;
 }
 .board-title {
@@ -135,15 +147,12 @@ table {
 }
 .more-button a {
   text-decoration: none;
-  color: white;
 }
 #freeboard-container {
-  color: white;
   overflow-y: hidden;
   height: 50%;
 }
 #planboard-container {
-  color: white;
   overflow-y: hidden;
   height: 50%;
 }

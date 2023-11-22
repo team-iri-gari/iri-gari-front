@@ -206,7 +206,8 @@ function removeMarker() {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  box-shadow: -2px -2px 5px rgba(255, 255, 255, 1), 3px 3px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: -2px -2px 5px rgba(255, 255, 255, 1),
+    3px 3px 5px rgba(0, 0, 0, 0.1);
 }
 ul {
   display: flex;
@@ -216,13 +217,15 @@ ul {
   padding-inline-start: 0;
 
   & li {
-    display: list-item;
+    display: inherit;
     position: relative;
     width: 100px;
     list-style: none;
     margin: 10px;
     padding: 5px;
     text-align: center;
+    align-items: center;
+    justify-content: center;
 
     & label {
       position: relative;
@@ -234,7 +237,8 @@ ul {
       }
 
       & :checked ~ .icon-box {
-        box-shadow: inset -2px -2px 5px rgba(255, 255, 255, 1), inset 3px 3px 5px rgba(0, 0, 0, 0.1);
+        box-shadow: inset -2px -2px 5px rgba(255, 255, 255, 1),
+          inset 3px 3px 5px rgba(0, 0, 0, 0.1);
 
         & .fa {
           transform: scale(0.95);
@@ -248,7 +252,8 @@ ul {
         display: flex;
         justify-content: center;
         align-items: center;
-        box-shadow: -2px -2px 5px rgba(255, 255, 255, 1), 3px 3px 5px rgba(0, 0, 0, 0.1);
+        box-shadow: -2px -2px 5px rgba(255, 255, 255, 1),
+          3px 3px 5px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
 
         & .fa {
