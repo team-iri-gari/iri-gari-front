@@ -8,6 +8,7 @@ import SearchView from "@/views/SearchView.vue";
 import LoginView from "@/views/user/LoginView.vue";
 import JoinView from "@/views/user/JoinView.vue";
 import MyPageView from "@/views/user/MyPageView.vue";
+import MyBoardView from "@/views/user/MyBoardView.vue";
 
 //free board
 import FreeBoardListView from "@/views/board/free/ListView.vue";
@@ -70,6 +71,12 @@ const router = createRouter({
           path: "mypage",
           name: "mypage",
           component: MyPageView,
+          beforeEnter: requireAuth,
+        },
+        {
+          path: "board",
+          name: "user-board",
+          component: MyBoardView,
           beforeEnter: requireAuth,
         },
       ],
