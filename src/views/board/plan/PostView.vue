@@ -47,24 +47,23 @@ onMounted(() => {
 </template>
 
 <style scoped>
-h1 {
-  color: white;
-}
 .post-wrapper {
   display: flex;
+  background-color: #eef6fc;
 }
 .plans-container {
+  background-color: #eef6fc;
   max-width: 800px;
   margin: 50px auto;
   padding: 20px;
+  box-shadow: -2px -2px 5px rgba(255, 255, 255, 1), 3px 3px 5px rgba(0, 0, 0, 0.1);
 }
 .map-container {
   display: flex;
-  width: 60%;
+  width: 70%;
   height: 100vh;
   justify-content: center;
   align-items: center;
-  margin: auto;
 }
 .plan-card {
   display: flex;
@@ -96,13 +95,13 @@ h1 {
 .place-name {
   font-size: 18px;
   font-weight: bold;
-  color: white;
+  color: rgb(37, 25, 25);
   margin: 0;
 }
 
 .plan-date {
   font-size: 14px;
-  color: #bdbdbd;
+  color: #5a4b4b;
   margin-top: 8px;
 }
 </style>
