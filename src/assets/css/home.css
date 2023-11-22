@@ -168,7 +168,7 @@ section.is-preload *:after {
   transition: none !important;
 }
 body > * {
-  position: relative;
+  /* position: relative; */
   z-index: 2;
 }
 @media screen and (max-width: 736px) {
@@ -217,10 +217,10 @@ body > * {
   animation: bg 45s linear infinite;
   opacity: 1;
   visibility: visible;
-  z-index: 1;
+  z-index: 2;
 }
 #bg div.visible.top {
-  z-index: 2;
+  z-index: 3;
 }
 @media screen and (max-width: 1280px) {
   #bg div.visible {
@@ -313,7 +313,6 @@ body,
 input,
 select,
 textarea {
-  color: rgba(255, 255, 255, 0.75);
   font-family: "Roboto", sans-serif;
   font-size: 16pt;
   font-weight: 400;
