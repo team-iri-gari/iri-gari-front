@@ -120,8 +120,6 @@ section {
   }
 }
 
-html,
-body,
 section {
   box-sizing: border-box;
 }
@@ -309,16 +307,7 @@ body.is-preload #bg {
 }
 
 /* Type */
-body,
-input,
-select,
-textarea {
-  font-family: "Roboto", sans-serif;
-  font-size: 16pt;
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  line-height: 1.65em;
-}
+
 @media screen and (max-width: 1680px) {
   body,
   input,

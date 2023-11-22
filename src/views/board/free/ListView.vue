@@ -46,7 +46,7 @@ const getPosts = async () => {
 const router = useRouter();
 
 const goToPost = (postId) => {
-  router.push(`/fpost/${postId}`);
+  router.push(`/post/free/${postId}`);
 };
 
 onMounted(() => {

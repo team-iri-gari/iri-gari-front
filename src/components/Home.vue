@@ -24,32 +24,20 @@ function init() {
   !(function () {
     function t(t) {
       this.el = t;
-      for (
-        var n = t.className.replace(/^\s+|\s+$/g, "").split(/\s+/), i = 0;
-        i < n.length;
-        i++
-      )
+      for (var n = t.className.replace(/^\s+|\s+$/g, "").split(/\s+/), i = 0; i < n.length; i++)
         e.call(this, n[i]);
     }
     function n(t, n, i) {
-      Object.defineProperty
-        ? Object.defineProperty(t, n, { get: i })
-        : t.__defineGetter__(n, i);
+      Object.defineProperty ? Object.defineProperty(t, n, { get: i }) : t.__defineGetter__(n, i);
     }
-    if (
-      !(
-        "undefined" == typeof window.Element ||
-        "classList" in document.documentElement
-      )
-    ) {
+    if (!("undefined" == typeof window.Element || "classList" in document.documentElement)) {
       var i = Array.prototype,
         e = i.push,
         s = i.splice,
         o = i.join;
       (t.prototype = {
         add: function (t) {
-          this.contains(t) ||
-            (e.call(this, t), (this.el.className = this.toString()));
+          this.contains(t) || (e.call(this, t), (this.el.className = this.toString()));
         },
         contains: function (t) {
           return -1 != this.el.className.indexOf(t);
@@ -67,9 +55,7 @@ function init() {
           return o.call(this, " ");
         },
         toggle: function (t) {
-          return (
-            this.contains(t) ? this.remove(t) : this.add(t), this.contains(t)
-          );
+          return this.contains(t) ? this.remove(t) : this.add(t), this.contains(t);
         },
       }),
         (window.DOMTokenList = t),
@@ -84,13 +70,7 @@ function init() {
     if (!window._canUse) window._canUse = document.createElement("div");
     var e = window._canUse.style,
       up = p.charAt(0).toUpperCase() + p.slice(1);
-    return (
-      p in e ||
-      "Moz" + up in e ||
-      "Webkit" + up in e ||
-      "O" + up in e ||
-      "ms" + up in e
-    );
+    return p in e || "Moz" + up in e || "Webkit" + up in e || "O" + up in e || "ms" + up in e;
   };
 
   // window.addEventListener
@@ -189,15 +169,6 @@ function init() {
 </template>
 
 <style scoped>
-/* .content {
-  height: 90vh;
-  width: 100%;
-
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-} */
 .is-preload {
   display: flex;
   position: relative;
