@@ -107,23 +107,22 @@ function init() {
     // Vars.
     var pos = 0,
       lastPos = 0,
-      $wrapper,
+      wrapper,
       $bgs = [],
       $bg,
       k,
       v;
 
     // Create BG wrapper, BGs.
-    $wrapper = document.createElement("div");
-    $wrapper.id = "bg";
-    $section.appendChild($wrapper);
+    wrapper = document.getElementById("bg")
+    $section.appendChild(wrapper);
 
     for (k in settings.images) {
       // Create BG.
       $bg = document.createElement("div");
       $bg.style.backgroundImage = 'url("' + k + '")';
       $bg.style.backgroundPosition = settings.images[k];
-      $wrapper.appendChild($bg);
+      wrapper.appendChild($bg);
 
       // Add it to array.
       $bgs.push($bg);
@@ -169,10 +168,20 @@ function init() {
       <SearchBox1 />
       <!-- <SearchBox :on-submit-search="onSubmitSearch" style="margin: auto" /> -->
     </div>
+    <div id="bg"></div>
   </section>
 </template>
 
 <style scoped>
+/* .content {
+  height: 90vh;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+} */
 .is-preload {
   display: flex;
   position: absolute;
@@ -198,4 +207,5 @@ function init() {
   margin: auto 0 auto 15px;
   z-index: 16;
 }
+
 </style>
