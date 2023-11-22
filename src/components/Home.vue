@@ -1,5 +1,6 @@
 <script setup>
 import SearchBox from "@/components/SearchBox.vue";
+import SearchBox1 from "./SearchBox1.vue";
 import Logo from "../components/common/Logo.vue";
 import { useRouter } from "vue-router";
 import { onMounted } from "vue";
@@ -158,12 +159,15 @@ function init() {
 
 <template>
   <section class="is-preload">
-    <div id="logo">
-      <Logo />
+    <div class="logo-wrapper">
+      <div id="logo">
+        <Logo />
+      </div>
     </div>
     <div id="banner">
       <img src="/images/logo/irigari-en.png" style="height: 13dvh" />
-      <SearchBox :on-submit-search="onSubmitSearch" style="margin: auto" />
+      <SearchBox1 />
+      <!-- <SearchBox :on-submit-search="onSubmitSearch" style="margin: auto" /> -->
     </div>
   </section>
 </template>
@@ -171,7 +175,7 @@ function init() {
 <style scoped>
 .is-preload {
   display: flex;
-  position: relative;
+  position: absolute;
   left: 0;
   top: 0;
   margin: 0;
@@ -181,7 +185,12 @@ function init() {
   line-height: 1;
   height: 100vh;
 }
+.logo-wrapper {
+  display: table;
+}
 #logo {
+  display: table-cell;
+  vertical-align: middle;
   margin-left: 15px;
 }
 #banner {

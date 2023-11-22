@@ -63,7 +63,7 @@
   border-radius: 50%;
   background: #173c57;
   border: 10px solid white;
-  margin: 100px 0 50px 0;
+  margin: auto 0 auto 0;
   z-index: 2;
   box-shadow: 0 0 20px rgba(black, 0.3);
 }
@@ -72,12 +72,7 @@
   width: 170px;
   height: 170px;
   border-radius: 50%;
-  background: radial-gradient(
-    ellipse at center,
-    #70dec1 0%,
-    #70dec1 30%,
-    #7db9e8 100%
-  );
+  background: radial-gradient(ellipse at center, #70dec1 0%, #70dec1 30%, #7db9e8 100%);
   position: absolute;
   z-index: 1;
   top: 50%;
@@ -207,11 +202,7 @@
     height: 1px;
     right: 1px;
     top: 0;
-    background: linear-gradient(
-      to right,
-      rgba(black, 0) 0%,
-      rgba(white, 0.4) 100%
-    );
+    background: linear-gradient(to right, rgba(black, 0) 0%, rgba(white, 0.4) 100%);
   }
 }
 
@@ -241,8 +232,7 @@
     transform: translate(-100px, -100px) rotate(45deg) scale(1);
   }
   100% {
-    transform: translate(calc(100% + 300px), calc(100% + 300px)) rotate(45deg)
-      scale(1.5);
+    transform: translate(calc(100% + 300px), calc(100% + 300px)) rotate(45deg) scale(1.5);
   }
 }
 
