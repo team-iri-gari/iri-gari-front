@@ -4,6 +4,7 @@ import { ref, onMounted } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import Profile from '@/components/Profile.vue';
 import CardBoard from '@/components/CardBoard.vue';
+import MyPageTemplete from "@/templates/MyPageTemplete.vue";
 
 const store = useAuthStore();
 const neighbors = ref([]);
@@ -25,62 +26,27 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div id="background">
-    <h1>{{ store.userData?.userInfo?.name }}님의 스페이스</h1>
-    <div id="container">
-      <div id="profile">
-        <Profile />
-        <h3>{{ store.userData?.userInfo?.id }}</h3>
-        <h3>{{ store.userData?.userInfo?.email }}</h3>
-      </div>
-      <div id="neighbor">
-        <h2>내 이웃</h2>
-        <ul class="neighbor-list">
-          <li class="neighbor-profile"  v-for="neighbor in neighbors" :key="neighbor.id" >
-            <Profile :user="neighbor" :size="50"/>
-            {{ neighbor.memberB }}
-          </li>
-        </ul>
-        <h2>내 이웃의 최신 글</h2>
-        <CardBoard :cards="neighborsPosts" :cardSize="'150px'" />
-      </div>
+  <MyPageTemplete>
+    <div id="profile">
+      <Profile />
+      <h3>{{ store.userData?.userInfo?.id }}</h3>
+      <h3>{{ store.userData?.userInfo?.email }}</h3>
     </div>
-    <div id="bookmark-buttons">
-      <button class="bookmark-button">마이페이지</button>
-      <button class="bookmark-button">내글 보기</button>
-      <button class="bookmark-button">내 이웃</button>
-      <button class="bookmark-button">기타</button>
+    <div id="neighbor">
+      <h2>내 이웃</h2>
+      <ul class="neighbor-list">
+        <li class="neighbor-profile" v-for="neighbor in neighbors" :key="neighbor.id">
+          <Profile :user="neighbor" :size="50" />
+          {{ neighbor.memberB }}
+        </li>
+      </ul>
+      <h2>내 이웃의 최신 글</h2>
+      <CardBoard :cards="neighborsPosts" :cardSize="'150px'" />
     </div>
-  </div>
+  </MyPageTemplete>
 </template>
 
 <style scoped>
-#background {
-  display: flex;
-
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  width: 100%;
-  min-height: 100vh;
-}
-
-#container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-
-  background-color: white;
-  border: 2px dashed;
-  border-radius: 10px;
-  padding: 20px;
-
-  width: 80vw;
-  min-height: 80vh;
-}
-
 #profile {
   border-right: 2px solid #000000;
   padding: 30px;
@@ -89,7 +55,8 @@ onMounted(async () => {
 @media screen and (max-width: 860px) {
   #profile {
     border-right: none;
-    border-bottom: 2px solid #000000; /* 화면이 좁아졌을 때 가로선으로 변경 */
+    border-bottom: 2px solid #000000;
+    /* 화면이 좁아졌을 때 가로선으로 변경 */
   }
 }
 
@@ -98,10 +65,6 @@ onMounted(async () => {
   padding: 30px;
 }
 
-h1 {
-  color: white;
-  width: 80vw;
-}
 .neighbor-profile {
   width: 50px;
   height: 70px;
@@ -114,32 +77,5 @@ h1 {
   list-style-type: none;
   padding: 0;
   flex-wrap: wrap;
-}
-
-#bookmark-buttons {
-  position: absolute;
-  top: calc(50% - 35vh);
-  right: calc(10vw - 70px);
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-}
-
-.bookmark-button {
-  background-color: cornflowerblue;
-  border-radius: 5px;
-  padding: 10px 15px;
-  margin-bottom: 10px;
-  cursor: pointer;
-}
-
-.bookmark-button:hover {
-  background-color: #e0e0e0;
-}
-
-@media screen and (max-width: 860px) {
-  #bookmark-buttons {
-    position: fixed;
-  }
 }
 </style>
