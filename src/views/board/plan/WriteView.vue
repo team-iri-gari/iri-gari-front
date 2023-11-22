@@ -5,7 +5,6 @@ import PKakao from "@/components/map/PKakao.vue";
 import TagBox from "@/components/TagBox.vue";
 import { useAuthStore } from "@/stores/auth";
 import { useTagStore } from "@/stores/tags";
-import Tagify from "@yaireo/tagify";
 import axios from "axios";
 import { useRouter, useRoute } from 'vue-router';
 
