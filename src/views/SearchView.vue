@@ -12,10 +12,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div id="search-container" style="background-color: #131d2b">
-    <div id="search-main" style="display: flex; width: 100%; margin-top: 90px">
+  <div id="search-container" style="background-color: #eef6fc">
+    <div id="search-main" style="display: flex; width: 100%">
       <VkakaoMap />
-      <SBoardList class="board-list" style="margin: 0 auto 0 auto" />
+      <SBoardList class="board-list" style="margin: 90px auto 0 auto" />
     </div>
   </div>
 </template>
