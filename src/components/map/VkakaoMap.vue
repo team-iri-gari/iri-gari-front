@@ -135,47 +135,47 @@ function removeMarker() {
 
 <template>
   <div style="width: 60%; align-items: center">
-    <div id="map"></div>
     <div id="category_container">
       <ul id="category">
         <li id="CT1" data-order="0">
-          <span class="category_bg culture">
+          <div class="category_bg culture">
             <img src="/images/CT1-mark.png" style="height: 30px" />
-          </span>
-          <span> 문화시설 </span>
+          </div>
+          <div>문화시설</div>
         </li>
         <li id="AT4" data-order="1">
-          <span class="category_bg attraction">
+          <div class="category_bg attraction">
             <img src="/images/AT4-mark.png" style="height: 30px" />
-          </span>
-          <span> 관광명소 </span>
+          </div>
+          <div>관광명소</div>
         </li>
         <li id="MT1" data-order="2">
-          <span class="category_bg mart">
+          <div class="category_bg mart">
             <img src="/images/MT1-mark.png" style="height: 30px" />
-          </span>
-          <span> 마트 </span>
+          </div>
+          <div>마트</div>
         </li>
         <li id="BK9" data-order="3">
-          <span class="category_bg bank">
+          <div class="category_bg bank">
             <img src="/images/BK9-mark.png" style="height: 30px" />
-          </span>
-          <span> 은행 </span>
+          </div>
+          <div>은행</div>
         </li>
         <li id="PK6" data-order="4">
-          <span class="category_bg park">
+          <div class="category_bg park">
             <img src="/images/PK6-mark.png" style="height: 30px" />
-          </span>
-          <span> 주차장 </span>
+          </div>
+          <div>주차장</div>
         </li>
         <li id="AD5" data-order="5">
-          <span class="category_bg accom">
+          <div class="category_bg accom">
             <img src="/images/AD5-mark.png" style="height: 30px" />
-          </span>
-          <span> 숙박 </span>
+          </div>
+          <div>숙박</div>
         </li>
       </ul>
     </div>
+    <div id="map"></div>
   </div>
 </template>
 
@@ -183,6 +183,7 @@ function removeMarker() {
 #map {
   margin-left: 40px;
   height: 500px;
+  border-radius: 5px;
 }
 #category {
   display: flex;
@@ -196,12 +197,11 @@ function removeMarker() {
   list-style: none;
   margin: 10px;
   padding: 5px;
-  border: 1px solid #ddd; /* 경계선 추가 */
-  border-radius: 5px; /* 모서리 둥글게 */
   align-self: center;
+  align-items: center;
+  text-align: center;
 }
-
 #category li:hover {
-  background-color: #e9e9e9; /* 마우스 오버 시 변경될 배경색 */
+  color: aquamarine;
 }
 </style>
