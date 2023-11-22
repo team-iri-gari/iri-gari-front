@@ -5,7 +5,7 @@ const store = useAuthStore();
 
 <template>
     <div id="background">
-        <h1>{{ store.userData?.userInfo?.name }}님의 스페이스</h1>
+        <h1>{{ store.userData?.userInfo?.name }}님의 페이지</h1>
         <div id="container">
             <slot>
 
