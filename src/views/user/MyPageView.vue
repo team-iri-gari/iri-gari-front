@@ -22,25 +22,6 @@ onMounted(async () => {
     console.error('Error fetching data:', error);
   }
 });
-
-const cardData = [
-  {
-    articleId: 1,
-    img: 'https://example.com/thumbnail1.jpg',
-    title: 'Card Title 1'
-  },
-  {
-    articleId: 2,
-    img: 'https://example.com/thumbnail2.jpg',
-    title: 'Card Title 2'
-  },
-  {
-    articleId: 3,
-    img: 'https://example.com/thumbnail3.jpg',
-    title: 'Card Title 3'
-  }
-  // ... 추가 카드 데이터
-];
 </script>
 
 <template>
@@ -63,7 +44,7 @@ const cardData = [
           </li>
         </ul>
         <h2>내 이웃의 최신 글</h2>
-        <CardBoard :cards="neighborsPosts" :cardSize="150" />
+        <CardBoard :cards="neighborsPosts" :cardSize="'150px'" />
       </div>
 
     </div>

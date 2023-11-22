@@ -1,33 +1,7 @@
-<template>
-  <div>
-    <h1>자유게시판</h1>
-    <p><RouterLink to="/board/plan">여행 계획</RouterLink></p>
-    <RouterLink to="/write/free">글작성</RouterLink>
-    <table>
-      <thead>
-        <tr>
-          <th>번호</th>
-          <th>제목</th>
-          <th>작성자</th>
-          <th>작성일</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="post in posts" :key="post.id">
-          <td>{{ post.articleId }}</td>
-          <td @click="goToPost(post.articleId)">{{ post.title }}</td>
-          <td>{{ post.name }}</td>
-          <td>{{ post.regDate }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</template>
-
 <script setup>
 import axios from "axios";
 import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
+import CardBoard from '@/components/CardBoard.vue';
 
 const posts = ref([]);
 
@@ -43,32 +17,22 @@ const getPosts = async () => {
     });
 };
 
-const router = useRouter();
-
-const goToPost = (postId) => {
-  router.push(`/post/free/${postId}`);
-};
-
 onMounted(() => {
   getPosts();
 });
 </script>
 
-<style scoped>
-/* 여기에 CSS 스타일을 추가합니다 */
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
+<template>
+  <div>
+    <h1>자유게시판</h1>
+    <p>
+      <RouterLink to="/board/plan">여행 계획</RouterLink>
+    </p>
+    <p>
+      <RouterLink to="/write/free">글작성</RouterLink>
+    </p>
+    <CardBoard :cards="posts" :cardSize="'20vw'" />
+  </div>
+</template>
 
-th,
-td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
-}
-
-th {
-  background-color: #f4f4f4;
-}
-</style>
+<style scoped></style>
