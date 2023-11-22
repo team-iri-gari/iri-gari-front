@@ -2,6 +2,7 @@
 import axios from "axios";
 import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
+import PNaver from "@/components/map/PNaver.vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -23,30 +24,48 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="plans-container">
-    <h1>여행 계획</h1>
-    <hr />
-    <div class="plan-card" v-for="p in plans" :key="p.planIdx">
-      <img
-        class="plan-image"
-        :src="`https://iri-gari-image-server.s3.ap-northeast-2.amazonaws.com/${p.imgSrc}/${p.imgId}`"
-        alt="Plan Image"
-      />
-      <div class="plan-details">
-        <p class="place-name">{{ p.placeName }}</p>
-        <p class="plan-date">{{ p.date }}</p>
+  <div class="post-wrapper">
+    <div class="plans-container">
+      <h1>여행 계획</h1>
+      <hr />
+      <div class="plan-card" v-for="p in plans" :key="p.planIdx">
+        <img
+          class="plan-image"
+          :src="`https://iri-gari-image-server.s3.ap-northeast-2.amazonaws.com/${p.imgSrc}/${p.imgId}`"
+          alt="Plan Image"
+        />
+        <div class="plan-details">
+          <p class="place-name">{{ p.placeName }}</p>
+          <p class="plan-date">{{ p.date }}</p>
+        </div>
       </div>
+    </div>
+    <div class="map-container">
+      <PNaver />
     </div>
   </div>
 </template>
 
 <style scoped>
+h1 {
+  color: white;
+}
+.post-wrapper {
+  display: flex;
+}
 .plans-container {
   max-width: 800px;
-  margin: 0 auto;
+  margin: 50px auto;
   padding: 20px;
 }
-
+.map-container {
+  display: flex;
+  width: 60%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
 .plan-card {
   display: flex;
   align-items: center;
@@ -77,13 +96,13 @@ onMounted(() => {
 .place-name {
   font-size: 18px;
   font-weight: bold;
-  color: #333;
+  color: white;
   margin: 0;
 }
 
 .plan-date {
   font-size: 14px;
-  color: #666;
+  color: #bdbdbd;
   margin-top: 8px;
 }
 </style>

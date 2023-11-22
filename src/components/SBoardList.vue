@@ -34,7 +34,7 @@ const goToBoard = (type) => {
   <div style="display: flex; flex-direction: column">
     <div id="freeboard-container">
       <div class="board-title">
-        <h2>자유게시판</h2>
+        <h2><a @click="goToBoard(1)">자유게시판</a></h2>
       </div>
       <table class="boardList">
         <thead>
@@ -64,7 +64,7 @@ const goToBoard = (type) => {
     <br />
     <div id="planboard-container">
       <div class="board-title">
-        <h2>여행 기록</h2>
+        <h2><a @click="goToBoard(2)">여행 기록</a></h2>
       </div>
       <table class="boardList">
         <thead>
