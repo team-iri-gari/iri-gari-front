@@ -1,7 +1,7 @@
 <template>
     <div class="card-board">
         <div v-for="card in cards" :key="card.articleId" class="card" :style="{ width: cardSize, height: cardSize}" @click="navigateTo(card.boardTypeId, card.articleId)">
-            <img :src="`https://iri-gari-image-server.s3.ap-northeast-2.amazonaws.com/${card.img}`" alt="Card Thumbnail" class="card-thumbnail" />
+            <img :src="getImg(card.img)" alt="Card Thumbnail" class="card-thumbnail" />
             <h4 class="card-title">{{ card.title }}</h4>
         </div>
     </div>
@@ -10,6 +10,7 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { defineProps } from 'vue';
+import axios from 'axios';
 
 const props = defineProps({
     cards: {
@@ -27,6 +28,14 @@ const navigateTo = (type , id) => {
     console.log(type)
     router.push("/post/" + (type === 1 ? "free" : "plan") + "/" + id);
 };
+
+const getImg = (url) => {
+    // if(url == "null.png")
+    //     return `https://cataas.com/cat`
+    // else
+    //     return `https://iri-gari-image-server.s3.ap-northeast-2.amazonaws.com/${url}`
+    return `https://iri-gari-image-server.s3.ap-northeast-2.amazonaws.com/${url}`
+}
 </script>
   
 <style scoped>
