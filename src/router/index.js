@@ -7,8 +7,9 @@ import SearchView from "@/views/SearchView.vue";
 //user
 import LoginView from "@/views/user/LoginView.vue";
 import JoinView from "@/views/user/JoinView.vue";
-import MyPageView from "@/views/user/MyPageView.vue";
-import MyBoardView from "@/views/user/MyBoardView.vue";
+import PageView from "@/views/user/PageView.vue";
+import BoardView from "@/views/user/BoardView.vue";
+import NeighborView from "@/views/user/NeighborView.vue";
 
 //free board
 import FreeBoardListView from "@/views/board/free/ListView.vue";
@@ -55,7 +56,7 @@ const router = createRouter({
     },
     {
       path: "/user",
-      redirect: "/user/mypage",
+      redirect: "/",
       children: [
         {
           path: "login",
@@ -68,15 +69,21 @@ const router = createRouter({
           component: JoinView,
         },
         {
-          path: "mypage",
-          name: "mypage",
-          component: MyPageView,
+          path: "page/:id",
+          name: "user-page",
+          component: PageView,
           beforeEnter: requireAuth,
         },
         {
-          path: "board",
+          path: "board/:id",
           name: "user-board",
-          component: MyBoardView,
+          component: BoardView,
+          beforeEnter: requireAuth,
+        },
+        {
+          path: "neighbor/:id",
+          name: "user-board",
+          component: NeighborView,
           beforeEnter: requireAuth,
         },
       ],

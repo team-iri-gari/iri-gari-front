@@ -2,23 +2,31 @@
 import axios from "axios";
 import { ref, onMounted } from 'vue';
 import { useAuthStore } from '@/stores/auth';
+import { useRoute } from 'vue-router';
 import Profile from '@/components/Profile.vue';
 import CardBoard from '@/components/CardBoard.vue';
 import MyPageTemplete from "@/templates/MyPageTemplete.vue";
 
 const store = useAuthStore();
+const route = useRoute();
 const neighbors = ref([]);
 const neighborsPosts = ref([]);
+const userId = route.params.id; // URL에서 id 파라미터 가져오기
+const user = ref([]);
 
 onMounted(async () => {
   try {
-    const neighborsResponse = await axios.get('http://localhost/api/neighbor/' + store.userData.userInfo.id);
+    // 현재 URL의 사용자 id로 사용자 정보 조회
+    const userResponse = await axios.get(`http://localhost/api/member/${userId}`);
+    user.value = userResponse.data;
+
+    // 이웃 정보 조회
+    const neighborsResponse = await axios.get(`http://localhost/api/neighbor/${userId}`);
     neighbors.value = neighborsResponse.data;
 
-    const postsResponse = await axios.get('http://localhost/api/neighbor/posts/' + store.userData.userInfo.id);
-    console.log(postsResponse.data)
+    // 이웃의 글 조회
+    const postsResponse = await axios.get(`http://localhost/api/neighbor/posts/${userId}`);
     neighborsPosts.value = postsResponse.data;
-    console.log(neighborsPosts.value)
   } catch (error) {
     console.error('Error fetching data:', error);
   }
@@ -26,21 +34,23 @@ onMounted(async () => {
 </script>
 
 <template>
-  <MyPageTemplete>
+  <MyPageTemplete :userData="user">
     <div id="profile">
-      <Profile />
-      <h3>{{ store.userData?.userInfo?.id }}</h3>
-      <h3>{{ store.userData?.userInfo?.email }}</h3>
+      <Profile :user="user" />
+      <h3>{{ user?.id }}</h3>
+      <h3>{{ user?.email }}</h3>
     </div>
     <div id="neighbor">
-      <h2>내 이웃</h2>
+      <h2>이웃</h2>
+      <hr>
       <ul class="neighbor-list">
         <li class="neighbor-profile" v-for="neighbor in neighbors" :key="neighbor.id">
           <Profile :user="neighbor" :size="50" />
           {{ neighbor.memberB }}
         </li>
       </ul>
-      <h2>내 이웃의 최신 글</h2>
+      <h2>이웃의 새소식</h2>
+      <hr>
       <CardBoard :cards="neighborsPosts" :cardSize="'150px'" />
     </div>
   </MyPageTemplete>

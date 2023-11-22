@@ -1,20 +1,26 @@
 <script setup>
-import { useAuthStore } from '@/stores/auth';
-const store = useAuthStore();
+import { defineProps } from 'vue';
+
+const props = defineProps({
+  userData: {
+    type: Object,
+    required: true
+  }
+});
 </script>
 
 <template>
     <div id="background">
-        <h1>{{ store.userData?.userInfo?.name }}님의 페이지</h1>
+        <h1>{{ userData.name }}님의 페이지</h1>
         <div id="container">
             <slot>
 
             </slot>
         </div>
         <div id="bookmark-buttons">
-            <RouterLink to="/user/mypage"><button class="bookmark-button">마이페이지</button></RouterLink>
-            <RouterLink to="/user/board"><button class="bookmark-button">내글 보기</button></RouterLink>
-            <RouterLink to="/"><button class="bookmark-button">내 이웃</button></RouterLink>
+            <RouterLink :to="`/user/page/${userData.id}`"><button class="bookmark-button">마이페이지</button></RouterLink>
+            <RouterLink :to="`/user/board/${userData.id}`"><button class="bookmark-button">내글 보기</button></RouterLink>
+            <RouterLink :to="`/user/neighbor/${userData.id}`"><button class="bookmark-button">내 이웃</button></RouterLink>
             <RouterLink to="/"><button class="bookmark-button">기타</button></RouterLink>
         </div>
     </div>

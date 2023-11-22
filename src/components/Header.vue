@@ -1,17 +1,7 @@
 <script setup>
 import { onMounted, computed } from "vue";
 import { useAuthStore } from "@/stores/auth";
-import { useScrollStore } from "@/stores/store";
-import { useRouter } from "vue-router";
 import SearchBox1 from "./SearchBox1.vue";
-
-const scrollStore = useScrollStore();
-
-const router = useRouter();
-
-const onSubmitSearch = (keyword) => {
-  router.push(`/search/${encodeURIComponent(keyword)}`);
-};
 
 const store = useAuthStore();
 const isAuthenticated = computed(() => store.isAuthenticated);
@@ -48,7 +38,7 @@ function logout() {
     <div v-if="isAuthenticated" class="right-space">
       <RouterLink to="/board/free">BOARD</RouterLink>
       &nbsp;&nbsp;|&nbsp;&nbsp;
-      <RouterLink to="/user/mypage">MY PAGE</RouterLink>
+      <RouterLink :to="`/user/page/${store.userData.userInfo.id}`">MY PAGE</RouterLink>
       &nbsp;&nbsp;|&nbsp;&nbsp;
       <a @click="logout()">LOGOUT</a>
     </div>

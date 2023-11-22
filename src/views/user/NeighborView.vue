@@ -26,14 +26,7 @@ onMounted(async () => {
 
 <template>
   <MyPageTemplete>
-    <div>
-      <h2>내 작성 글</h2>
-      <CardBoard :cards="myFreeBoard" :cardSize="'150px'" />
-    </div>
-    <div>
-      <h2>내 작성 계획</h2>
-      <CardBoard :cards="myPlanBoard" :cardSize="'150px'" />
-    </div>
+    
   </MyPageTemplete>
 </template>
 
