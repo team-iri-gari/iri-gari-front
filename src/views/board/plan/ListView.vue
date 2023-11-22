@@ -19,7 +19,7 @@ const getPosts = async () => {
 };
 
 const goToPost = (postId) => {
-  router.push(`/ppost/${postId}`);
+  router.push(`/post/plan/${postId}`);
 };
 
 onMounted(() => {

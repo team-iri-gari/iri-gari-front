@@ -24,32 +24,20 @@ function init() {
   !(function () {
     function t(t) {
       this.el = t;
-      for (
-        var n = t.className.replace(/^\s+|\s+$/g, "").split(/\s+/), i = 0;
-        i < n.length;
-        i++
-      )
+      for (var n = t.className.replace(/^\s+|\s+$/g, "").split(/\s+/), i = 0; i < n.length; i++)
         e.call(this, n[i]);
     }
     function n(t, n, i) {
-      Object.defineProperty
-        ? Object.defineProperty(t, n, { get: i })
-        : t.__defineGetter__(n, i);
+      Object.defineProperty ? Object.defineProperty(t, n, { get: i }) : t.__defineGetter__(n, i);
     }
-    if (
-      !(
-        "undefined" == typeof window.Element ||
-        "classList" in document.documentElement
-      )
-    ) {
+    if (!("undefined" == typeof window.Element || "classList" in document.documentElement)) {
       var i = Array.prototype,
         e = i.push,
         s = i.splice,
         o = i.join;
       (t.prototype = {
         add: function (t) {
-          this.contains(t) ||
-            (e.call(this, t), (this.el.className = this.toString()));
+          this.contains(t) || (e.call(this, t), (this.el.className = this.toString()));
         },
         contains: function (t) {
           return -1 != this.el.className.indexOf(t);
@@ -67,9 +55,7 @@ function init() {
           return o.call(this, " ");
         },
         toggle: function (t) {
-          return (
-            this.contains(t) ? this.remove(t) : this.add(t), this.contains(t)
-          );
+          return this.contains(t) ? this.remove(t) : this.add(t), this.contains(t);
         },
       }),
         (window.DOMTokenList = t),
@@ -84,13 +70,7 @@ function init() {
     if (!window._canUse) window._canUse = document.createElement("div");
     var e = window._canUse.style,
       up = p.charAt(0).toUpperCase() + p.slice(1);
-    return (
-      p in e ||
-      "Moz" + up in e ||
-      "Webkit" + up in e ||
-      "O" + up in e ||
-      "ms" + up in e
-    );
+    return p in e || "Moz" + up in e || "Webkit" + up in e || "O" + up in e || "ms" + up in e;
   };
 
   // window.addEventListener
@@ -189,97 +169,6 @@ function init() {
 </template>
 
 <style scoped>
-
-section {
-  box-sizing: border-box;
-}
-
-section {
-  height: 100vh;
-  width: 100vmax;
-}
-
-section {
-  display: -moz-flex;
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
-  -moz-justify-content: center;
-  -webkit-justify-content: center;
-  -ms-justify-content: center;
-  justify-content: center;
-  background-color: #000;
-  padding: 6em 4em 4em 4em;
-}
-section.is-preload *,
-section.is-preload *:before,
-section.is-preload *:after {
-  -moz-animation: none !important;
-  -webkit-animation: none !important;
-  -ms-animation: none !important;
-  animation: none !important;
-  -moz-transition: none !important;
-  -webkit-transition: none !important;
-  -ms-transition: none !important;
-  transition: none !important;
-}
-section > * {
-  position: relative;
-  z-index: 2;
-}
-
-/* BG */
-#bg {
-  -moz-transition: opacity 2s ease-in-out;
-  -webkit-transition: opacity 2s ease-in-out;
-  -ms-transition: opacity 2s ease-in-out;
-  transition: opacity 2s ease-in-out;
-  height: 100%;
-  left: 0;
-  opacity: 0.375;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1;
-}
-#bg div {
-  -moz-transition: opacity 3s ease;
-  -webkit-transition: opacity 3s ease;
-  -ms-transition: opacity 3s ease;
-  transition: opacity 3s ease;
-  background-size: cover;
-  height: 100%;
-  left: 0;
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  visibility: hidden;
-  width: 150%;
-}
-#bg div.visible {
-  -moz-animation: bg 45s linear infinite;
-  -webkit-animation: bg 45s linear infinite;
-  -ms-animation: bg 45s linear infinite;
-  animation: bg 45s linear infinite;
-  opacity: 1;
-  visibility: visible;
-  z-index: 1;
-}
-#bg div.visible.top {
-  z-index: 2;
-}
-
-#bg div:only-child {
-  -moz-animation-direction: alternate !important;
-  -webkit-animation-direction: alternate !important;
-  -ms-animation-direction: alternate !important;
-  animation-direction: alternate !important;
-}
-.is-preload #bg {
-  opacity: 0;
-}
-
-
 /* .content {
   height: 90vh;
   width: 100%;
@@ -289,7 +178,6 @@ section > * {
   flex-direction: column;
   align-items: center;
 } */
-
 .is-preload {
   display: flex;
   position: relative;
