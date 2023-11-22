@@ -36,6 +36,7 @@ const initMap = () => {
 #map {
   flex-grow: 1;
   position: relative;
+  
   height: 100dvh;
   text-align: center;
 }
