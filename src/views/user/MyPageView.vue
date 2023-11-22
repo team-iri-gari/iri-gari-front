@@ -1,8 +1,9 @@
 <script setup>
+import axios from "axios";
 import { ref, onMounted } from 'vue';
 import { useAuthStore } from '@/stores/auth';
-import axios from "axios";
 import Profile from '@/components/Profile.vue';
+import CardBoard from '@/components/CardBoard.vue';
 
 const store = useAuthStore();
 const neighbors = ref([]);
@@ -14,12 +15,32 @@ onMounted(async () => {
     neighbors.value = neighborsResponse.data;
 
     const postsResponse = await axios.get('http://localhost/api/neighbor/posts/' + store.userData.userInfo.id);
-    console.log(postsResponse)
+    console.log(postsResponse.data)
     neighborsPosts.value = postsResponse.data;
+    console.log(neighborsPosts.value)
   } catch (error) {
     console.error('Error fetching data:', error);
   }
 });
+
+const cardData = [
+  {
+    articleId: 1,
+    img: 'https://example.com/thumbnail1.jpg',
+    title: 'Card Title 1'
+  },
+  {
+    articleId: 2,
+    img: 'https://example.com/thumbnail2.jpg',
+    title: 'Card Title 2'
+  },
+  {
+    articleId: 3,
+    img: 'https://example.com/thumbnail3.jpg',
+    title: 'Card Title 3'
+  }
+  // ... 추가 카드 데이터
+];
 </script>
 
 <template>
@@ -37,29 +58,12 @@ onMounted(async () => {
         <h2>내 이웃</h2>
         <ul class="neighbor-list">
           <li class="neighbor-profile"  v-for="neighbor in neighbors" :key="neighbor.id" >
-            <Profile :user="neighbor" size="50"/>
+            <Profile :user="neighbor" :size="50"/>
             {{ neighbor.memberB }}
           </li>
         </ul>
         <h2>내 이웃의 최신 글</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>번호</th>
-              <th>제목</th>
-              <th>작성자</th>
-              <th>작성일</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="post in neighborsPosts" :key="post.id">
-              <td>{{ post.articleId }}</td>
-              <td @click="goToPost(post.articleId)">{{ post.title }}</td>
-              <td>{{ post.name }}</td>
-              <td>{{ post.regDate }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <CardBoard :cards="neighborsPosts" :cardSize="150" />
       </div>
 
     </div>
@@ -96,7 +100,7 @@ onMounted(async () => {
 
 #profile {
   border-right: 2px solid #000000;
-  padding: 20px;
+  padding: 30px;
 }
 
 @media screen and (max-width: 860px) {
@@ -108,7 +112,7 @@ onMounted(async () => {
 
 #neighbor {
   width: 50vw;
-  padding: 10px;
+  padding: 30px;
 }
 
 h1 {
@@ -122,8 +126,6 @@ h1 {
   flex: 0 0 auto;
 }
 
-
-
 .neighbor-list {
   display: flex;
   list-style-type: none;
@@ -131,19 +133,4 @@ h1 {
   flex-wrap: wrap;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th,
-td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
-}
-
-th {
-  background-color: #f4f4f4;
-}
 </style>
