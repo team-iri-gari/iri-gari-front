@@ -142,7 +142,8 @@ function getListItem(index, places) {
 }
 
 function addMarker(position, idx, title) {
-  var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png", // 마커 이미지 url, 스프라이트 이미지를 씁니다
+  var imageSrc =
+      "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png", // 마커 이미지 url, 스프라이트 이미지를 씁니다
     imageSize = new kakao.maps.Size(36, 37), // 마커 이미지의 크기
     imgOptions = {
       spriteSize: new kakao.maps.Size(36, 691), // 스프라이트 이미지의 크기
@@ -228,13 +229,14 @@ defineExpose({
 #map_wrap {
   position: relative;
   display: flex;
-  width: 100%;
+  width: 40dvw;
+  height: 60dvh;
 }
 
 #map {
   flex-grow: 1;
   position: relative;
-  height: 500px;
+  height: 100%;
   text-align: center;
   color: #888;
 }
@@ -242,7 +244,7 @@ defineExpose({
 #menu_wrap {
   margin: auto 0 auto 10px;
   position: absolute;
-  height: 450px;
+  height: 90%;
   top: 0;
   left: 0;
   bottom: 0;
@@ -263,11 +265,6 @@ defineExpose({
 #map_wrap a:active {
   color: #000;
   text-decoration: none;
-}
-#map_wrap {
-  position: relative;
-  width: 100%;
-  height: 500px;
 }
 
 .bg_white {

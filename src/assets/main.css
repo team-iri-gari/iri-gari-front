@@ -2,11 +2,11 @@
 
 html body {
   margin: 0;
-  background-color: #131d2b;
+  background-color: #eef6fc;
 }
 
 ::-webkit-scrollbar {
-  width: 10px;  
+  width: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -30,5 +30,6 @@ html body {
   font-family: "DNFBitBitv2";
   font-style: normal;
   font-weight: 400;
-  src: url("//cdn.df.nexon.com/img/common/font/DNFBitBitv2.otf") format("opentype");
+  src: url("//cdn.df.nexon.com/img/common/font/DNFBitBitv2.otf")
+    format("opentype");
 }

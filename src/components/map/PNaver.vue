@@ -77,7 +77,7 @@ const makePolyline = (paths) => {
     map: map.value,
     path: paths.map((coords) => new naver.maps.LatLng(coords[1], coords[0])),
     clickable: true,
-    strokeColor: "#ff0000",
+    strokeColor: "#5347AA",
     strokeWeight: 5,
   });
 };
