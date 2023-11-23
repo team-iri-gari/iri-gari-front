@@ -48,11 +48,12 @@ const goToBoard = (type) => {
           </tr>
         </thead>
         <tbody>
-          <tr
+          <!-- <tr
             v-for="(farticle, index) in fbList"
             v-if="index < 5"
             :key="farticle.article_id"
-          >
+          > -->
+          <tr v-for="farticle in fbList" :key="farticle.article_id">
             <td>
               <a href="">{{ farticle.title }}</a>
             </td>
@@ -82,11 +83,12 @@ const goToBoard = (type) => {
           </tr>
         </thead>
         <tbody>
-          <tr
+          <!-- <tr
             v-for="(particle, index) in pbList"
             v-if="index < 5"
             :key="particle.article_id"
-          >
+          > -->
+          <tr v-for="particle in pbList" :key="particle.article_id">
             <td>
               <a href="">{{ particle.title }}</a>
             </td>

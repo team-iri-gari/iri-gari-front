@@ -9,6 +9,7 @@ const route = useRoute();
 const plans = ref([]);
 var start, end;
 var wayPoints = [];
+const way = ref([]);
 const paths = ref([]);
 
 const fetchPost = async () => {
@@ -19,11 +20,14 @@ const fetchPost = async () => {
     console.log(response.data);
     plans.value = response.data;
     start = plans.value[0];
+    way.value.push(start);
     end = plans.value[plans.value.length - 1];
 
     for (let i = 1; i < plans.value.length - 1; i++) {
       wayPoints.push(plans.value[i]);
+      way.value.push(plans.value[i]);
     }
+    way.value.push(end);
 
     findPath(getUrl(start, wayPoints, end));
   } catch (error) {
@@ -47,6 +51,7 @@ const findPath = async (url) => {
     });
 
     paths.value = response.data.route.traoptimal[0].path;
+    console.log(paths.value[0][0], paths.value[0][1]);
   } catch (error) {
     console.log(error);
   }
@@ -75,7 +80,11 @@ onMounted(() => {
       </div>
     </div>
     <div class="map-container">
-      <PNaver :paths="paths" />
+      <PNaver
+        v-if="paths.value !== null && way.value !== null"
+        :way="way"
+        :paths="paths"
+      />
     </div>
   </div>
 </template>
