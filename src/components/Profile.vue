@@ -1,22 +1,29 @@
 <template>
     <div class="profile-container">
-        <img :src="catImageUrl" alt="Cat Profile Image" class="profile-image" :style="{ width: size + 'px', height: size + 'px' }" />
+        <img :src="catImageUrl" alt="Cat Profile Image" class="profile-image"
+             :style="{ width: props.size + 'px', height: props.size + 'px' }"
+             @click="navigateToUserPage" />
     </div>
 </template>
 
-  
 <script setup>
 import { ref, onMounted, defineProps } from 'vue';
 import axios from 'axios';
+import { useRouter } from 'vue-router';
 
 const props = defineProps({
     size: {
         type: Number,
         default: 200 // 기본 크기는 200px
+    },
+    userid: {
+        type: String,
+        required: true // userid는 필수 속성입니다
     }
 });
 
 const catImageUrl = ref('');
+const router = useRouter();
 
 onMounted(() => {
     fetchCatImage();
@@ -30,6 +37,10 @@ const fetchCatImage = async () => {
         console.error('Error fetching cat image:', error);
     }
 };
+
+const navigateToUserPage = () => {
+    router.push(`/user/page/${props.userid}`);
+};
 </script>
   
 <style>
@@ -41,9 +52,7 @@ const fetchCatImage = async () => {
 }
 
 .profile-image {
-    border-radius: 50%; /* 이미지를 동그랗게 만듭니다 */
+    border-radius: 50%;
     object-fit: cover;
 }
 </style>
-
-  
