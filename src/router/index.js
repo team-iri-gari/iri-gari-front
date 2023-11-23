@@ -82,7 +82,7 @@ const router = createRouter({
         },
         {
           path: "neighbor/:id",
-          name: "user-board",
+          name: "user-neighbor",
           component: NeighborView,
           beforeEnter: requireAuth,
         },

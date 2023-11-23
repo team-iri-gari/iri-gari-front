@@ -6,9 +6,9 @@ import CardBoard from '@/components/CardBoard.vue';
 import MyPageTemplete from "@/templates/MyPageTemplete.vue";
 
 const route = useRoute();
-const userId = route.params.id; // URL에서 id 파라미터 가져오기
 const myFreeBoard = ref([]);
 const myPlanBoard = ref([]);
+const userId = route.params.id; // URL에서 id 파라미터 가져오기
 const user = ref([]);
 
 onMounted(async () => {
