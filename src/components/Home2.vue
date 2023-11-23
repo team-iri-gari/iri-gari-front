@@ -30,8 +30,17 @@
         </div>
       </div>
       <div id="banner">
+        <div class="text-con">
+          <span style="color: white; font-size: 15px"
+            >오늘은 어디로 갈까요?</span
+          >
+          <img src="/images/main-bg/plane.png" style="height: 50px" />
+        </div>
         <img src="/images/logo/irigari-ko.png" style="height: 13dvh" />
-        <SearchBox :on-submit-search="onSubmitSearch" style="margin: auto" />
+        <SearchBox
+          :on-submit-search="onSubmitSearch"
+          style="margin-left: 15px"
+        />
       </div>
     </div>
   </div>
@@ -116,5 +125,10 @@ const props = defineProps({
   justify-self: center;
   margin: auto 0 auto 15px;
   z-index: 16;
+}
+.text-con {
+  margin-left: 15px;
+  display: flex;
+  align-items: flex-end;
 }
 </style>

@@ -26,15 +26,14 @@ onMounted(() => {
   <div id="container">
     <div class="board-title">
       <div class="title">
-        <span><strong>자유게시판</strong></span
-        >&nbsp;&nbsp;|&nbsp;&nbsp;
         <span
           ><router-link
-            to="/board/plan"
+            to="/board/free"
             style="text-decoration: none; color: black"
-            >여행 기록</router-link
+            >자유게시판</router-link
           ></span
-        >
+        >&nbsp;&nbsp;|&nbsp;&nbsp;
+        <span><strong>여행 기록</strong></span>
       </div>
     </div>
     <div id="list">

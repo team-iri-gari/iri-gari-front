@@ -71,6 +71,9 @@ const getImg = (url) => {
 }
 
 .card {
+  border-radius: 0;
+  border: 0;
+  background-color: transparent;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -80,6 +83,7 @@ const getImg = (url) => {
 }
 
 .card-thumbnail {
+  border-radius: 5px;
   position: absolute; /* 절대 위치 설정 */
   top: 0;
   left: 0;

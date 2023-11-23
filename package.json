@@ -10,11 +10,13 @@
   "dependencies": {
     "@yaireo/tagify": "^4.17.9",
     "axios": "^1.6.2",
+    "bootstrap": "^5.3.2",
+    "bootstrap-vue": "^2.23.1",
     "browser-image-compression": "^2.0.2",
     "matter-js": "^0.19.0",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.0",
-    "vue": "^3.3.4",
+    "vue": "^3.3.8",
     "vue-router": "^4.2.5",
     "vue3-google-login": "^2.0.25"
   },
