@@ -85,15 +85,11 @@ const registerPost = async () => {
     }
 
     // console.dir(formData);
-    const response = await axios.post(
-      "http://localhost/api/board/write/plan",
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
+    const response = await axios.post("http://localhost/api/board/write/plan", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     console.log(response.data);
     router.push("/board/free");
   } catch (error) {
@@ -122,101 +118,68 @@ function handleFileChange(event) {
       <label for="title">여행 이름</label>
       <input type="text" id="title" name="title" v-model="bTitle" />
     </div>
-    <div class="container">
+    <div class="main-wrapper">
       <div id="plan-box">
-        <h3>저장된 데이터</h3>
-        <div id="card-container" v-for="entry in entries" class="entry">
+        <h3>여행 기록</h3>
+        <div class="card-container" v-for="entry in entries">
           <img :src="entry.img" style="height: 100px" />
-          <p><strong>장소:</strong> {{ entry.name }}</p>
-          <p><strong>날짜:</strong> {{ entry.date }}</p>
-          <p><strong>시작 시간:</strong> {{ entry.timeStart }}</p>
-          <p><strong>종료 시간:</strong> {{ entry.timeEnd }}</p>
-          <p><strong>한줄메모:</strong> {{ entry.description }}</p>
-          <p><strong>태그:</strong> {{ entry.tag }}</p>
-          <p>==================================</p>
+          <div class="text-wrapper">
+            <p>
+              <strong>{{ entry.name }}</strong>
+            </p>
+            <span>{{ entry.date }}&nbsp;{{ entry.timeStart }} - {{ entry.timeEnd }}</span>
+          </div>
         </div>
       </div>
-      <form @submit.prevent="addEntry">
-        <label for="name">장소</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          v-model="newEntry.name"
-          readonly="true"
-        /><br />
-        <input
-          type="hidden"
-          id="place_id"
-          name="place_id"
-          v-model="newEntry.id"
-        />
-        <!-- <MultiImageUpload @images-uploaded="handleImages" /> -->
-        <input
-          type="file"
-          id="upfile"
-          name="upfile"
-          ref="fileInput"
-          @change="handleFileChange"
-        />
-        <br />
-        <br />
-        <label for="date">날짜</label>
-        <input
-          type="date"
-          id="date"
-          name="date"
-          v-model="newEntry.date"
-        /><br />
+      <div id="form-con">
+        <form @submit.prevent="addEntry">
+          <label for="name">장소</label>
+          <input type="text" id="name" name="name" v-model="newEntry.name" readonly="true" /><br />
+          <input type="hidden" id="place_id" name="place_id" v-model="newEntry.id" />
+          <!-- <MultiImageUpload @images-uploaded="handleImages" /> -->
+          <input type="file" id="upfile" name="upfile" ref="fileInput" @change="handleFileChange" />
+          <br />
+          <label for="date">날짜</label>
+          <input type="date" id="date" name="date" v-model="newEntry.date" /><br />
 
-        <label for="time_start">시작 시간</label>
-        <input
-          type="time"
-          id="time_start"
-          name="time_start"
-          v-model="newEntry.timeStart"
-        />
+          <label for="time_start">시작 시간</label>
+          <input type="time" id="time_start" name="time_start" v-model="newEntry.timeStart" />
 
-        <label for="time_end">종료 시간</label>
-        <input
-          type="time"
-          id="time_end"
-          name="time_end"
-          v-model="newEntry.timeEnd"
-        /><br />
+          <label for="time_end">종료 시간</label>
+          <input type="time" id="time_end" name="time_end" v-model="newEntry.timeEnd" /><br />
 
-        <label for="description">한줄메모</label>
-        <input
-          type="text"
-          id="description"
-          name="description"
-          v-model="newEntry.description"
-        /><br />
+          <label for="description">한줄메모</label>
+          <input
+            type="text"
+            id="description"
+            name="description"
+            v-model="newEntry.description"
+          /><br />
 
-        <input type="submit" value="추가" />
-      </form>
+          <input type="submit" value="추가" />
+        </form>
+        <div id="tag-wrapper">
+          <label>태그</label>
+          <TagBox />
+        </div>
+      </div>
       <div id="map-container">
         <SearchBox :on-submit-search="onSubmitSearch" />
         <PKakao ref="pkakaoRef" @clickPlace="handleClickPlace" />
       </div>
     </div>
-    <div>
-      <label for="tag">태그</label>
-      <TagBox />
-    </div>
-    <button @click="registerPost">게시물 등록</button>
+  </div>
+  <div id="submit-div">
+    <button id="submit-btn" @click="registerPost">기록 등록</button>
   </div>
 </template>
 
 <style scoped>
 .form-wrapper {
   width: 90vw;
-  height: 80vh;
+  height: 78vh;
   margin: 90px auto 0 auto;
-  overflow-y: scroll;
-  box-shadow: -2px -2px 5px rgba(255, 255, 255, 1),
-    3px 3px 5px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  box-shadow: -2px -2px 5px rgba(255, 255, 255, 1), 3px 3px 5px rgba(0, 0, 0, 0.1);
 }
 .title-box {
   display: flex;
@@ -231,19 +194,17 @@ function handleFileChange(event) {
 .title-box > input {
   border: none;
   height: 45px;
-  width: 75dvw;
+  width: 80dvw;
   border-radius: 5px;
   background-color: #f0f5fa;
-  box-shadow: inset -2px -2px 5px rgba(255, 255, 255, 1),
-    inset 3px 3px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: inset -2px -2px 5px rgba(255, 255, 255, 1), inset 3px 3px 5px rgba(0, 0, 0, 0.1);
 }
-.container {
-  display: flex;
-  justify-content: space-between; /* 요소들 사이에 공간을 둡니다 */
-  align-items: flex-start; /* 요소들을 상단 정렬합니다 */
-  padding: 20px;
-  /* box-shadow: -2px -2px 5px rgba(255, 255, 255, 1),
-    3px 3px 5px rgba(0, 0, 0, 0.1); */
+.main-wrapper {
+  display: grid;
+  grid-template-columns: 3fr 2fr 5fr;
+  grid-template-rows: auto;
+  row-gap: 20px;
+  margin: 20px 30px auto 30px;
 }
 
 form,
@@ -255,36 +216,47 @@ form,
 #map-container {
   padding: 0px 20px;
   border-radius: 5px;
+  position: relative;
+  align-items: start;
 }
 
 #plan-box {
-  overflow-y: auto;
-  flex-basis: 30%;
-  height: 580px;
+  overflow-y: scroll;
 }
 
-#map-container {
-  position: relative;
-  align-items: start;
-  flex-basis: 45%;
+.card-container {
+  /* width: 80%; */
+  display: flex;
+  background-color: rgba(92, 107, 192, 0.555);
+  border-radius: 6px;
+  padding: 10px;
+  box-shadow: -2px -2px 5px rgba(255, 255, 255, 1), 3px 3px 5px rgba(0, 0, 0, 0.1);
 }
 
-form {
-  flex-basis: 10%;
-  box-shadow: -2px -2px 5px rgba(255, 255, 255, 1),
-    3px 3px 5px rgba(0, 0, 0, 0.1);
+.text-wrapper {
+  margin-left: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+}
+.text-wrapper p {
+  margin: 0;
+}
+
+#form-con {
+  box-shadow: -2px -2px 5px rgba(255, 255, 255, 1), 3px 3px 5px rgba(0, 0, 0, 0.1);
   text-align: start;
 }
 
-form label {
+#form-con label {
   display: block;
-  font-style: bold;
+  font-weight: bold;
 }
 
-form > input[type="text"],
+#form-con > input[type="text"],
 input[type="date"],
-input[type="time"],
-input[type="submit"] {
+input[type="time"] {
   width: 90%;
   padding: 10px;
   margin-bottom: 10px;
@@ -293,13 +265,43 @@ input[type="submit"] {
   border-radius: 5px;
 }
 
-input[type="submit"] {
-  color: #5c6bc0; /* 제출 버튼의 글자색을 흰색으로 설정합니다 */
+#form-con input[type="submit"] {
+  background-color: #e9f5fd;
+  border-radius: 5px;
+  width: 90%;
+  margin-top: 20px;
+  height: 30px;
+  font-weight: bold;
   border: none;
-  cursor: pointer; /* 마우스를 올렸을 때 포인터 모양을 변경합니다 */
+  cursor: pointer;
+  box-shadow: -2px -2px 5px rgba(255, 255, 255, 1), 3px 3px 5px rgba(0, 0, 0, 0.1);
+  color: #5c6bc0;
 }
 
-input[type="submit"]:hover {
-  background-color: #3949ab; /* 마우스를 올렸을 때 배경색을 변경합니다 */
+#form-con input[type="submit"]:hover {
+  box-shadow: inset -2px -2px 5px rgba(255, 255, 255, 1), inset 3px 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+#submit-div {
+  margin: 20px auto;
+  text-align: center;
+}
+
+#submit-btn {
+  padding: 10px 15px 10px 15px;
+  border: none;
+  color: #5c6bc0;
+  font-weight: bold;
+  background-color: #e9f5fd;
+  box-shadow: -2px -2px 5px rgba(255, 255, 255, 1), 3px 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+#submit-btn:hover {
+  box-shadow: inset -2px -2px 5px rgba(255, 255, 255, 1), inset 3px 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+#tag-wrapper {
+  margin-left: 15px;
+  margin-right: 15px;
 }
 </style>
