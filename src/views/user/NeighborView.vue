@@ -6,17 +6,13 @@ import CardBoard from '@/components/CardBoard.vue';
 import MyPageTemplete from "@/templates/MyPageTemplete.vue";
 
 const store = useAuthStore();
-const myFreeBoard = ref([]);
-const myPlanBoard = ref([]);
 
 onMounted(async () => {
   try {
-    let response = await axios.get('http://localhost/api/board/free/user/' + store.userData.userInfo.name);
-    myFreeBoard.value = response.data;
+    // 현재 URL의 사용자 id로 사용자 정보 조회
+    const userResponse = await axios.get(`http://localhost/api/member/${userId}`);
+    user.value = userResponse.data;
 
-    response = await axios.get('http://localhost/api/board/plan/user/' + store.userData.userInfo.name);
-    console.log(response)
-    myPlanBoard.value = response.data;
 
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -25,7 +21,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <MyPageTemplete>
+  <MyPageTemplete :userData="user">
     
   </MyPageTemplete>
 </template>
