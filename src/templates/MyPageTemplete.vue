@@ -19,8 +19,8 @@ const props = defineProps({
         </div>
         <div id="bookmark-buttons">
             <RouterLink :to="`/user/page/${userData.id}`"><button class="bookmark-button">마이페이지</button></RouterLink>
-            <RouterLink :to="`/user/board/${userData.id}`"><button class="bookmark-button">내글 보기</button></RouterLink>
-            <RouterLink :to="`/user/neighbor/${userData.id}`"><button class="bookmark-button">내 이웃</button></RouterLink>
+            <RouterLink :to="`/user/board/${userData.id}`"><button class="bookmark-button">글 보기</button></RouterLink>
+            <RouterLink :to="`/user/neighbor/${userData.id}`"><button class="bookmark-button">이웃</button></RouterLink>
             <RouterLink to="/"><button class="bookmark-button">기타</button></RouterLink>
         </div>
     </div>
@@ -54,7 +54,6 @@ const props = defineProps({
 }
 
 h1 {
-    color: white;
     width: 80vw;
 }
 
