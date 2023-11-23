@@ -19,21 +19,12 @@ function logout() {
 <template>
   <div id="header">
     <div class="left-space">
-      <RouterLink to="/"
-        ><img src="/images/logo/irigari-ko.png" style="height: 40px; margin-top: 10px" />
-        <!-- <img
-          v-if="scrollStore.scrollPosition > 600"
-          src="/images/logo/irigari-blue.png"
-          style="height: 40px; margin-top: 10px"
-      /> -->
+      <RouterLink to="/">
+        <img src="/images/logo/irigari-ko.png" style="height: 40px; margin-top: 10px" />
       </RouterLink>
     </div>
     <div class="content">
       <SearchBox1 />
-      <!-- <SearchBox
-        v-show="scrollStore.scrollPosition > 600"
-        style="margin-top: 10px"
-      /> -->
     </div>
     <div v-if="isAuthenticated" class="right-space">
       <RouterLink to="/board/free">BOARD</RouterLink>

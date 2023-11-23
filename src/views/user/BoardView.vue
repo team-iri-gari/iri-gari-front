@@ -15,10 +15,12 @@ onMounted(async () => {
   try {
     // 현재 URL의 사용자 id로 사용자 정보 조회
     const userResponse = await axios.get(`http://localhost/api/member/${userId}`);
+    console.log(userResponse)
     user.value = userResponse.data;
 
     // URL에서 받은 userId를 이용하여 사용자의 자유 게시판 글 가져오기
     let response = await axios.get(`http://localhost/api/board/free/user/${userId}`);
+    console.log(response)
     myFreeBoard.value = response.data;
 
     // URL에서 받은 userId를 이용하여 사용자의 계획 게시판 글 가져오기
@@ -45,5 +47,7 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-
+h2 {
+  width: 70vw;
+}
 </style>

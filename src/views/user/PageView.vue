@@ -1,11 +1,15 @@
 <script setup>
 import axios from "axios";
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted, watch, computed } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { useRoute } from 'vue-router';
 import Profile from '@/components/Profile.vue';
 import CardBoard from '@/components/CardBoard.vue';
 import MyPageTemplete from "@/templates/MyPageTemplete.vue";
+
+const isDifferentUser = computed(() => {
+  return userId.value != store.userData.userInfo.id;
+});
 
 const store = useAuthStore();
 const route = useRoute();
@@ -24,6 +28,9 @@ const fetchData = async () => {
 
     const postsResponse = await axios.get(`http://localhost/api/neighbor/posts/${userId.value}`);
     neighborsPosts.value = postsResponse.data;
+
+    console.log(userId.value)
+    console.log(store.userData.userInfo.id)
   } catch (error) {
     console.error('Error fetching data:', error);
   }
@@ -37,15 +44,29 @@ watch(() => route.params.id, (newId) => {
   userId.value = newId;
   fetchData();
 });
+
+const sendFriendRequest = async () => {
+  try {
+    const response = await axios.post(`http://localhost/api/neighbor/request/${store.userData.userInfo.id}/${userId.value}`)
+    
+    console.log('Friend request sent:', response);
+  } catch (error) {
+    console.error('Error sending friend request:', error);
+  }
+};
+
 </script>
 
 
 <template>
   <MyPageTemplete :userData="user">
     <div id="profile">
-      <Profile :userid="user?.id" />
+      <Profile :userid="userId" />
       <h3>{{ user?.id }}</h3>
       <h3>{{ user?.email }}</h3>
+      <div v-if="isDifferentUser">
+        <button @click="sendFriendRequest" class="friend-request-button">이웃 신청</button>
+      </div>
     </div>
     <div id="neighbor">
       <h2>이웃</h2>
@@ -94,5 +115,23 @@ watch(() => route.params.id, (newId) => {
   list-style-type: none;
   padding: 0;
   flex-wrap: wrap;
+}
+.friend-request-button {
+  background-color: #4CAF50; /* 녹색 배경 */
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.friend-request-button:hover {
+  background-color: #45a049; /* 호버 시 더 어두운 녹색 */
 }
 </style>
