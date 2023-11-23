@@ -34,9 +34,9 @@ const onSubmitSearch = (keyword) => {
 };
 
 const carouselItems = ref([
-    { imgSrc: '/images/carousel/1.webp', altText: 'First slide' },
-    { imgSrc: '/images/carousel/2.webp', altText: 'Second slide' },
-    { imgSrc: '/images/carousel/3.webp', altText: 'Third slide' }
+    { imgSrc: '/images/main-bg/bg01.jpg', altText: 'First slide' },
+    { imgSrc: '/images/main-bg/bg02.jpg', altText: 'Second slide' },
+    { imgSrc: '/images/main-bg/bg03.jpg', altText: 'Third slide' }
 ]);
 
 const props = defineProps({
