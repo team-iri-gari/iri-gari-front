@@ -6,7 +6,7 @@ import TagBox from "@/components/TagBox.vue";
 import { useAuthStore } from "@/stores/auth";
 import { useTagStore } from "@/stores/tags";
 import axios from "axios";
-import { useRouter, useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 
 const router = useRouter();
 const store = useAuthStore();

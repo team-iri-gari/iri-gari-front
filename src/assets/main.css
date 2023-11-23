@@ -5,6 +5,12 @@ html body {
   background-color: #eef6fc;
 }
 
+.router-link-active,
+.router-link-exact-active,
+router-link {
+  text-decoration: none; /* 밑줄 제거 */
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }
