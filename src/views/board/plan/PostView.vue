@@ -7,14 +7,48 @@ import PNaver from "@/components/map/PNaver.vue";
 const router = useRouter();
 const route = useRoute();
 const plans = ref([]);
+var start, end;
+var wayPoints = [];
+const paths = ref([]);
 
 const fetchPost = async () => {
   try {
-    let response = await axios.get(`http://localhost/api/board/plan/${route.params.id}`);
+    let response = await axios.get(
+      `http://localhost/api/board/plan/${route.params.id}`
+    );
     console.log(response.data);
     plans.value = response.data;
+    start = plans.value[0];
+    end = plans.value[plans.value.length - 1];
+
+    for (let i = 1; i < plans.value.length - 1; i++) {
+      wayPoints.push(plans.value[i]);
+    }
+
+    findPath(getUrl(start, wayPoints, end));
   } catch (error) {
     console.error("Error: ", error);
+  }
+};
+
+const getUrl = (start, wayPoints, goal) =>
+  `https://naveropenapi.apigw.ntruss.com/map-direction${
+    wayPoints.length > 5 ? "-15" : ""
+  }/v1/driving?start=${start.placeX + "," + start.placeY}&goal=${
+    goal.placeX + "," + goal.placeY
+  }&waypoints=${wayPoints
+    .map(({ placeX, placeY }) => placeX + "," + placeY)
+    .join("|")}`;
+
+const findPath = async (url) => {
+  try {
+    const response = await axios.post("http://localhost/api/map/find", {
+      url: url,
+    });
+
+    paths.value = response.data.route.traoptimal[0].path;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -41,7 +75,7 @@ onMounted(() => {
       </div>
     </div>
     <div class="map-container">
-      <PNaver />
+      <PNaver :paths="paths" />
     </div>
   </div>
 </template>
@@ -56,7 +90,8 @@ onMounted(() => {
   max-width: 800px;
   margin: 50px auto;
   padding: 20px;
-  box-shadow: -2px -2px 5px rgba(255, 255, 255, 1), 3px 3px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: -2px -2px 5px rgba(255, 255, 255, 1),
+    3px 3px 5px rgba(0, 0, 0, 0.1);
 }
 .map-container {
   display: flex;
