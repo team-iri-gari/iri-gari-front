@@ -30,7 +30,7 @@
         </div>
       </div>
       <div id="banner">
-        <img src="/images/logo/irigari-en.png" style="height: 13dvh" />
+        <img src="/images/logo/irigari-ko.png" style="height: 13dvh" />
         <SearchBox :on-submit-search="onSubmitSearch" style="margin: auto" />
       </div>
     </div>
