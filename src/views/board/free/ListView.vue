@@ -50,6 +50,5 @@ onMounted(() => {
 
 #list {
   max-width: 1000px;
-
 }
 </style>

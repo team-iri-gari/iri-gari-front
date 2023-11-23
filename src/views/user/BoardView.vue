@@ -19,12 +19,13 @@ onMounted(async () => {
     user.value = userResponse.data;
 
     // URL에서 받은 userId를 이용하여 사용자의 자유 게시판 글 가져오기
-    let response = await axios.get(`http://localhost/api/board/free/user/${userId}`);
+    let response = await axios.get(`http://localhost/api/board/free/user/${user.value.name}`);
+    console.log(`http://localhost/api/board/free/user/${user.value.name}`)
     console.log(response)
     myFreeBoard.value = response.data;
 
     // URL에서 받은 userId를 이용하여 사용자의 계획 게시판 글 가져오기
-    response = await axios.get(`http://localhost/api/board/plan/user/${userId}`);
+    response = await axios.get(`http://localhost/api/board/plan/user/${user.value.name}`);
     myPlanBoard.value = response.data;
 
   } catch (error) {
