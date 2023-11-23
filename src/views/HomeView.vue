@@ -5,7 +5,7 @@ import Recommend from "@/components/Recommend.vue";
 </script>
 
 <template>
-  <Home />
+  <Home2 />
   <Recommend />
 </template>
 

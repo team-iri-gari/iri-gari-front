@@ -46,7 +46,7 @@ const props = defineProps({
     },
     height: {
         type: String,
-        default: 'auto'
+        default: '100vh'
     }
 });
 </script>
