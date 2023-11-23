@@ -24,7 +24,7 @@ function logout() {
     <div class="left-space">
       <RouterLink to="/">
         <img
-          src="/images/logo/irigari-ko.png"
+          src="/images/logo/irigari-black.png"
           style="height: 38px; margin: auto 5"
         />
       </RouterLink>
@@ -64,7 +64,7 @@ function logout() {
   align-items: center;
   justify-content: space-between;
   z-index: 1000;
-  background-color: #000e1ae5;
+  background-color: #e3f2ffa9;
 }
 
 #header {
@@ -80,7 +80,7 @@ function logout() {
 
 .right-space {
   display: flex;
-  color: white;
+  color: rgb(53, 53, 53);
   text-align: center;
   margin-right: 20px;
 }
@@ -92,7 +92,7 @@ function logout() {
 }
 
 #header a {
-  color: white;
+  color: rgb(53, 53, 53);
   text-decoration: none;
 }
 

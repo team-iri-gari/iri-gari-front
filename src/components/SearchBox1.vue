@@ -51,7 +51,7 @@ const submitSearch = () => {
 </template>
 
 <style lang="scss" scoped>
-$color: #fff;
+$color: #000;
 
 .search {
   display: table;

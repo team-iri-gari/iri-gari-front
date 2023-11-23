@@ -54,7 +54,7 @@ const handleSubmit = () => {
 
 .search-button {
   width: 42px;
-  height: 40px;
+  height: 38px;
   border: 1px solid #00b4cc;
   background: #00b4cc;
   text-align: center;
