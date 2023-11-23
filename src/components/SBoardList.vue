@@ -15,12 +15,14 @@ async function getList() {
       `http://localhost/api/board/search/free?keyword=${searchStore.keyword}`
     )
   ).data;
+  console.log(fbList.value)
 
   pbList.value = (
     await axios.get(
       `http://localhost/api/board/search/plan?keyword=${searchStore.keyword}`
     )
   ).data;
+  console.log(pbList.value)
 }
 
 getList();
@@ -53,9 +55,9 @@ const goToBoard = (type) => {
             v-if="index < 5"
             :key="farticle.article_id"
           > -->
-          <tr v-for="farticle in fbList" :key="farticle.article_id">
+          <tr v-for="farticle in fbList" :key="farticle.articleId">
             <td>
-              <a href="">{{ farticle.title }}</a>
+              <RouterLink :to="`/post/free/${farticle.articleId}`">{{ farticle.title }}</RouterLink>
             </td>
             <td>{{ farticle.name }}</td>
           </tr>
@@ -88,9 +90,9 @@ const goToBoard = (type) => {
             v-if="index < 5"
             :key="particle.article_id"
           > -->
-          <tr v-for="particle in pbList" :key="particle.article_id">
+          <tr v-for="particle in pbList" :key="particle.articleId">
             <td>
-              <a href="">{{ particle.title }}</a>
+              <RouterLink :to="`/post/plan/${farticle.articleId}`">{{ particle.title }}</RouterLink>
             </td>
             <td>{{ particle.name }}</td>
           </tr>

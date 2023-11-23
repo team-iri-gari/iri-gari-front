@@ -2,7 +2,9 @@
 import { onMounted, computed } from "vue";
 import { useAuthStore } from "@/stores/auth";
 import SearchBox1 from "./SearchBox1.vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const store = useAuthStore();
 const isAuthenticated = computed(() => store.isAuthenticated);
 
@@ -13,6 +15,7 @@ onMounted(() => {
 
 function logout() {
   store.logout();
+  router.push('/');
 }
 </script>
 
@@ -34,6 +37,8 @@ function logout() {
       <a @click="logout()">LOGOUT</a>
     </div>
     <div v-else class="right-space">
+      <RouterLink to="/board/free">BOARD</RouterLink>
+      &nbsp;&nbsp;|&nbsp;&nbsp;
       <RouterLink to="/user/login">LOGIN</RouterLink>
       &nbsp;&nbsp;|&nbsp;&nbsp;
       <RouterLink to="/user/join">JOIN</RouterLink>
