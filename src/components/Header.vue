@@ -40,7 +40,7 @@ function logout() {
     </div>
   </div>
 
-  <!-- <div id="bomper"></div> -->
+  <div id="bomper">bomp</div>
 </template>
 
 <style scoped>
@@ -90,5 +90,9 @@ function logout() {
 #header a {
   color: white;
   text-decoration: none;
+}
+
+#bomper {
+  height: 50px;
 }
 </style>

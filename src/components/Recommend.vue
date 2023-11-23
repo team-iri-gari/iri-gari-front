@@ -1,20 +1,12 @@
 <template>
   <article id="sandbox">
-    <div
-      class="circle"
-      :id="tag.id"
-      :name="tag.name"
-      v-for="(tag, index) in tags"
-      :key="tag.id"
-      :style="{
-        backgroundColor: tag.color,
-        width: tag.size + 'px',
-        height: tag.size + 'px',
-        lineHeight: tag.size + 'px',
-        fontSize: tag.fontSize + 'px',
-      }"
-      @mousedown="logEvent"
-    >
+    <div class="circle" :id="tag.id" :name="tag.name" v-for="(tag, index) in tags" :key="tag.id" :style="{
+      backgroundColor: tag.color,
+      width: tag.size + 'px',
+      height: tag.size + 'px',
+      lineHeight: tag.size + 'px',
+      fontSize: tag.fontSize + 'px',
+    }" @mousedown="logEvent">
       {{ tag.name }}
     </div>
   </article>
@@ -122,13 +114,23 @@ function run(engine, bodies) {
     bodies.forEach((body, index) => {
       let element = document.getElementById(tags.value[index].id);
       if (element) {
-        let x = body.position.x - calculateSize(tags.value[index].hit);
-        let y = body.position.y - calculateSize(tags.value[index].hit);
+        let x = body.position.x - calculateSize(tags.value[index].hit) / 2;
+        let y = body.position.y - calculateSize(tags.value[index].hit) / 2;
         element.style.transform = `translate(${x}px, ${y}px)`;
       }
     });
   };
 }
+
+// 마우스 오버 이벤트 리스너 추가
+document.querySelectorAll('.circle').forEach(circle => {
+  circle.addEventListener('mouseover', function () {
+    this.style.transform += ' scale(1.1)';
+  });
+  circle.addEventListener('mouseout', function () {
+    this.style.transform = this.style.transform.replace(' scale(1.1)', '');
+  });
+});
 
 function applyGravity(body) {
   const dx = window.innerWidth / 2 - body.position.x;
@@ -157,16 +159,24 @@ function logEvent(event) {
   width: 100%;
   box-sizing: border-box;
   z-index: 5;
-  /* background-color: white; */
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
 }
 
 .circle {
-  font-family: YanoljaYacheR;
+  font-family: YanoljaYacheR, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: rgb(255, 255, 255);
+  color: white;
   position: absolute;
   border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.circle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 </style>
+

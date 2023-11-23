@@ -23,13 +23,28 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
-    <h1>여행 기록</h1>
-    <p><RouterLink to="/board/free">자유 게시판</RouterLink></p>
-    <p><router-link to="/write/plan">글작성</router-link></p>
-    <CardBoard :cards="posts" :cardSize="'20vw'" />
+  <div id="container">
+    <div>
+      <h1>여행 기록</h1>
+      <p><RouterLink to="/board/free">자유 게시판</RouterLink></p>
+      <p><router-link to="/write/plan">글작성</router-link></p>
+    </div>
+    <div id="list">
+      <CardBoard :cards="posts" :cardSize="'200px'" />
+    </div>
   </div>
 </template>
 
 <style scoped>
+#container {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+#list {
+  max-width: 1000px;
+}
 </style>
