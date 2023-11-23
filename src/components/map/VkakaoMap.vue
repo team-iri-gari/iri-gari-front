@@ -1,12 +1,25 @@
 <script setup>
 import { useSearchStore } from "@/stores/search.js";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
+import { useRoute } from "vue-router";
 
 const searchStore = useSearchStore();
 var map = ref(null);
 var currCategory = ref("");
 var cateMarkers = ref([]);
 var infowindow;
+const route = useRoute();
+
+watch(
+  () => route.params,
+  (newParams, oldParams) => {
+    if (newParams.keyword !== oldParams.keyword) {
+      searchStore.setKeyword(newParams.keyword);
+      initMap();
+    }
+  },
+  { deep: true }
+);
 
 onMounted(() => {
   if (window.kakao && window.kakao.maps) {
@@ -41,8 +54,6 @@ const initMap = () => {
 
 function placesSearchCB(data, status, pagination) {
   if (status === kakao.maps.services.Status.OK) {
-    // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-    // LatLngBounds 객체에 좌표를 추가합니다
     var bounds = new kakao.maps.LatLngBounds();
 
     for (var i = 0; i < data.length; i++) {

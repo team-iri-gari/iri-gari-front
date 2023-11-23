@@ -7,14 +7,19 @@ const router = useRouter();
 
 const submitSearch = () => {
   if (keyword.value) {
-    router.push(`/search/${encodeURIComponent(keyword)}`);
+    router.push(`/search/${keyword.value}`);
   }
 };
 </script>
 
 <template>
   <div class="search">
-    <input type="text" v-model="keyword" placeholder=" " @keyup.enter="submitSearch" />
+    <input
+      type="text"
+      v-model="keyword"
+      placeholder=" "
+      @keyup.enter="submitSearch"
+    />
     <div>
       <svg xmlns="http://www.w3.org/2000/svg">
         <path

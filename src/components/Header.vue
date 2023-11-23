@@ -15,7 +15,7 @@ onMounted(() => {
 
 function logout() {
   store.logout();
-  router.push('/');
+  router.push("/");
 }
 </script>
 
@@ -23,7 +23,10 @@ function logout() {
   <div id="header">
     <div class="left-space">
       <RouterLink to="/">
-        <img src="/images/logo/irigari-ko.png" style="height: 40px; margin-top: 10px" />
+        <img
+          src="/images/logo/irigari-ko.png"
+          style="height: 38px; margin: auto 5"
+        />
       </RouterLink>
     </div>
     <div class="content">
@@ -32,7 +35,9 @@ function logout() {
     <div v-if="isAuthenticated" class="right-space">
       <RouterLink to="/board/free">BOARD</RouterLink>
       &nbsp;&nbsp;|&nbsp;&nbsp;
-      <RouterLink :to="`/user/page/${store.userData.userInfo.id}`">MY PAGE</RouterLink>
+      <RouterLink :to="`/user/page/${store.userData.userInfo.id}`"
+        >MY PAGE</RouterLink
+      >
       &nbsp;&nbsp;|&nbsp;&nbsp;
       <a @click="logout()">LOGOUT</a>
     </div>
@@ -45,16 +50,10 @@ function logout() {
     </div>
   </div>
 
-  <div id="bomper">bomp</div>
+  <div id="bomper"></div>
 </template>
 
 <style scoped>
-* {
-  font-family: "Moirai One";
-  font-size: 25px;
-  font-weight: bold;
-}
-
 #header {
   position: fixed;
   top: 0;
@@ -65,7 +64,7 @@ function logout() {
   align-items: center;
   justify-content: space-between;
   z-index: 1000;
-  background-color: #131d2b;
+  background-color: #000e1ae5;
 }
 
 #header {
