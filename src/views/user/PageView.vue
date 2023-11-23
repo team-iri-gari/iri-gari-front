@@ -1,6 +1,6 @@
 <script setup>
 import axios from "axios";
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { useRoute } from 'vue-router';
 import Profile from '@/components/Profile.vue';
@@ -11,32 +11,39 @@ const store = useAuthStore();
 const route = useRoute();
 const neighbors = ref([]);
 const neighborsPosts = ref([]);
-const userId = route.params.id; // URL에서 id 파라미터 가져오기
+const userId = ref(route.params.id); // URL에서 id 파라미터를 반응형으로 참조
 const user = ref([]);
 
-onMounted(async () => {
+const fetchData = async () => {
   try {
-    // 현재 URL의 사용자 id로 사용자 정보 조회
-    const userResponse = await axios.get(`http://localhost/api/member/${userId}`);
+    const userResponse = await axios.get(`http://localhost/api/member/${userId.value}`);
     user.value = userResponse.data;
 
-    // 이웃 정보 조회
-    const neighborsResponse = await axios.get(`http://localhost/api/neighbor/${userId}`);
+    const neighborsResponse = await axios.get(`http://localhost/api/neighbor/${userId.value}`);
     neighbors.value = neighborsResponse.data;
 
-    // 이웃의 글 조회
-    const postsResponse = await axios.get(`http://localhost/api/neighbor/posts/${userId}`);
+    const postsResponse = await axios.get(`http://localhost/api/neighbor/posts/${userId.value}`);
     neighborsPosts.value = postsResponse.data;
   } catch (error) {
     console.error('Error fetching data:', error);
   }
+};
+
+onMounted(() => {
+  fetchData();
+});
+
+watch(() => route.params.id, (newId) => {
+  userId.value = newId;
+  fetchData();
 });
 </script>
+
 
 <template>
   <MyPageTemplete :userData="user">
     <div id="profile">
-      <Profile :user="user" />
+      <Profile :userid="user?.id" />
       <h3>{{ user?.id }}</h3>
       <h3>{{ user?.email }}</h3>
     </div>
@@ -45,7 +52,7 @@ onMounted(async () => {
       <hr>
       <ul class="neighbor-list">
         <li class="neighbor-profile" v-for="neighbor in neighbors" :key="neighbor.id">
-          <Profile :user="neighbor" :size="50" />
+          <Profile :userid="neighbor.memberB" :size="50" />
           {{ neighbor.memberB }}
         </li>
       </ul>
