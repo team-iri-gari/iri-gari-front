@@ -57,7 +57,6 @@ const sendFriendRequest = async () => {
 
 </script>
 
-
 <template>
   <MyPageTemplete :userData="user">
     <div id="profile">
@@ -94,7 +93,6 @@ const sendFriendRequest = async () => {
   #profile {
     border-right: none;
     border-bottom: 2px solid #000000;
-    /* 화면이 좁아졌을 때 가로선으로 변경 */
   }
 }
 
