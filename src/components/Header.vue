@@ -60,6 +60,7 @@ function logout() {
   align-items: center;
   justify-content: space-between;
   z-index: 1000;
+  background-color: #131d2b;
 }
 
 #header {

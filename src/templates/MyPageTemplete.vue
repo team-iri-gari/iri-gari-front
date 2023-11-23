@@ -54,7 +54,6 @@ const props = defineProps({
 }
 
 h1 {
-    color: white;
     width: 80vw;
 }
 

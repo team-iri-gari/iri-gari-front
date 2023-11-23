@@ -179,7 +179,7 @@ section {
 
 section {
   height: 100vh;
-  width: 100vmax;
+  width: 100%;
 }
 
 section {
