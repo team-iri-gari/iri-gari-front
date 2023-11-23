@@ -116,11 +116,18 @@ function handleFileChange(event) {
   <div class="form-wrapper">
     <div class="title-box">
       <label for="title">여행 이름</label>
-      <input type="text" id="title" name="title" v-model="bTitle" />
+      <input
+        type="text"
+        id="title"
+        name="title"
+        v-model="bTitle"
+        placeholder=" 제목을 입력해주세요.."
+      />
     </div>
     <div class="main-wrapper">
       <div id="plan-box">
-        <h3>여행 기록</h3>
+        <h4>*여행기록*</h4>
+        <hr />
         <div class="card-container" v-for="entry in entries">
           <img :src="entry.img" style="height: 100px" />
           <div class="text-wrapper">
@@ -134,7 +141,14 @@ function handleFileChange(event) {
       <div id="form-con">
         <form @submit.prevent="addEntry">
           <label for="name">장소</label>
-          <input type="text" id="name" name="name" v-model="newEntry.name" readonly="true" /><br />
+          <input
+            type="text"
+            id="name"
+            name="name"
+            v-model="newEntry.name"
+            readonly="true"
+            style="margin-bottom: 5px"
+          /><br />
           <input type="hidden" id="place_id" name="place_id" v-model="newEntry.id" />
           <!-- <MultiImageUpload @images-uploaded="handleImages" /> -->
           <input type="file" id="upfile" name="upfile" ref="fileInput" @change="handleFileChange" />
@@ -183,10 +197,11 @@ function handleFileChange(event) {
 }
 .title-box {
   display: flex;
-  margin: 20px auto auto 20px;
+  margin-left: 20px;
+  padding-top: 20px;
   align-items: center;
 }
-.title-box > label {
+.title-box label {
   margin-right: 20px;
   font-size: 18px;
   font-weight: bold;
@@ -203,7 +218,7 @@ function handleFileChange(event) {
   display: grid;
   grid-template-columns: 3fr 2fr 5fr;
   grid-template-rows: auto;
-  row-gap: 20px;
+  column-gap: 20px;
   margin: 20px 30px auto 30px;
 }
 
@@ -221,18 +236,19 @@ form,
 }
 
 #plan-box {
+  max-height: 65dvh;
   overflow-y: scroll;
 }
 
 .card-container {
   /* width: 80%; */
+  margin-bottom: 10px;
   display: flex;
   background-color: rgba(92, 107, 192, 0.555);
   border-radius: 6px;
   padding: 10px;
   box-shadow: -2px -2px 5px rgba(255, 255, 255, 1), 3px 3px 5px rgba(0, 0, 0, 0.1);
 }
-
 .text-wrapper {
   margin-left: 15px;
   display: flex;
