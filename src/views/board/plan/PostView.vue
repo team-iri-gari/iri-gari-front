@@ -14,9 +14,7 @@ const paths = ref([]);
 
 const fetchPost = async () => {
   try {
-    let response = await axios.get(
-      `http://localhost/api/board/plan/${route.params.id}`
-    );
+    let response = await axios.get(`http://localhost/api/board/plan/${route.params.id}`);
     console.log(response.data);
     plans.value = response.data;
     start = plans.value[0];
@@ -40,9 +38,7 @@ const getUrl = (start, wayPoints, goal) =>
     wayPoints.length > 5 ? "-15" : ""
   }/v1/driving?start=${start.placeX + "," + start.placeY}&goal=${
     goal.placeX + "," + goal.placeY
-  }&waypoints=${wayPoints
-    .map(({ placeX, placeY }) => placeX + "," + placeY)
-    .join("|")}`;
+  }&waypoints=${wayPoints.map(({ placeX, placeY }) => placeX + "," + placeY).join(":")}`;
 
 const findPath = async (url) => {
   try {
@@ -80,11 +76,7 @@ onMounted(() => {
       </div>
     </div>
     <div class="map-container">
-      <PNaver
-        v-if="paths.value !== null && way.value !== null"
-        :way="way"
-        :paths="paths"
-      />
+      <PNaver v-if="paths.value !== null && way.value !== null" :way="way" :paths="paths" />
     </div>
   </div>
 </template>
@@ -99,8 +91,7 @@ onMounted(() => {
   max-width: 800px;
   margin: 50px auto;
   padding: 20px;
-  box-shadow: -2px -2px 5px rgba(255, 255, 255, 1),
-    3px 3px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: -2px -2px 5px rgba(255, 255, 255, 1), 3px 3px 5px rgba(0, 0, 0, 0.1);
 }
 .map-container {
   display: flex;

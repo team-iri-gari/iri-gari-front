@@ -73,6 +73,7 @@ const makeMarker = () => {
 };
 
 const makePolyline = (paths) => {
+  console.log(paths);
   var polyline = new naver.maps.Polyline({
     map: map.value,
     path: paths.map((coords) => new naver.maps.LatLng(coords[1], coords[0])),

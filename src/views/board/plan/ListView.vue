@@ -27,9 +27,7 @@ onMounted(() => {
     <div class="board-title">
       <div class="title">
         <span
-          ><router-link
-            to="/board/free"
-            style="text-decoration: none; color: black"
+          ><router-link to="/board/free" style="text-decoration: none; color: black"
             >자유게시판</router-link
           ></span
         >&nbsp;&nbsp;|&nbsp;&nbsp;
@@ -39,9 +37,7 @@ onMounted(() => {
     <div id="list">
       <div style="width: inherit; text-align: right">
         <button>
-          <RouterLink
-            to="/write/free"
-            style="text-decoration: none; color: rgb(46, 10, 10)"
+          <RouterLink to="/write/plan" style="text-decoration: none; color: rgb(46, 10, 10)"
             >글작성</RouterLink
           >
         </button>
