@@ -7,7 +7,7 @@ import PNaver from "@/components/map/PNaver.vue";
 const router = useRouter();
 const route = useRoute();
 const plans = ref([]);
-var start, end;
+var start, goal;
 var wayPoints = [];
 const way = ref([]);
 const paths = ref([]);
@@ -19,15 +19,15 @@ const fetchPost = async () => {
     plans.value = response.data;
     start = plans.value[0];
     way.value.push(start);
-    end = plans.value[plans.value.length - 1];
+    goal = plans.value[plans.value.length - 1];
 
     for (let i = 1; i < plans.value.length - 1; i++) {
       wayPoints.push(plans.value[i]);
       way.value.push(plans.value[i]);
     }
-    way.value.push(end);
+    way.value.push(goal);
 
-    findPath(getUrl(start, wayPoints, end));
+    findPath(getUrl(start, wayPoints, goal));
   } catch (error) {
     console.error("Error: ", error);
   }
@@ -38,7 +38,7 @@ const getUrl = (start, wayPoints, goal) =>
     wayPoints.length > 5 ? "-15" : ""
   }/v1/driving?start=${start.placeX + "," + start.placeY}&goal=${
     goal.placeX + "," + goal.placeY
-  }&waypoints=${wayPoints.map(({ placeX, placeY }) => placeX + "," + placeY).join(":")}`;
+  }&waypoints=${wayPoints.map(({ placeX, placeY }) => placeX + "," + placeY).join("|")}`;
 
 const findPath = async (url) => {
   try {
